@@ -53,7 +53,7 @@
 
         public class LabworkBuilder
         {
-            private readonly int? _points;
+            private int? _points;
 
             private Guid? _baseId;
 
@@ -102,6 +102,12 @@
             public LabworkBuilder AddDescription(string description)
             {
                 _description = description;
+                return this;
+            }
+
+            public LabworkBuilder AddPoints(int points)
+            {
+                _points = points;
                 return this;
             }
 
