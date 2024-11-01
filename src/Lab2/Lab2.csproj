@@ -4,10 +4,4 @@
         <RootNamespace>Itmo.ObjectOrientedProgramming.Lab2</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Compile Include="obj\ChangeSubjectResult.cs" />
-      <Compile Include="obj\IHasPoints.cs" />
-      <Compile Include="obj\SubjectType.cs" />
-    </ItemGroup>
-
 </Project>

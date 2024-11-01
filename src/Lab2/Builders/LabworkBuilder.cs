@@ -37,10 +37,15 @@ public class LabworkBuilder : IBuilder
                 _points = null;
             }
 
-            public LabworkBuilder AddBaseId(Guid id)
+            public IHasId AddBaseLabwork(Labwork otherLabwork)
             {
-                _baseId = id;
-                return this;
+                _baseId = otherLabwork.Id;
+                _name = otherLabwork.Name;
+                _criteria = otherLabwork.Criteria;
+                _points = otherLabwork.Points;
+                _description = otherLabwork.Description;
+
+                return Build();
             }
 
             public LabworkBuilder AddName(string name)
@@ -77,10 +82,10 @@ public class LabworkBuilder : IBuilder
             {
                 return new Labwork(
                     _baseId,
-                    _name ?? throw new InvalidOperationException(),
-                    _author ?? throw new InvalidOperationException(),
-                    _criteria ?? throw new InvalidOperationException(),
-                    _description ?? throw new InvalidOperationException(),
-                    _points ?? throw new InvalidOperationException());
+                    _name ?? throw new InvalidOperationException(" lab without name"),
+                    _author ?? throw new InvalidOperationException(" lab without author"),
+                    _criteria ?? throw new InvalidOperationException(" lab without criteria"),
+                    _description ?? throw new InvalidOperationException(" lab without description"),
+                    _points ?? throw new InvalidOperationException(" lab without points"));
             }
         }

@@ -1,13 +1,10 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab2.Builders;
-using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab2.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
 public class Subject : IHasId
 {
-    public static SubjectBuilder SbBuilder => new SubjectBuilder();
-
     public ObjRepo<Labwork> Labworks { get; private set; }
 
     public ObjRepo<Lecture> Lectures { get; private set; }

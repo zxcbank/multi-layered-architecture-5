@@ -79,13 +79,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
         public IHasId Build()
         {
             return TotalPoints() != 100
-                ? throw new InvalidOperationException()
+                ? throw new InvalidOperationException("{TotalPoints()} not equal 100")
                 : new Subject(
-                _labworks ?? throw new InvalidOperationException(),
-                _lectures ?? throw new InvalidOperationException(),
-                _subjectType ?? throw new InvalidOperationException(),
-                _name ?? throw new InvalidOperationException(),
-                _user ?? throw new InvalidOperationException(),
+                _labworks ?? throw new InvalidOperationException("null labworks"),
+                _lectures ?? throw new InvalidOperationException("null lectures"),
+                _subjectType ?? throw new InvalidOperationException("wrong subjecttype"),
+                _name ?? throw new InvalidOperationException("null name"),
+                _user ?? throw new InvalidOperationException("null user"),
                 _baseid);
         }
 
