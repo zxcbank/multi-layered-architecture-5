@@ -36,7 +36,7 @@ public class EducationalProgrammBuilder
         return this;
     }
 
-    public IHasId Build()
+    public EducationalProgramm Build()
     {
         return new EducationalProgramm(
             _name ?? throw new InvalidOperationException(),

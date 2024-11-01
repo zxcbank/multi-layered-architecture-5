@@ -1,5 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab2.Builders;
-using Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 using Itmo.ObjectOrientedProgramming.Lab2.Factories;
 using Itmo.ObjectOrientedProgramming.Lab2.Results;
 
@@ -20,7 +19,7 @@ public class TestModule
         var skakov_LB_Factory = new LabworkFactory(main_user);
 
         // Act
-        var lab1 = (Labwork)((LabworkBuilder)skakov_LB_Factory.Create())
+        Labwork lab1 = skakov_LB_Factory.Create()
             .AddName("mp")
             .AddAuthor(main_user)
             .AddCriteria("no skat")
@@ -43,7 +42,7 @@ public class TestModule
         var skakov_LB_Factory = new LabworkFactory(main_user);
 
         // Act
-        var lab1 = (Labwork)((LabworkBuilder)skakov_LB_Factory.Create())
+        Labwork lab1 = skakov_LB_Factory.Create()
             .AddName("mp")
             .AddAuthor(main_user)
             .AddCriteria("no skat")
@@ -63,7 +62,7 @@ public class TestModule
 
         var skakov_LB_Factory = new LabworkFactory(main_user);
 
-        var lab1 = (Labwork)skakov_LB_Factory.Create()
+        Labwork lab1 = skakov_LB_Factory.Create()
             .AddName("mp")
             .AddAuthor(main_user)
             .AddCriteria("no skat")
@@ -72,7 +71,7 @@ public class TestModule
             .Build();
 
         // Act
-        var lab2 = (Labwork)skakov_LB_Factory.Create()
+        Labwork lab2 = skakov_LB_Factory.Create()
             .AddBaseLabwork(lab1);
 
         // Assert
@@ -88,7 +87,7 @@ public class TestModule
         // string name2 = "l2";
         var ps_LB_Factory = new LabworkFactory(main_user);
 
-        var lab1 = (Labwork)ps_LB_Factory.Create()
+        Labwork lab1 = ps_LB_Factory.Create()
             .AddName("mp")
             .AddAuthor(main_user)
             .AddCriteria("no skat")
@@ -97,16 +96,16 @@ public class TestModule
             .Build();
         var labs = new List<Labwork>();
         labs.Add(lab1);
-        labs.Add((Labwork)ps_LB_Factory.Create()
+        labs.Add(ps_LB_Factory.Create()
             .AddBaseLabwork(lab1));
-        labs.Add((Labwork)ps_LB_Factory.Create()
+        labs.Add(ps_LB_Factory.Create()
             .AddBaseLabwork(lab1));
-        labs.Add((Labwork)ps_LB_Factory.Create()
+        labs.Add(ps_LB_Factory.Create()
             .AddBaseLabwork(lab1));
 
         var skakov_LecB_Factory = new LectureFactory(main_user);
 
-        var lec1 = (Lecture)skakov_LecB_Factory.Create()
+        Lecture lec1 = skakov_LecB_Factory.Create()
             .AddName("l1")
             .AddAuthor(main_user)
             .AddCriteria("lec1")
@@ -117,7 +116,7 @@ public class TestModule
         lecs.Add(lec1);
 
         var ps_sb_Factory = new SubjectFactory(main_user);
-        var some_subject = (Subject)ps_sb_Factory.Create()
+        Subject some_subject = ps_sb_Factory.Create()
             .AddName("maths")
             .AddLabworks(new ObjRepo<Labwork>(labs))
             .AddLectures(new ObjRepo<Lecture>(lecs))

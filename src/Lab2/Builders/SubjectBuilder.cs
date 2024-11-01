@@ -76,7 +76,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
             return Build();
         }
 
-        public IHasId Build()
+        public Subject Build()
         {
             return TotalPoints() != 100
                 ? throw new InvalidOperationException("{TotalPoints()} not equal 100")

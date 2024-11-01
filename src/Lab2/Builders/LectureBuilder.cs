@@ -65,7 +65,7 @@ public class LectureBuilder
         return this;
     }
 
-    public IHasId Build()
+    public Lecture Build()
     {
         return new Lecture(
             _baseId,

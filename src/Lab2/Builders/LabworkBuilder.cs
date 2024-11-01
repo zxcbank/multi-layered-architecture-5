@@ -37,7 +37,7 @@ public class LabworkBuilder
                 _points = null;
             }
 
-            public IHasId AddBaseLabwork(Labwork otherLabwork)
+            public Labwork AddBaseLabwork(Labwork otherLabwork)
             {
                 _baseId = otherLabwork.Id;
                 _name = otherLabwork.Name;
@@ -78,7 +78,7 @@ public class LabworkBuilder
                 return this;
             }
 
-            public IHasId Build()
+            public Labwork Build()
             {
                 return new Labwork(
                     _baseId,
