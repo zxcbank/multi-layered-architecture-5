@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Factories;
 
-public class EducationFactory : IObjFactory
+public class EducationFactory
 {
     private readonly IUser _author;
 
@@ -12,7 +12,7 @@ public class EducationFactory : IObjFactory
         _author = author;
     }
 
-    public IBuilder Create()
+    public EducationalProgrammBuilder Create()
     {
         return new EducationalProgrammBuilder(_author);
     }

@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
-    public class SubjectBuilder : IBuilder
+    public class SubjectBuilder
     {
         private ObjRepo<Labwork>? _labworks;
 

@@ -63,7 +63,7 @@ public class TestModule
 
         var skakov_LB_Factory = new LabworkFactory(main_user);
 
-        var lab1 = (Labwork)((LabworkBuilder)skakov_LB_Factory.Create())
+        var lab1 = (Labwork)skakov_LB_Factory.Create()
             .AddName("mp")
             .AddAuthor(main_user)
             .AddCriteria("no skat")
@@ -72,7 +72,8 @@ public class TestModule
             .Build();
 
         // Act
-        var lab2 = (Labwork)((LabworkBuilder)skakov_LB_Factory.Create()).AddBaseLabwork(lab1);
+        var lab2 = (Labwork)skakov_LB_Factory.Create()
+            .AddBaseLabwork(lab1);
 
         // Assert
         Assert.True(lab2 is Labwork);
@@ -87,7 +88,7 @@ public class TestModule
         // string name2 = "l2";
         var ps_LB_Factory = new LabworkFactory(main_user);
 
-        var lab1 = (Labwork)((LabworkBuilder)ps_LB_Factory.Create())
+        var lab1 = (Labwork)ps_LB_Factory.Create()
             .AddName("mp")
             .AddAuthor(main_user)
             .AddCriteria("no skat")
@@ -96,16 +97,16 @@ public class TestModule
             .Build();
         var labs = new List<Labwork>();
         labs.Add(lab1);
-        labs.Add((Labwork)((LabworkBuilder)ps_LB_Factory.Create())
+        labs.Add((Labwork)ps_LB_Factory.Create()
             .AddBaseLabwork(lab1));
-        labs.Add((Labwork)((LabworkBuilder)ps_LB_Factory.Create())
+        labs.Add((Labwork)ps_LB_Factory.Create()
             .AddBaseLabwork(lab1));
-        labs.Add((Labwork)((LabworkBuilder)ps_LB_Factory.Create())
+        labs.Add((Labwork)ps_LB_Factory.Create()
             .AddBaseLabwork(lab1));
 
         var skakov_LecB_Factory = new LectureFactory(main_user);
 
-        var lec1 = (Lecture)((LectureBuilder)skakov_LecB_Factory.Create())
+        var lec1 = (Lecture)skakov_LecB_Factory.Create()
             .AddName("l1")
             .AddAuthor(main_user)
             .AddCriteria("lec1")
@@ -116,7 +117,7 @@ public class TestModule
         lecs.Add(lec1);
 
         var ps_sb_Factory = new SubjectFactory(main_user);
-        var some_subject = (Subject)((SubjectBuilder)ps_sb_Factory.Create())
+        var some_subject = (Subject)ps_sb_Factory.Create()
             .AddName("maths")
             .AddLabworks(new ObjRepo<Labwork>(labs))
             .AddLectures(new ObjRepo<Lecture>(lecs))

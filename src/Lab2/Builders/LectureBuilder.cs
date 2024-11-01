@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
-public class LectureBuilder : IBuilder
+public class LectureBuilder
 {
     private Guid? _baseId;
 

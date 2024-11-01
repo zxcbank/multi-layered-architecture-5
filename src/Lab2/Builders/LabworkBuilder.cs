@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
-public class LabworkBuilder : IBuilder
+public class LabworkBuilder
         {
             private int? _points;
 

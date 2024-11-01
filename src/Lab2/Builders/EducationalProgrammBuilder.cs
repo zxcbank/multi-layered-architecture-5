@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
-public class EducationalProgrammBuilder : IBuilder
+public class EducationalProgrammBuilder
 {
     private IReadOnlyCollection<ObjRepo<Subject>>? _subjects;
 
