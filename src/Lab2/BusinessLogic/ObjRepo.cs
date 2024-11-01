@@ -1,4 +1,6 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab2;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
+
+namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
 public class ObjRepo<T> where T : IHasId
 {

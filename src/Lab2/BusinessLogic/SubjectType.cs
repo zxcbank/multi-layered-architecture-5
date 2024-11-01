@@ -1,4 +1,4 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab2;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
 public record SubjectType
 {

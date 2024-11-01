@@ -1,63 +1,9 @@
-﻿    namespace Itmo.ObjectOrientedProgramming.Lab2;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
+using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 
-    public class Labwork : IHasId
-    {
-        public static LabworkBuilder Labworkbuilder => new LabworkBuilder();
+namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
-        public Guid Id { get; private set; }
-
-        public Guid? BaseID { get; private set; }
-
-        public string Name { get; private set; }
-
-        public string Criteria { get; private set; }
-
-        public string Description { get; private set; }
-
-        public int Points { get; }
-
-        private IUser Author { get; }
-
-        public Labwork(
-            Guid? baseid,
-            string name,
-            IUser author,
-            string criteria,
-            string description,
-            int points)
-        {
-            Name = name;
-            BaseID = baseid;
-            Description = description;
-            Criteria = criteria;
-            Author = author;
-            Points = points;
-            Id = Guid.NewGuid();
-        }
-
-        public ChangeLabworkResult Change(
-            IUser user,
-            string name,
-            string criteria,
-            string description,
-            Guid baseid)
-        {
-            if (!user.Equals(Author))
-            {
-                return new ChangeLabworkResult.WrongAuthor();
-            }
-            else
-            {
-                Name = name;
-                Criteria = criteria;
-                Description = description;
-                BaseID = baseid;
-            }
-
-            return new ChangeLabworkResult.Success();
-        }
-
-        public class LabworkBuilder
+public class LabworkBuilder : IBuilder
         {
             private int? _points;
 
@@ -76,6 +22,16 @@
                 _baseId = null;
                 _name = null;
                 _author = null;
+                _criteria = null;
+                _description = null;
+                _points = null;
+            }
+
+            public LabworkBuilder(IUser user)
+            {
+                _baseId = null;
+                _name = null;
+                _author = user;
                 _criteria = null;
                 _description = null;
                 _points = null;
@@ -117,7 +73,7 @@
                 return this;
             }
 
-            public Labwork Build()
+            public IHasId Build()
             {
                 return new Labwork(
                     _baseId,
@@ -128,4 +84,3 @@
                     _points ?? throw new InvalidOperationException());
             }
         }
-    }

@@ -1,64 +1,9 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab2;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
+using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 
-public class Subject : IHasId
-{
-    public static SubjectBuilder SbBuilder => new SubjectBuilder();
+namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
-    public ObjRepo<Labwork> Labworks { get; private set; }
-
-    public ObjRepo<Lecture> Lectures { get; private set; }
-
-    public SubjectType SubjType { get; private set; }
-
-    public string Name { get; private set; }
-
-    public IUser User { get; private set; }
-
-    public Guid? Baseid { get; private set; }
-
-    public Guid Id { get; private set; }
-
-    private Subject(
-        ObjRepo<Labwork> labworks,
-        ObjRepo<Lecture> lectures,
-        SubjectType subjectype,
-        string name,
-        IUser user,
-        Guid? baseid)
-    {
-        Labworks = labworks;
-        Lectures = lectures;
-        SubjType = subjectype;
-        Name = name;
-        User = user;
-        Id = Guid.NewGuid();
-    }
-
-    public SubjChangeResult Change(
-        IUser user,
-        string name,
-        ObjRepo<Labwork> labworks,
-        ObjRepo<Lecture> lectures,
-        SubjectType subjecttype,
-        Guid baseid)
-    {
-        if (!user.Equals(user))
-        {
-            return new SubjChangeResult.WrongAuthor();
-        }
-        else
-        {
-            Name = name;
-            Labworks = labworks;
-            Lectures = lectures;
-            SubjType = subjecttype;
-            Baseid = baseid;
-        }
-
-        return new SubjChangeResult.Success();
-    }
-
-    public class SubjectBuilder
+    public class SubjectBuilder : IBuilder
     {
         private ObjRepo<Labwork>? _labworks;
 
@@ -79,6 +24,16 @@ public class Subject : IHasId
             _subjectType = null;
             _name = null;
             _user = null;
+            _baseid = null;
+        }
+
+        public SubjectBuilder(IUser user)
+        {
+            _labworks = null;
+            _lectures = null;
+            _subjectType = null;
+            _name = null;
+            _user = user;
             _baseid = null;
         }
 
@@ -112,13 +67,16 @@ public class Subject : IHasId
             return this;
         }
 
-        public SubjectBuilder AddBaseId(Guid id)
+        public IHasId AddBaseSubject(Subject otherSubject)
         {
-            _baseid = id;
-            return this;
+            _baseid = otherSubject.Id;
+            _name = otherSubject.Name;
+            _lectures = otherSubject.Lectures;
+            _labworks = otherSubject.Labworks;
+            return Build();
         }
 
-        public Subject Build()
+        public IHasId Build()
         {
             return TotalPoints() != 100
                 ? throw new InvalidOperationException()
@@ -138,4 +96,3 @@ public class Subject : IHasId
             return labsPoints + otherPoints;
         }
     }
-}
