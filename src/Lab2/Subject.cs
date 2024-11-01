@@ -1,12 +1,12 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab2;
 
-public class Subject
+public class Subject : IHasId
 {
-    public static SubjectBuilder Sb => new SubjectBuilder();
+    public static SubjectBuilder SbBuilder => new SubjectBuilder();
 
-    public IReadOnlyCollection<Labwork> Labworks { get; private set; }
+    public ObjRepo<Labwork> Labworks { get; private set; }
 
-    public IReadOnlyCollection<Lectures> LecturesCourse { get; private set; }
+    public ObjRepo<Lecture> Lectures { get; private set; }
 
     public SubjectType SubjType { get; private set; }
 
@@ -18,26 +18,51 @@ public class Subject
 
     public Guid Id { get; private set; }
 
-    public Subject(
-        IEnumerable<Labwork> labworks,
-        IEnumerable<Lectures> lectures,
+    private Subject(
+        ObjRepo<Labwork> labworks,
+        ObjRepo<Lecture> lectures,
         SubjectType subjectype,
         string name,
         IUser user,
         Guid? baseid)
     {
-        Labworks = labworks.ToList();
-        LecturesCourse = lectures.ToList();
-        SubjType = subjectype is SubjectType.Exam ? new SubjectType.Exam() : new SubjectType.Zachet();
+        Labworks = labworks;
+        Lectures = lectures;
+        SubjType = subjectype;
         Name = name;
         User = user;
+        Id = Guid.NewGuid();
+    }
+
+    public SubjChangeResult Change(
+        IUser user,
+        string name,
+        ObjRepo<Labwork> labworks,
+        ObjRepo<Lecture> lectures,
+        SubjectType subjecttype,
+        Guid baseid)
+    {
+        if (!user.Equals(user))
+        {
+            return new SubjChangeResult.WrongAuthor();
+        }
+        else
+        {
+            Name = name;
+            Labworks = labworks;
+            Lectures = lectures;
+            SubjType = subjecttype;
+            Baseid = baseid;
+        }
+
+        return new SubjChangeResult.Success();
     }
 
     public class SubjectBuilder
     {
-        private IReadOnlyCollection<Labwork>? _labworks;
+        private ObjRepo<Labwork>? _labworks;
 
-        private IReadOnlyCollection<Lectures>? _lectures;
+        private ObjRepo<Lecture>? _lectures;
 
         private SubjectType? _subjectType;
 
@@ -57,15 +82,15 @@ public class Subject
             _baseid = null;
         }
 
-        public SubjectBuilder AddLabworks(IEnumerable<Labwork> labworks)
+        public SubjectBuilder AddLabworks(ObjRepo<Labwork> labworks)
         {
-            _labworks = labworks.ToList();
+            _labworks = labworks;
             return this;
         }
 
-        public SubjectBuilder AddLectures(IEnumerable<Lectures> lectures)
+        public SubjectBuilder AddLectures(ObjRepo<Lecture> obj)
         {
-            _lectures = lectures.ToList();
+            _lectures = obj;
             return this;
         }
 
@@ -75,7 +100,7 @@ public class Subject
             return this;
         }
 
-        public SubjectBuilder AddSubjectType(string name)
+        public SubjectBuilder AddName(string name)
         {
             _name = name;
             return this;
@@ -95,13 +120,22 @@ public class Subject
 
         public Subject Build()
         {
-            return new Subject(
+            return TotalPoints() != 100
+                ? throw new InvalidOperationException()
+                : new Subject(
                 _labworks ?? throw new InvalidOperationException(),
                 _lectures ?? throw new InvalidOperationException(),
                 _subjectType ?? throw new InvalidOperationException(),
                 _name ?? throw new InvalidOperationException(),
                 _user ?? throw new InvalidOperationException(),
                 _baseid);
+        }
+
+        private int TotalPoints()
+        {
+            int labsPoints = _labworks?.Items.Sum(x => x.Points) ?? 0;
+            int otherPoints = (_subjectType as SubjectType.Exam)?.Points ?? 0;
+            return labsPoints + otherPoints;
         }
     }
 }

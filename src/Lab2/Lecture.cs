@@ -1,6 +1,6 @@
 ﻿    namespace Itmo.ObjectOrientedProgramming.Lab2;
 
-    public class Lectures
+    public class Lecture : IHasId
     {
         public static LecturesBuilder Lecturekbuilder => new LecturesBuilder();
 
@@ -16,7 +16,7 @@
 
         private IUser Author { get; }
 
-        public Lectures(
+        public Lecture(
             Guid? baseid,
             string name,
             IUser author,
@@ -31,20 +31,26 @@
             Id = Guid.NewGuid();
         }
 
-        public AddLecturesMaterialAuthorResult Change(IUser user, string name, string criteria, string description)
+        public ChangeLectureResult Change(
+            IUser user,
+            string name,
+            string criteria,
+            string description,
+            Guid baseid)
         {
             if (!user.Equals(Author))
             {
-                return new AddLecturesMaterialAuthorResult.WrongAuthor();
+                return new ChangeLectureResult.WrongAuthor();
             }
             else
             {
                 Name = name;
                 Criteria = criteria;
                 Description = description;
+                BaseID = baseid;
             }
 
-            return new AddLecturesMaterialAuthorResult.Success();
+            return new ChangeLectureResult.Success();
         }
 
         public class LecturesBuilder
@@ -98,9 +104,9 @@
                 return this;
             }
 
-            public Lectures Build()
+            public Lecture Build()
             {
-                return new Lectures(
+                return new Lecture(
                     _baseId,
                     _name ?? throw new InvalidOperationException(),
                     _author ?? throw new InvalidOperationException(),

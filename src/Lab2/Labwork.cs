@@ -1,6 +1,6 @@
 ﻿    namespace Itmo.ObjectOrientedProgramming.Lab2;
 
-    public class Labwork
+    public class Labwork : IHasId
     {
         public static LabworkBuilder Labworkbuilder => new LabworkBuilder();
 
@@ -35,20 +35,26 @@
             Id = Guid.NewGuid();
         }
 
-        public AddLabAuthorResult Change(IUser user, string name, string criteria, string description)
+        public ChangeLabworkResult Change(
+            IUser user,
+            string name,
+            string criteria,
+            string description,
+            Guid baseid)
         {
             if (!user.Equals(Author))
             {
-                return new AddLabAuthorResult.WrongAuthor();
+                return new ChangeLabworkResult.WrongAuthor();
             }
             else
             {
                 Name = name;
                 Criteria = criteria;
                 Description = description;
+                BaseID = baseid;
             }
 
-            return new AddLabAuthorResult.Success();
+            return new ChangeLabworkResult.Success();
         }
 
         public class LabworkBuilder
