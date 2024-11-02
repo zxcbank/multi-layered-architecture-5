@@ -4,6 +4,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
 public record ScheduleModule : IHasId
 {
+    private static readonly IdGenerator IdGen = new IdGenerator();
+
     public int Semester { get; private set; }
 
     public Subject Subj { get; private set; }
@@ -14,6 +16,6 @@ public record ScheduleModule : IHasId
     {
         Semester = semester;
         Subj = subj;
-        Id = IdGenerator.GenericIdentity();
+        Id = IdGen.GenericIdentity();
     }
 }

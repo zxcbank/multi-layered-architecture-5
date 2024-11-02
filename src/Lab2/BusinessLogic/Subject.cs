@@ -5,6 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
 public class Subject : IHasId
 {
+    private static readonly IdGenerator IdGen = new IdGenerator();
+
     public ObjRepo<Labwork> Labworks { get; private set; }
 
     public ObjRepo<Lecture> Lectures { get; private set; }
@@ -32,7 +34,7 @@ public class Subject : IHasId
         SubjType = subjectype;
         Name = name;
         User = user;
-        Id = IdGenerator.GenericIdentity();
+        Id = IdGen.GenericIdentity();
         Baseid = baseid;
     }
 

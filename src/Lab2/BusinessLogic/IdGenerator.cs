@@ -2,9 +2,9 @@
 
 public class IdGenerator
 {
-    private static int currentId = 0;
+    private int currentId = 0;
 
-    public static int GenericIdentity()
+    public int GenericIdentity()
     {
         return currentId++;
     }

@@ -2,13 +2,15 @@
 
 public class User
 {
+    private static readonly IdGenerator IdGen = new IdGenerator();
+
     public int Id { get; private set; }
 
     public string Name { get; }
 
     public User(string name)
     {
-        Id = IdGenerator.GenericIdentity();
+        Id = IdGen.GenericIdentity();
         Name = name;
     }
 

@@ -8,6 +8,8 @@ public class Lecture : IHasId
 {
     public static LectureBuilder Lecturekbuilder => new LectureBuilder();
 
+    private static readonly IdGenerator IdGen = new IdGenerator();
+
     public int Id { get; private set; }
 
     public int? BaseID { get; private set; }
@@ -32,7 +34,7 @@ public class Lecture : IHasId
         Description = description;
         Criteria = criteria;
         Author = author;
-        Id = IdGenerator.GenericIdentity();
+        Id = IdGen.GenericIdentity();
     }
 
     public ChangeLectureResult ChangeName(
