@@ -1,13 +1,13 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Builders;
-using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Factories;
 
 public class SubjectFactory
 {
-    private readonly IUser _author;
+    private readonly User _author;
 
-    public SubjectFactory(IUser author)
+    public SubjectFactory(User author)
     {
         _author = author;
     }

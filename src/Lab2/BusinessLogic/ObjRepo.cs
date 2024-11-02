@@ -24,7 +24,7 @@ public class ObjRepo<T> where T : IHasId
         return this;
     }
 
-    public T? FindItem(Guid id)
+    public T? FindItem(int id)
     {
         return _items.Find(x => x.Id == id);
     }

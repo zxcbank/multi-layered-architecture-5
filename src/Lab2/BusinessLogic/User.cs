@@ -1,20 +1,18 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
-namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
-
-public class User : IUser
+public class User
 {
-    public Guid Id { get; private set; }
+    public int Id { get; private set; }
 
     public string Name { get; }
 
     public User(string name)
     {
-        Id = Guid.NewGuid();
+        Id = IdGenerator.GenericIdentity();
         Name = name;
     }
 
-    public IUser Clone()
+    public User Clone()
     {
         var result = new User(Name);
         result.Id = Id;

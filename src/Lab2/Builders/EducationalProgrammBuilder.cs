@@ -1,24 +1,23 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
-using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
 public class EducationalProgrammBuilder
 {
-    private IReadOnlyCollection<ObjRepo<Subject>>? _subjects;
+    private ObjRepo<ScheduleModule>? _subjects;
 
     private string? _name;
 
-    private IUser? _user;
+    private User? _user;
 
     public EducationalProgrammBuilder() { }
 
-    public EducationalProgrammBuilder(IUser user)
+    public EducationalProgrammBuilder(User user)
     {
         _user = user;
     }
 
-    public EducationalProgrammBuilder AddSubjects(IReadOnlyCollection<ObjRepo<Subject>> subjects)
+    public EducationalProgrammBuilder AddSubjects(ObjRepo<ScheduleModule> subjects)
     {
         _subjects = subjects;
         return this;
@@ -30,7 +29,7 @@ public class EducationalProgrammBuilder
         return this;
     }
 
-    public EducationalProgrammBuilder AddUser(IUser user)
+    public EducationalProgrammBuilder AddUser(User user)
     {
         _user = user;
         return this;
@@ -39,8 +38,8 @@ public class EducationalProgrammBuilder
     public EducationalProgramm Build()
     {
         return new EducationalProgramm(
-            _name ?? throw new InvalidOperationException(),
-            _subjects ?? throw new InvalidOperationException(),
-            _user ?? throw new InvalidOperationException());
+            _name ?? throw new ArgumentNullException(),
+            _subjects ?? throw new ArgumentNullException(),
+            _user ?? throw new ArgumentNullException());
     }
 }

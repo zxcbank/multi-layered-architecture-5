@@ -1,9 +1,6 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 using Itmo.ObjectOrientedProgramming.Lab2.Factories;
 using Itmo.ObjectOrientedProgramming.Lab2.Results;
-
-// using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
-// using Itmo.ObjectOrientedProgramming.Lab2.Results;
 using Xunit;
 
 namespace Lab2.Tests;
@@ -11,119 +8,120 @@ namespace Lab2.Tests;
 public class TestModule
 {
     [Fact]
-    public void Scenario1()
+    public void LabworkFactory_ShouldConstructLabwork()
     {
         // Arrange
-        var main_user = new User("P.Skakov");
+        var user = new User("some name");
 
-        var skakov_LB_Factory = new LabworkFactory(main_user);
+        var factory = new LabworkFactory(user);
 
         // Act
-        Labwork lab1 = skakov_LB_Factory.Create()
-            .AddName("mp")
-            .AddAuthor(main_user)
-            .AddCriteria("no skat")
-            .AddDescription("omp threads")
+        Labwork lab1 = factory.Create()
+            .AddName("some name")
+            .AddAuthor(user)
+            .AddCriteria("some criteria")
+            .AddDescription("some decription")
             .AddPoints(24)
             .Build();
 
         // Assert
-        Assert.True(lab1 is Labwork);
+        Assert.IsType<Labwork>(lab1);
     }
 
     [Fact]
-    public void Scenario2()
+    public void ChangeName_ReturnsWrongAuthor_NotAuthorChange()
     {
         // Arrange
-        var main_user = new User("P.S.");
-        var other_user = new User("s.zaimkin");
-        string labname = "no labwork only skat";
+        var main_user = new User("name1");
+        var other_user = new User("name2");
+        string labname = "labname1";
 
-        var skakov_LB_Factory = new LabworkFactory(main_user);
+        var factory = new LabworkFactory(main_user);
 
         // Act
-        Labwork lab1 = skakov_LB_Factory.Create()
-            .AddName("mp")
+        Labwork lab1 = factory.Create()
+            .AddName("some name")
             .AddAuthor(main_user)
-            .AddCriteria("no skat")
-            .AddDescription("omp threads")
+            .AddCriteria("some criteria")
+            .AddDescription("some description")
             .AddPoints(24)
             .Build();
 
         // Assert
-        Assert.True(lab1.ChangeName(other_user, labname) is ChangeLabworkResult.WrongAuthor);
+        Assert.IsType<ChangeLabworkResult.WrongAuthor>(lab1.ChangeName(other_user, labname));
     }
 
     [Fact]
-    public void Scenario3()
+    public void BuildLabworkBasedOnOtherLabwork_OnValidLabwork()
     {
         // Arrange
-        var main_user = new User("P.S.");
+        var main_user = new User("some name");
 
-        var skakov_LB_Factory = new LabworkFactory(main_user);
+        var factory = new LabworkFactory(main_user);
 
-        Labwork lab1 = skakov_LB_Factory.Create()
-            .AddName("mp")
+        Labwork lab1 = factory.Create()
+            .AddName("some name")
             .AddAuthor(main_user)
-            .AddCriteria("no skat")
-            .AddDescription("omp threads")
+            .AddCriteria("some criteria")
+            .AddDescription("some description")
             .AddPoints(24)
             .Build();
 
         // Act
-        Labwork lab2 = skakov_LB_Factory.Create()
+        Labwork lab2 = factory.Create()
             .AddBaseLabwork(lab1);
 
         // Assert
-        Assert.True(lab2 is Labwork);
+        Assert.IsType<Labwork>(lab2);
     }
 
     [Fact]
-    public void Scenario4()
+    public void CreateValidSubject()
     {
         // Arrange
-        var main_user = new User("P.S.");
+        var main_user = new User("some name");
 
-        // string name2 = "l2";
-        var ps_LB_Factory = new LabworkFactory(main_user);
+        var factory = new LabworkFactory(main_user);
 
-        Labwork lab1 = ps_LB_Factory.Create()
-            .AddName("mp")
+        Labwork lab1 = factory.Create()
+            .AddName("some name")
             .AddAuthor(main_user)
-            .AddCriteria("no skat")
-            .AddDescription("omp threads")
+            .AddCriteria("some criteria")
+            .AddDescription("some description")
             .AddPoints(20)
             .Build();
         var labs = new List<Labwork>();
         labs.Add(lab1);
-        labs.Add(ps_LB_Factory.Create()
+        labs.Add(factory.Create()
             .AddBaseLabwork(lab1));
-        labs.Add(ps_LB_Factory.Create()
+        labs.Add(factory.Create()
             .AddBaseLabwork(lab1));
-        labs.Add(ps_LB_Factory.Create()
+        labs.Add(factory.Create()
             .AddBaseLabwork(lab1));
 
-        var skakov_LecB_Factory = new LectureFactory(main_user);
+        var factory2 = new LectureFactory(main_user);
 
-        Lecture lec1 = skakov_LecB_Factory.Create()
-            .AddName("l1")
+        Lecture lec1 = factory2.Create()
+            .AddName("some name")
             .AddAuthor(main_user)
-            .AddCriteria("lec1")
-            .AddDescription("omp threads")
+            .AddCriteria("some criteria")
+            .AddDescription("some description")
             .Build();
         var lecs = new List<Lecture>();
 
         lecs.Add(lec1);
 
         var ps_sb_Factory = new SubjectFactory(main_user);
-        Subject some_subject = ps_sb_Factory.Create()
-            .AddName("maths")
+
+        // Act
+        CreateSubjectResult some_subject = ps_sb_Factory.Create()
+            .AddName("some name")
             .AddLabworks(new ObjRepo<Labwork>(labs))
             .AddLectures(new ObjRepo<Lecture>(lecs))
-            .AddSubjectType(new SubjectType.Exam(20))
+            .AddSubjectType(new Exam(20))
             .Build();
 
         // Assert
-        Assert.True(some_subject is Subject);
+        Assert.IsType<CreateSubjectResult.Success>(some_subject);
     }
 }

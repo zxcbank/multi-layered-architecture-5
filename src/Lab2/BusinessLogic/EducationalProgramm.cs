@@ -7,20 +7,20 @@ public class EducationalProgramm : IHasId
 {
     public static EducationalProgrammBuilder Builder => new EducationalProgrammBuilder();
 
-    public IReadOnlyCollection<ObjRepo<Subject>> Subjects { get; set; }
+    public ObjRepo<ScheduleModule> Subjects { get; private set; }
 
     public string Name { get; private set; }
 
-    public IUser User { get; private set; }
+    public User User { get; private set; }
 
-    public Guid Id { get; set; }
+    public int Id { get; private set; }
 
     public EducationalProgramm(
         string name,
-        IReadOnlyCollection<ObjRepo<Subject>> subjects,
-        IUser user)
+        ObjRepo<ScheduleModule> subjects,
+        User user)
     {
-        Id = Guid.NewGuid();
+        Id = IdGenerator.GenericIdentity();
         Subjects = subjects;
         User = user;
         Name = name;

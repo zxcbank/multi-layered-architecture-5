@@ -5,11 +5,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
 public class LectureBuilder
 {
-    private Guid? _baseId;
+    private int? _baseId;
 
     private string? _name;
 
-    private IUser? _author;
+    private User? _author;
 
     private string? _criteria;
 
@@ -24,7 +24,7 @@ public class LectureBuilder
         _description = null;
     }
 
-    public LectureBuilder(IUser user)
+    public LectureBuilder(User user)
     {
         _baseId = null;
         _name = null;
@@ -47,7 +47,7 @@ public class LectureBuilder
         return this;
     }
 
-    public LectureBuilder AddAuthor(IUser author)
+    public LectureBuilder AddAuthor(User author)
     {
         _author = author;
         return this;
@@ -69,9 +69,9 @@ public class LectureBuilder
     {
         return new Lecture(
             _baseId,
-            _name ?? throw new InvalidOperationException(),
-            _author ?? throw new InvalidOperationException(),
-            _criteria ?? throw new InvalidOperationException(),
-            _description ?? throw new InvalidOperationException());
+            _name ?? throw new ArgumentNullException("name"),
+            _author ?? throw new ArgumentNullException("author"),
+            _criteria ?? throw new ArgumentNullException("criteria"),
+            _description ?? throw new ArgumentNullException("description"));
     }
 }
