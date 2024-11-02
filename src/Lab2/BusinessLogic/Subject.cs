@@ -5,11 +5,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
 public class Subject : IHasId
 {
-    private static readonly IdGenerator IdGen = new IdGenerator();
+    public IReadOnlyCollection<Labwork> Labworks { get; private set; }
 
-    public ObjRepo<Labwork> Labworks { get; private set; }
-
-    public ObjRepo<Lecture> Lectures { get; private set; }
+    public IReadOnlyCollection<Lecture> Lectures { get; private set; }
 
     public ISubjectType SubjType { get; private set; }
 
@@ -22,19 +20,20 @@ public class Subject : IHasId
     public int Id { get; private set; }
 
     public Subject(
-        ObjRepo<Labwork> labworks,
-        ObjRepo<Lecture> lectures,
+        IEnumerable<Labwork> labworks,
+        IEnumerable<Lecture> lectures,
         ISubjectType subjectype,
         string name,
         User user,
+        IdGenerator idGen,
         int? baseid)
     {
-        Labworks = labworks;
-        Lectures = lectures;
+        Labworks = labworks.ToList();
+        Lectures = lectures.ToList();
         SubjType = subjectype;
         Name = name;
         User = user;
-        Id = IdGen.GenericIdentity();
+        Id = idGen.GenericIdentity();
         Baseid = baseid;
     }
 
@@ -56,7 +55,7 @@ public class Subject : IHasId
 
     public ChangeSubjectResult ChangeLectures(
         User user,
-        ObjRepo<Lecture> lectures)
+        IEnumerable<Lecture> lectures)
     {
         if (!user.Equals(User))
         {
@@ -64,7 +63,7 @@ public class Subject : IHasId
         }
         else
         {
-            Lectures = lectures;
+            Lectures = lectures.ToList();
         }
 
         return new ChangeSubjectResult.Success();

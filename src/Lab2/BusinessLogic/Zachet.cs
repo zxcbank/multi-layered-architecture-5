@@ -4,9 +4,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
 public class Zachet : ISubjectType
 {
-    public bool Validate(ObjRepo<Labwork> labworks)
+    public bool Validate(IEnumerable<Labwork> labworks)
     {
-        int labsPoints = labworks?.Items.Sum(x => x.Points) ?? 0;
+        int labsPoints = labworks.Sum(x => x.Points);
         return labsPoints == 100;
     }
 

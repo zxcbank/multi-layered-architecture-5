@@ -7,9 +7,7 @@ public class EducationalProgramm : IHasId
 {
     public static EducationalProgrammBuilder Builder => new EducationalProgrammBuilder();
 
-    private static readonly IdGenerator IdGen = new IdGenerator();
-
-    public ObjRepo<ScheduleModule> Subjects { get; private set; }
+    public IReadOnlyCollection<ScheduleModule> Subjects { get; private set; }
 
     public string Name { get; private set; }
 
@@ -19,10 +17,11 @@ public class EducationalProgramm : IHasId
 
     public EducationalProgramm(
         string name,
-        ObjRepo<ScheduleModule> subjects,
-        User user)
+        IReadOnlyCollection<ScheduleModule> subjects,
+        User user,
+        IdGenerator idGen)
     {
-        Id = IdGen.GenericIdentity();
+        Id = idGen.GenericIdentity();
         Subjects = subjects;
         User = user;
         Name = name;

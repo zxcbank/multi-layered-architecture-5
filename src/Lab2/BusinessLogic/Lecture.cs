@@ -27,7 +27,8 @@ public class Lecture : IHasId
         string name,
         User author,
         string criteria,
-        string description)
+        string description,
+        IdGenerator idGen)
     {
         Name = name;
         BaseID = baseid;

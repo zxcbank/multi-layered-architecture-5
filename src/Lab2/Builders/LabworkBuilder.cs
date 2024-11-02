@@ -36,7 +36,7 @@ public class LabworkBuilder
         _points = null;
     }
 
-    public Labwork AddBaseLabwork(Labwork otherLabwork)
+    public Labwork AddBaseLabwork(Labwork otherLabwork, IdGenerator idGen)
     {
         _baseId = otherLabwork.Id;
         _name = otherLabwork.Name;
@@ -44,7 +44,7 @@ public class LabworkBuilder
         _points = otherLabwork.Points;
         _description = otherLabwork.Description;
 
-        return Build();
+        return Build(idGen);
     }
 
     public LabworkBuilder AddName(string name)
@@ -77,14 +77,15 @@ public class LabworkBuilder
         return this;
     }
 
-    public Labwork Build()
+    public Labwork Build(IdGenerator idGen)
     {
         return new Labwork(
             _baseId,
-            _name ?? throw new ArgumentNullException("name"),
-            _author ?? throw new ArgumentNullException("author"),
-            _criteria ?? throw new ArgumentNullException("criteria"),
-            _description ?? throw new ArgumentNullException("description"),
-            _points ?? throw new ArgumentNullException("points"));
+            _name ?? throw new InvalidOperationException(),
+            _author ?? throw new InvalidOperationException(),
+            _criteria ?? throw new InvalidOperationException(),
+            _description ?? throw new InvalidOperationException(),
+            _points ?? throw new InvalidOperationException(),
+            idGen);
     }
 }

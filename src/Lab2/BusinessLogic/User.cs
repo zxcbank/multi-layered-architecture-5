@@ -2,23 +2,14 @@
 
 public class User
 {
-    private static readonly IdGenerator IdGen = new IdGenerator();
-
     public int Id { get; private set; }
 
     public string Name { get; }
 
-    public User(string name)
+    public User(string name, IdGenerator idGen)
     {
-        Id = IdGen.GenericIdentity();
+        Id = idGen.GenericIdentity();
         Name = name;
-    }
-
-    public User Clone()
-    {
-        var result = new User(Name);
-        result.Id = Id;
-        return result;
     }
 
     public bool Equals(User a)

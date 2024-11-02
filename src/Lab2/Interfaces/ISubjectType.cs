@@ -4,5 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 
 public interface ISubjectType
 {
-    public bool Validate(ObjRepo<Labwork> labworks);
+    public bool Validate(IEnumerable<Labwork> labworks);
 }

@@ -6,9 +6,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
 public class SubjectBuilder
 {
-    private ObjRepo<Labwork>? _labworks;
+    private IReadOnlyCollection<Labwork>? _labworks;
 
-    private ObjRepo<Lecture>? _lectures;
+    private IReadOnlyCollection<Lecture>? _lectures;
 
     private ISubjectType? _subjectType;
 
@@ -38,15 +38,15 @@ public class SubjectBuilder
         _baseid = null;
     }
 
-    public SubjectBuilder AddLabworks(ObjRepo<Labwork> labworks)
+    public SubjectBuilder AddLabworks(IEnumerable<Labwork> labworks)
     {
-        _labworks = labworks;
+        _labworks = labworks.ToList();
         return this;
     }
 
-    public SubjectBuilder AddLectures(ObjRepo<Lecture> obj)
+    public SubjectBuilder AddLectures(IEnumerable<Lecture> obj)
     {
-        _lectures = obj;
+        _lectures = obj.ToList();
         return this;
     }
 
@@ -68,23 +68,24 @@ public class SubjectBuilder
         return this;
     }
 
-    public CreateSubjectResult AddBaseSubject(Subject otherSubject)
+    public CreateSubjectResult AddBaseSubject(Subject otherSubject, IdGenerator idGen)
     {
         _baseid = otherSubject.Id;
         _name = otherSubject.Name;
         _lectures = otherSubject.Lectures;
         _labworks = otherSubject.Labworks;
-        return Build();
+        return Build(idGen);
     }
 
-    public CreateSubjectResult Build()
+    public CreateSubjectResult Build(IdGenerator idGen)
     {
         var potentialSubject = new Subject(
-            _labworks ?? throw new ArgumentNullException("labworks"),
-            _lectures ?? throw new ArgumentNullException("lectures"),
-            _subjectType ?? throw new ArgumentNullException("SubjectType"),
-            _name ?? throw new ArgumentNullException("name"),
-            _user ?? throw new ArgumentNullException("user"),
+            _labworks ?? throw new InvalidOperationException(),
+            _lectures ?? throw new InvalidOperationException(),
+            _subjectType ?? throw new InvalidOperationException(),
+            _name ?? throw new InvalidOperationException(),
+            _user ?? throw new InvalidOperationException(),
+            idGen,
             _baseid);
 
         return _subjectType.Validate(_labworks)

@@ -33,12 +33,12 @@ public class LectureBuilder
         _description = null;
     }
 
-    public IHasId AddBaseSubject(Lecture otherLecture)
+    public IHasId AddBaseSubject(Lecture otherLecture, IdGenerator idGen)
     {
         _baseId = otherLecture.Id;
         _name = otherLecture.Name;
 
-        return Build();
+        return Build(idGen);
     }
 
     public LectureBuilder AddName(string name)
@@ -65,13 +65,14 @@ public class LectureBuilder
         return this;
     }
 
-    public Lecture Build()
+    public Lecture Build(IdGenerator idGen)
     {
         return new Lecture(
             _baseId,
-            _name ?? throw new ArgumentNullException("name"),
-            _author ?? throw new ArgumentNullException("author"),
-            _criteria ?? throw new ArgumentNullException("criteria"),
-            _description ?? throw new ArgumentNullException("description"));
+            _name ?? throw new InvalidOperationException(),
+            _author ?? throw new InvalidOperationException(),
+            _criteria ?? throw new InvalidOperationException(),
+            _description ?? throw new InvalidOperationException(),
+            idGen);
     }
 }

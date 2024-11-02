@@ -4,7 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
 public class EducationalProgrammBuilder
 {
-    private ObjRepo<ScheduleModule>? _subjects;
+    private IReadOnlyCollection<ScheduleModule>? _subjects;
 
     private string? _name;
 
@@ -17,7 +17,7 @@ public class EducationalProgrammBuilder
         _user = user;
     }
 
-    public EducationalProgrammBuilder AddSubjects(ObjRepo<ScheduleModule> subjects)
+    public EducationalProgrammBuilder AddSubjects(IReadOnlyCollection<ScheduleModule> subjects)
     {
         _subjects = subjects;
         return this;
@@ -35,11 +35,12 @@ public class EducationalProgrammBuilder
         return this;
     }
 
-    public EducationalProgramm Build()
+    public EducationalProgramm Build(IdGenerator idGen)
     {
         return new EducationalProgramm(
-            _name ?? throw new ArgumentNullException(),
-            _subjects ?? throw new ArgumentNullException(),
-            _user ?? throw new ArgumentNullException());
+            _name ?? throw new InvalidOperationException(),
+            _subjects ?? throw new InvalidOperationException(),
+            _user ?? throw new InvalidOperationException(),
+            idGen);
     }
 }

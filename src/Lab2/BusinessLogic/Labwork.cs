@@ -8,8 +8,6 @@ public class Labwork : IHasId
 {
     public static LabworkBuilder Labworkbuilder => new LabworkBuilder();
 
-    private static readonly IdGenerator IdGen = new IdGenerator();
-
     public int Id { get; private set; }
 
     public int? BaseID { get; private set; }
@@ -30,7 +28,8 @@ public class Labwork : IHasId
         User author,
         string criteria,
         string description,
-        int points)
+        int points,
+        IdGenerator idGen)
     {
         Name = name;
         BaseID = baseid;
@@ -38,7 +37,7 @@ public class Labwork : IHasId
         Criteria = criteria;
         Author = author;
         Points = points;
-        Id = IdGen.GenericIdentity();
+        Id = idGen.GenericIdentity();
     }
 
     public ChangeLabworkResult ChangeName(

@@ -11,7 +11,9 @@ public class TestModule
     public void LabworkFactory_ShouldConstructLabwork()
     {
         // Arrange
-        var user = new User("some name");
+        var idGeneratorUser = new IdGenerator();
+        var idGeneratorLabwork = new IdGenerator();
+        var user = new User("some name", idGeneratorUser);
 
         var factory = new LabworkFactory(user);
 
@@ -22,7 +24,7 @@ public class TestModule
             .AddCriteria("some criteria")
             .AddDescription("some decription")
             .AddPoints(24)
-            .Build();
+            .Build(idGeneratorLabwork);
 
         // Assert
         Assert.IsType<Labwork>(lab1);
@@ -32,8 +34,10 @@ public class TestModule
     public void ChangeName_ReturnsWrongAuthor_NotAuthorChange()
     {
         // Arrange
-        var main_user = new User("name1");
-        var other_user = new User("name2");
+        var idGeneratorUser = new IdGenerator();
+        var idGeneratorLabwork = new IdGenerator();
+        var main_user = new User("name1", idGeneratorUser);
+        var other_user = new User("name2", idGeneratorUser);
         string labname = "labname1";
 
         var factory = new LabworkFactory(main_user);
@@ -45,7 +49,7 @@ public class TestModule
             .AddCriteria("some criteria")
             .AddDescription("some description")
             .AddPoints(24)
-            .Build();
+            .Build(idGeneratorLabwork);
 
         // Assert
         Assert.IsType<ChangeLabworkResult.WrongAuthor>(lab1.ChangeName(other_user, labname));
@@ -55,7 +59,9 @@ public class TestModule
     public void BuildLabworkBasedOnOtherLabwork_OnValidLabwork()
     {
         // Arrange
-        var main_user = new User("some name");
+        var idGeneratorUser = new IdGenerator();
+        var idGeneratorLabwork = new IdGenerator();
+        var main_user = new User("some name", idGeneratorUser);
 
         var factory = new LabworkFactory(main_user);
 
@@ -65,11 +71,11 @@ public class TestModule
             .AddCriteria("some criteria")
             .AddDescription("some description")
             .AddPoints(24)
-            .Build();
+            .Build(idGeneratorLabwork);
 
         // Act
         Labwork lab2 = factory.Create()
-            .AddBaseLabwork(lab1);
+            .AddBaseLabwork(lab1, idGeneratorLabwork);
 
         // Assert
         Assert.IsType<Labwork>(lab2);
@@ -79,7 +85,11 @@ public class TestModule
     public void CreateValidSubject()
     {
         // Arrange
-        var main_user = new User("some name");
+        var idGeneratorUser = new IdGenerator();
+        var idGeneratorLabwork = new IdGenerator();
+        var idGeneratorLecture = new IdGenerator();
+        var idGeneratorSubject = new IdGenerator();
+        var main_user = new User("some name", idGeneratorUser);
 
         var factory = new LabworkFactory(main_user);
 
@@ -89,15 +99,15 @@ public class TestModule
             .AddCriteria("some criteria")
             .AddDescription("some description")
             .AddPoints(20)
-            .Build();
+            .Build(idGeneratorLabwork);
         var labs = new List<Labwork>();
         labs.Add(lab1);
         labs.Add(factory.Create()
-            .AddBaseLabwork(lab1));
+            .AddBaseLabwork(lab1, idGeneratorLabwork));
         labs.Add(factory.Create()
-            .AddBaseLabwork(lab1));
+            .AddBaseLabwork(lab1, idGeneratorLabwork));
         labs.Add(factory.Create()
-            .AddBaseLabwork(lab1));
+            .AddBaseLabwork(lab1, idGeneratorLabwork));
 
         var factory2 = new LectureFactory(main_user);
 
@@ -106,7 +116,7 @@ public class TestModule
             .AddAuthor(main_user)
             .AddCriteria("some criteria")
             .AddDescription("some description")
-            .Build();
+            .Build(idGeneratorLecture);
         var lecs = new List<Lecture>();
 
         lecs.Add(lec1);
@@ -116,10 +126,10 @@ public class TestModule
         // Act
         CreateSubjectResult some_subject = ps_sb_Factory.Create()
             .AddName("some name")
-            .AddLabworks(new ObjRepo<Labwork>(labs))
-            .AddLectures(new ObjRepo<Lecture>(lecs))
+            .AddLabworks(new List<Labwork>(labs))
+            .AddLectures(new List<Lecture>(lecs))
             .AddSubjectType(new Exam(20))
-            .Build();
+            .Build(idGeneratorSubject);
 
         // Assert
         Assert.IsType<CreateSubjectResult.Success>(some_subject);
