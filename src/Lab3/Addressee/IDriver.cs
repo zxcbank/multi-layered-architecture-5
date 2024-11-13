@@ -1,4 +1,6 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+
+namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 
 public interface IDriver
 {
@@ -6,5 +8,5 @@ public interface IDriver
 
     public void SetColor();
 
-    public void SetText(Message.Message message);
+    public void SetText(Message message);
 }

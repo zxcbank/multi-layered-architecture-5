@@ -1,17 +1,19 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+
+namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 
 public class DisplayDriver : IDriver
 {
-    private readonly Display _display;
+    private readonly Display display;
 
     public DisplayDriver(Display display)
     {
-        _display = display;
+        this.display = display;
     }
 
     public void Flush()
     {
-        _display.Text = null;
+        display.Text = null;
     }
 
     public void SetColor()
@@ -19,8 +21,8 @@ public class DisplayDriver : IDriver
         throw new NotImplementedException();
     }
 
-    public void SetText(Message.Message message)
+    public void SetText(Message message)
     {
-        _display.GetMessage(message);
+        display.GetMessage(message);
     }
 }

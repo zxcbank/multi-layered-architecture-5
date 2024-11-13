@@ -1,62 +1,45 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 
-public class User : IAddressee
+namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
+
+public class User(User.Atributes attrinutes) : IAddressee
 {
-    public class Atributes
+    private readonly List<UserMessage> messages = new List<UserMessage>();
+
+    public Atributes Attrs { get; private set; } = attrinutes;
+
+    public void GetMessage(Message message)
     {
-        public int Strength { get; private set; }
-
-        public int Agility { get; private set; }
-
-        public int Intelligence { get; private set; }
-
-        public Atributes(int strength, int agility, int intelligence)
-        {
-            Strength = strength;
-            Agility = agility;
-            Intelligence = intelligence;
-        }
+        messages.Add(new UserMessage(message));
     }
 
-    public class UserMessage
+    public void MarkMessageAsRead(Message message)
     {
-        public bool Read { get; private set; }
+        UserMessage? currentMessage = messages.Find(x => x == new UserMessage(message));
 
-        public Message.Message Message { get; private set; }
+        bool markMessage;
+        markMessage = (currentMessage == null) ? throw new Exception() : currentMessage.MarkMessage();
+    }
 
-        public UserMessage(Message.Message message)
-        {
-            Read = false;
-            Message = message;
-        }
+    public class Atributes(int strength, int agility, int intelligence)
+    {
+        public int Strength { get; private set; } = strength;
+
+        public int Agility { get; private set; } = agility;
+
+        public int Intelligence { get; private set; } = intelligence;
+    }
+
+    public class UserMessage(Message message)
+    {
+        public bool Read { get; private set; } = false;
+
+        public Message Message { get; private set; } = message;
 
         public bool MarkMessage()
         {
             Read = !Read ? true : throw new Exception();
             return true;
         }
-    }
-
-    public Atributes Attrs { get; private set; }
-
-    private readonly List<UserMessage> _messages;
-
-    public void GetMessage(Message.Message message)
-    {
-        _messages.Add(new UserMessage(message));
-    }
-
-    public User(Atributes attrinutes)
-    {
-        Attrs = attrinutes;
-        _messages = new List<UserMessage>();
-    }
-
-    public void MarkMessageAsRead(Message.Message message)
-    {
-        UserMessage? currentMessage = _messages.Find(x => x == new UserMessage(message));
-
-        bool markMessage;
-        markMessage = (currentMessage == null) ? throw new Exception() : currentMessage.MarkMessage();
     }
 }

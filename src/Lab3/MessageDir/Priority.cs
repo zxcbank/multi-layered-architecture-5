@@ -1,11 +1,6 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 
-public class Priority
+public class Priority(string value)
 {
-    public string Value { get; set; }
-
-    public Priority(string value)
-    {
-        Value = value;
-    }
+    public string Value { get; set; } = value;
 }

@@ -4,9 +4,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 
 public class Display : IAddressee
 {
-    public Message.Message? Text { get; set; }
+    public Message? Text { get; set; }
 
-    public void GetMessage(Message.Message message)
+    public void GetMessage(Message message)
     {
         Text = message;
     }

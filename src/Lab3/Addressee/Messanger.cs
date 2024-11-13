@@ -1,16 +1,18 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+
+namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
 
 public class Messanger : IAddressee
 {
-    private Message.Message? _message;
+    private Message? message;
 
-    public void GetMessage(Message.Message message)
+    public void GetMessage(Message message)
     {
-        _message = message;
+        this.message = message;
     }
 
     public void PrintMessage()
     {
-        Console.WriteLine("|Messanger| : {0}", _message);
+        Console.WriteLine("|Messanger| : {0}", message);
     }
 }
