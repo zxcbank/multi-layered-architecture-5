@@ -1,6 +1,7 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
+using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
+namespace Itmo.ObjectOrientedProgramming.Lab3.UserDir;
 
 public class User(User.Atributes attrinutes) : IAddressee
 {
@@ -30,11 +31,11 @@ public class User(User.Atributes attrinutes) : IAddressee
         public int Intelligence { get; private set; } = intelligence;
     }
 
-    public class UserMessage(Message message)
+    private class UserMessage(Message message)
     {
-        public bool Read { get; private set; } = false;
-
         public Message Message { get; private set; } = message;
+
+        private bool Read { get; set; } = false;
 
         public bool MarkMessage()
         {

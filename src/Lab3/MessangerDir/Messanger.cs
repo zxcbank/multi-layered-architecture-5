@@ -1,6 +1,7 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
+using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
+namespace Itmo.ObjectOrientedProgramming.Lab3.MessangerDir;
 
 public class Messanger : IAddressee
 {

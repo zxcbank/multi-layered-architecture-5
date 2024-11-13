@@ -1,6 +1,6 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.Message;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
+namespace Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
 
 public class FilterProxy : IAddressee
 {
@@ -14,7 +14,7 @@ public class FilterProxy : IAddressee
         _filter = filter;
     }
 
-    public void GetMessage(Message.Message message)
+    public void GetMessage(Message message)
     {
         if (message.PriorityLevel == _filter)
         {

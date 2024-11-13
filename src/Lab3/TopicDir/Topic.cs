@@ -1,7 +1,7 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.Addressee;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
 using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Topic;
+namespace Itmo.ObjectOrientedProgramming.Lab3.TopicDir;
 
 public class Topic(string name, IReadOnlyCollection<IAddressee> addressees)
 {

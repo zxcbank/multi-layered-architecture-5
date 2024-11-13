@@ -1,7 +1,8 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
+using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 using static Crayon.Output;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
+namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayDir;
 
 public class Display : IAddressee
 {

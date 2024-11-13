@@ -1,0 +1,23 @@
+﻿using Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
+using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+
+namespace Itmo.ObjectOrientedProgramming.Lab3.Loggers;
+
+public class LoggerDecorator : IAddressee
+{
+    public LoggerDecorator(IAddressee decoratee, ILogger logger)
+    {
+        _decoratee = decoratee;
+        _logger = logger;
+    }
+
+    private readonly IAddressee _decoratee;
+
+    private readonly ILogger _logger;
+
+    public void GetMessage(Message message)
+    {
+        _logger.Log(message);
+        _decoratee.GetMessage(message);
+    }
+}

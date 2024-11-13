@@ -1,6 +1,6 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Addressee;
+namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayDir;
 
 public class DisplayDriver : IDriver
 {

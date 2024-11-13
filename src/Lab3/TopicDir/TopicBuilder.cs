@@ -1,6 +1,6 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.Addressee;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Topic;
+namespace Itmo.ObjectOrientedProgramming.Lab3.TopicDir;
 
 public class TopicBuilder
 {
@@ -26,9 +26,9 @@ public class TopicBuilder
         return this;
     }
 
-    public Topic Build()
+    public TopicDir.Topic Build()
     {
-        return new Topic(
+        return new TopicDir.Topic(
             name ?? throw new Exception(),
             addressees ?? throw new Exception());
     }

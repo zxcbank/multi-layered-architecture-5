@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 
-public interface ILogStorage
+public interface ILogger
 {
-    void Save(Message message);
+    void Log(Message message);
 }
