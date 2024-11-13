@@ -1,4 +1,6 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Loggers;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+
+namespace Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 
 public interface ILogStorage
 {

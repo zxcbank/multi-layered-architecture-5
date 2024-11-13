@@ -1,4 +1,4 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Message;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 
 public class Body
 {
