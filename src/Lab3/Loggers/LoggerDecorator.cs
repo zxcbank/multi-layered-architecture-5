@@ -15,9 +15,14 @@ public class LoggerDecorator : IAddressee
 
     private readonly ILogger _logger;
 
-    public void GetMessage(Message message)
+    public void SendMessage(Message message)
     {
         _logger.Log(message);
-        _decoratee.GetMessage(message);
+        _decoratee.SendMessage(message);
+    }
+
+    public bool HasMessage(Message message)
+    {
+        return _decoratee.HasMessage(message);
     }
 }

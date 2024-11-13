@@ -4,32 +4,32 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.TopicDir;
 
 public class TopicBuilder
 {
-    private List<IAddressee>? addressees;
+    private List<IAddressee>? _addressees;
 
-    private string? name;
+    private string? _name;
 
     public TopicBuilder()
     {
-        addressees = null;
-        name = null;
+        _addressees = null;
+        _name = null;
     }
 
     public TopicBuilder AddName(string name)
     {
-        this.name = name;
+        _name = name;
         return this;
     }
 
     public TopicBuilder AddAdressees(IReadOnlyCollection<IAddressee> addressees)
     {
-        this.addressees = addressees.ToList();
+        _addressees = addressees.ToList();
         return this;
     }
 
     public TopicDir.Topic Build()
     {
         return new TopicDir.Topic(
-            name ?? throw new Exception(),
-            addressees ?? throw new Exception());
+            _name ?? throw new Exception(),
+            _addressees ?? throw new Exception());
     }
 }

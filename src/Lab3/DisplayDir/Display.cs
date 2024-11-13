@@ -10,13 +10,19 @@ public class Display : IAddressee
 
     public Tuple<byte, byte, byte>? Color { get; set; }
 
-    public void GetMessage(Message message)
+    public void SendMessage(Message message)
     {
         Text = message;
     }
 
+    public bool HasMessage(Message message)
+    {
+        return Text == message;
+    }
+
     public void Print()
     {
-        if (Color != null) Console.WriteLine(Rgb(Color.Item1, Color.Item2, Color.Item3));
+        if (Color != null && Text != null)
+            Console.WriteLine(Rgb(Color.Item1, Color.Item2, Color.Item3).Text(Text.Body));
     }
 }

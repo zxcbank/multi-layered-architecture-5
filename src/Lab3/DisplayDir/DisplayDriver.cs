@@ -26,6 +26,6 @@ public class DisplayDriver : IDriver
 
     public void SetText(Message message)
     {
-        display.GetMessage(message);
+        display.SendMessage(message);
     }
 }

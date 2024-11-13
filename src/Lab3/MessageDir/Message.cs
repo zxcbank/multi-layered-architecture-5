@@ -2,16 +2,16 @@
 
 public class Message
 {
-    public Message(Priority priorityLevel, Body value, string header)
+    public Message(Priority priorityLevel, string body, string header)
     {
         PriorityLevel = priorityLevel;
-        Value = value;
+        Body = body;
         Header = header;
     }
 
     public Priority PriorityLevel { get; private set; }
 
-    public Body Value { get; private set; }
+    public string Body { get; private set; }
 
     public string Header { get; private set; }
 }

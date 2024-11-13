@@ -14,11 +14,16 @@ public class FilterProxy : IAddressee
         _filter = filter;
     }
 
-    public void GetMessage(Message message)
+    public void SendMessage(Message message)
     {
-        if (message.PriorityLevel == _filter)
+        if (message.PriorityLevel.Value == _filter.Value)
         {
-            _adressee.GetMessage(message);
+            _adressee.SendMessage(message);
         }
+    }
+
+    public bool HasMessage(Message message)
+    {
+        return _adressee.HasMessage(message);
     }
 }

@@ -9,16 +9,21 @@ public class Group : IAddressee
 
     private Message? _message;
 
-    public void GetMessage(Message message)
+    public void SendMessage(Message message)
     {
         _message = message;
+    }
+
+    public bool HasMessage(Message message)
+    {
+        return _list.Any(addr => addr.HasMessage(message));
     }
 
     public void TransferMessage()
     {
         foreach (IAddressee adressee in _list)
         {
-            if (_message != null) this.GetMessage(_message);
+            if (_message != null) this.SendMessage(_message);
         }
     }
 

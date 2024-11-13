@@ -13,7 +13,7 @@ public class Topic(string name, IReadOnlyCollection<IAddressee> addressees)
     {
         foreach (IAddressee addres in addressees)
         {
-            addres.GetMessage(message);
+            addres.SendMessage(message);
         }
     }
 

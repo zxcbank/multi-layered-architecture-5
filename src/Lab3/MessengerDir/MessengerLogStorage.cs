@@ -1,13 +1,13 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.MessangerDir;
+namespace Itmo.ObjectOrientedProgramming.Lab3.MessengerDir;
 
-public class MessangerLogStorage : ILogger
+public class MessengerLogStorage : ILogger
 {
     private readonly List<Message> _logs;
 
-    public MessangerLogStorage()
+    public MessengerLogStorage()
     {
         _logs = new List<Message>();
     }

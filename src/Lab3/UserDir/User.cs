@@ -1,46 +1,62 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
 using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+using System.Collections.ObjectModel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.UserDir;
 
-public class User(User.Atributes attrinutes) : IAddressee
+public class User(User.Attributes attrinutes) : IAddressee
 {
-    private readonly List<UserMessage> messages = new List<UserMessage>();
+    private readonly List<UserMessage> _messages = new List<UserMessage>();
 
-    public Atributes Attrs { get; private set; } = attrinutes;
+    public Attributes Attrs { get; private set; } = attrinutes;
 
-    public void GetMessage(Message message)
+    public ReadOnlyCollection<UserMessage> Messages => _messages.AsReadOnly();
+
+    public void SendMessage(Message message)
     {
-        messages.Add(new UserMessage(message));
+        _messages.Add(new UserMessage(message));
     }
 
-    public void MarkMessageAsRead(Message message)
+    public ReadMessageResult MarkMessageAsRead(Message message)
     {
-        UserMessage? currentMessage = messages.Find(x => x == new UserMessage(message));
+        UserMessage? currentMessage = _messages.Find(x => x.Message == message);
 
-        bool markMessage;
-        markMessage = (currentMessage == null) ? throw new Exception() : currentMessage.MarkMessage();
+        return currentMessage == null ? new ReadMessageResult.NoSuchMessage() : currentMessage.MarkMessage();
     }
 
-    public class Atributes(int strength, int agility, int intelligence)
+    public bool HasMessage(Message message)
     {
-        public int Strength { get; private set; } = strength;
-
-        public int Agility { get; private set; } = agility;
-
-        public int Intelligence { get; private set; } = intelligence;
+        UserMessage? currentMessage = _messages.Find(x => x.Message == message);
+        return currentMessage != null;
     }
 
-    private class UserMessage(Message message)
+    public class Attributes(int strength, int agility, int intelligence)
     {
-        public Message Message { get; private set; } = message;
+        public int Strength { get; } = strength;
 
-        private bool Read { get; set; } = false;
+        public int Agility { get; } = agility;
 
-        public bool MarkMessage()
+        public int Intelligence { get; } = intelligence;
+    }
+
+    public class UserMessage(Message message)
+    {
+        public Message Message { get; } = message;
+
+        public bool Read { get; private set; } = false;
+
+        public ReadMessageResult MarkMessage()
         {
-            Read = !Read ? true : throw new Exception();
-            return true;
+            if (!Read)
+            {
+                Read = !Read;
+            }
+            else
+            {
+                return new ReadMessageResult.AlreadyReadError();
+            }
+
+            return new ReadMessageResult.Success();
         }
     }
 }
