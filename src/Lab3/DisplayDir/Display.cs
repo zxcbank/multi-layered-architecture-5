@@ -8,7 +8,7 @@ public class Display : IAddressee
 {
     public Message? Text { get; set; }
 
-    public Tuple<byte, byte, byte>? Color { get;  set; }
+    public Tuple<byte, byte, byte>? Color { get; set; }
 
     public void GetMessage(Message message)
     {
