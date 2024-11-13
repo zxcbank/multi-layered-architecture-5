@@ -6,9 +6,12 @@ public class DisplayDriver : IDriver
 {
     private readonly Display display;
 
-    public DisplayDriver(Display display)
+    private readonly Tuple<byte, byte, byte> color;
+
+    public DisplayDriver(Display customdisplay, byte r, byte g, byte b)
     {
-        this.display = display;
+        display = customdisplay;
+        color = new Tuple<byte, byte, byte>(r, g, b);
     }
 
     public void Flush()
@@ -18,7 +21,7 @@ public class DisplayDriver : IDriver
 
     public void SetColor()
     {
-        throw new NotImplementedException();
+        display.Color = color;
     }
 
     public void SetText(Message message)
