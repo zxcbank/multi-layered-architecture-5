@@ -3,25 +3,26 @@ using static Crayon.Output;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayDir;
 
-public class Display
+public class Display : IPrintable
 {
-    public Message? Text { get; set; }
+    public DisplayDriver Driver { get; private set; }
 
-    public Tuple<byte, byte, byte>? Color { get; set; }
+    public Display(DisplayDriver displydriver)
+    {
+        Driver = displydriver;
+    }
 
     public void SendMessage(Message message)
     {
-        Text = message;
-    }
-
-    public bool HasMessage(Message message)
-    {
-        return Text == message;
+        Driver.SendMessage(message);
     }
 
     public void Print()
     {
-        if (Color != null && Text != null)
-            Console.WriteLine(Rgb(Color.Item1, Color.Item2, Color.Item3).Text(Text.Body));
+        if (Driver is { Color: not null, Text: not null })
+        {
+            string consoleText = $"{Driver.Text.Header} \n {Driver.Text.Body}";
+            Console.WriteLine(Rgb(Driver.Color.Item1, Driver.Color.Item2, Driver.Color.Item3).Text(consoleText));
+        }
     }
 }

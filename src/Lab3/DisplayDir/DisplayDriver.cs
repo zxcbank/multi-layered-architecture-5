@@ -2,30 +2,24 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayDir;
 
-public class DisplayDriver : IDriver
+public class DisplayDriver
 {
-    private readonly Display display;
+    public Tuple<byte, byte, byte>? Color { get; private set; }
 
-    private readonly Tuple<byte, byte, byte> color;
+    public Message? Text { get; private set; }
 
-    public DisplayDriver(Display customdisplay, byte r, byte g, byte b)
+    public void Flush(Message? message)
     {
-        display = customdisplay;
-        color = new Tuple<byte, byte, byte>(r, g, b);
+        message = null;
     }
 
-    public void Flush()
+    public void SetColor(Tuple<byte, byte, byte> color)
     {
-        display.Text = null;
+        Color = color;
     }
 
-    public void SetColor()
+    public void SendMessage(Message message)
     {
-        display.Color = color;
-    }
-
-    public void SetText(Message message)
-    {
-        display.SendMessage(message);
+        Text = message;
     }
 }

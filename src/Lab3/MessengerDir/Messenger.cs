@@ -18,6 +18,6 @@ public class Messenger
 
     public void PrintMessage()
     {
-        Console.WriteLine("|Messenger| : {0}", _message?.Body);
+        Console.WriteLine("|Messenger| : {0} \n {1}", _message?.Header, _message?.Body);
     }
 }

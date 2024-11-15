@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.TopicDir;
 
 public class Topic(string name, IReadOnlyCollection<IAddressee> addressees)
 {
-    private readonly List<IAddressee> addressees = addressees.ToList();
+    private readonly IReadOnlyCollection<IAddressee> addressees = addressees.ToList();
 
     public string Name { get; private set; } = name;
 
@@ -15,11 +15,5 @@ public class Topic(string name, IReadOnlyCollection<IAddressee> addressees)
         {
             addres.SendMessage(message);
         }
-    }
-
-    public Topic AddAdrressee(IAddressee adressee)
-    {
-        addressees.Add(adressee);
-        return this;
     }
 }
