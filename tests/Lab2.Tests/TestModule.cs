@@ -1,6 +1,7 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 using Itmo.ObjectOrientedProgramming.Lab2.Factories;
 using Itmo.ObjectOrientedProgramming.Lab2.Results;
+using System.Collections.ObjectModel;
 using Xunit;
 
 namespace Lab2.Tests;
@@ -126,8 +127,8 @@ public class TestModule
         // Act
         CreateSubjectResult some_subject = ps_sb_Factory.Create()
             .AddName("some name")
-            .AddLabworks(new List<Labwork>(labs))
-            .AddLectures(new List<Lecture>(lecs))
+            .AddLabworks(new ReadOnlyCollection<Labwork>(labs))
+            .AddLectures(new ReadOnlyCollection<Lecture>(lecs))
             .AddSubjectType(new Exam(20))
             .Build(idGeneratorSubject);
 

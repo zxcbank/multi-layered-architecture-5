@@ -9,7 +9,7 @@ public class Exam : ISubjectType
     public bool Validate(IEnumerable<Labwork> labworks)
     {
         int labsPoints = labworks.Sum(x => x.Points);
-        return (labsPoints + Points) == 100;
+        return (labsPoints + Points) == Subject.Maxpoints;
     }
 
     public Exam(int points)

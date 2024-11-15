@@ -5,14 +5,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
 public class LectureBuilder
 {
-    private int? _baseId;
-
+    private long? _baseId;
     private string? _name;
-
     private User? _author;
-
     private string? _criteria;
-
     private string? _description;
 
     public LectureBuilder()
@@ -33,12 +29,12 @@ public class LectureBuilder
         _description = null;
     }
 
-    public IHasId AddBaseSubject(Lecture otherLecture, IdGenerator idGen)
+    public IHasId AddBaseSubject(Lecture otherLecture, IdGenerator idGenerator)
     {
         _baseId = otherLecture.Id;
         _name = otherLecture.Name;
 
-        return Build(idGen);
+        return Build(idGenerator);
     }
 
     public LectureBuilder AddName(string name)

@@ -8,9 +8,9 @@ public class Labwork : IHasId
 {
     public static LabworkBuilder Labworkbuilder => new LabworkBuilder();
 
-    public int Id { get; private set; }
+    public long Id { get; private set; }
 
-    public int? BaseID { get; private set; }
+    public long? BaseID { get; private set; }
 
     public string Name { get; private set; }
 
@@ -23,13 +23,13 @@ public class Labwork : IHasId
     public User Author { get; }
 
     public Labwork(
-        int? baseid,
+        long? baseid,
         string name,
         User author,
         string criteria,
         string description,
         int points,
-        IdGenerator idGen)
+        IdGenerator idGenerator)
     {
         Name = name;
         BaseID = baseid;
@@ -37,7 +37,7 @@ public class Labwork : IHasId
         Criteria = criteria;
         Author = author;
         Points = points;
-        Id = idGen.GenericIdentity();
+        Id = idGenerator.GenericIdentity();
     }
 
     public ChangeLabworkResult ChangeName(

@@ -2,13 +2,13 @@
 
 public class User
 {
-    public int Id { get; private set; }
+    public long Id { get; private set; }
 
     public string Name { get; }
 
-    public User(string name, IdGenerator idGen)
+    public User(string name, IdGenerator idGenerator)
     {
-        Id = idGen.GenericIdentity();
+        Id = idGenerator.GenericIdentity();
         Name = name;
     }
 

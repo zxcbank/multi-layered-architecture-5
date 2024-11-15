@@ -8,11 +8,9 @@ public class Lecture : IHasId
 {
     public static LectureBuilder Lecturekbuilder => new LectureBuilder();
 
-    private static readonly IdGenerator IdGen = new IdGenerator();
+    public long Id { get; private set; }
 
-    public int Id { get; private set; }
-
-    public int? BaseID { get; private set; }
+    public long? BaseID { get; private set; }
 
     public string Name { get; private set; }
 
@@ -23,19 +21,19 @@ public class Lecture : IHasId
     private User Author { get; }
 
     public Lecture(
-        int? baseid,
+        long? baseid,
         string name,
         User author,
         string criteria,
         string description,
-        IdGenerator idGen)
+        IdGenerator idGenerator)
     {
         Name = name;
         BaseID = baseid;
         Description = description;
         Criteria = criteria;
         Author = author;
-        Id = IdGen.GenericIdentity();
+        Id = idGenerator.GenericIdentity();
     }
 
     public ChangeLectureResult ChangeName(

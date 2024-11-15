@@ -4,22 +4,18 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
 public class EducationalProgrammBuilder
 {
-    private IReadOnlyCollection<ScheduleModule>? _subjects;
-
+    private readonly Dictionary<int, List<Subject>> _subjects = [];
     private string? _name;
-
     private User? _user;
-
-    public EducationalProgrammBuilder() { }
 
     public EducationalProgrammBuilder(User user)
     {
         _user = user;
     }
 
-    public EducationalProgrammBuilder AddSubjects(IReadOnlyCollection<ScheduleModule> subjects)
+    public EducationalProgrammBuilder AddSubjects(int semester, Subject subject)
     {
-        _subjects = subjects;
+        _subjects[semester].Add(subject);
         return this;
     }
 
@@ -35,12 +31,12 @@ public class EducationalProgrammBuilder
         return this;
     }
 
-    public EducationalProgramm Build(IdGenerator idGen)
+    public EducationalProgramm Build(IdGenerator idGenerator)
     {
         return new EducationalProgramm(
             _name ?? throw new InvalidOperationException(),
             _subjects ?? throw new InvalidOperationException(),
             _user ?? throw new InvalidOperationException(),
-            idGen);
+            idGenerator);
     }
 }

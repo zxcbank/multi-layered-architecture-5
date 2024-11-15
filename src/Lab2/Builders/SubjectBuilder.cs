@@ -1,27 +1,21 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab2.Results;
+using System.Collections.ObjectModel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
 public class SubjectBuilder
 {
-    private IReadOnlyCollection<Labwork>? _labworks;
-
-    private IReadOnlyCollection<Lecture>? _lectures;
-
+    private List<Labwork> _labworks = [];
+    private List<Lecture> _lectures = [];
     private ISubjectType? _subjectType;
-
     private string? _name;
-
     private User? _user;
-
-    private int? _baseid;
+    private long? _baseid;
 
     public SubjectBuilder()
     {
-        _labworks = null;
-        _lectures = null;
         _subjectType = null;
         _name = null;
         _user = null;
@@ -30,23 +24,21 @@ public class SubjectBuilder
 
     public SubjectBuilder(User user)
     {
-        _labworks = null;
-        _lectures = null;
         _subjectType = null;
         _name = null;
         _user = user;
         _baseid = null;
     }
 
-    public SubjectBuilder AddLabworks(IEnumerable<Labwork> labworks)
+    public SubjectBuilder AddLabworks(ReadOnlyCollection<Labwork> labworks)
     {
         _labworks = labworks.ToList();
         return this;
     }
 
-    public SubjectBuilder AddLectures(IEnumerable<Lecture> obj)
+    public SubjectBuilder AddLectures(ReadOnlyCollection<Lecture> lecture)
     {
-        _lectures = obj.ToList();
+        _lectures = lecture.ToList();
         return this;
     }
 
@@ -68,24 +60,24 @@ public class SubjectBuilder
         return this;
     }
 
-    public CreateSubjectResult AddBaseSubject(Subject otherSubject, IdGenerator idGen)
+    public CreateSubjectResult AddBaseSubject(Subject otherSubject, IdGenerator idGenerator)
     {
         _baseid = otherSubject.Id;
         _name = otherSubject.Name;
-        _lectures = otherSubject.Lectures;
-        _labworks = otherSubject.Labworks;
-        return Build(idGen);
+        _lectures = otherSubject.Lectures.ToList();
+        _labworks = otherSubject.Labworks.ToList();
+        return Build(idGenerator);
     }
 
-    public CreateSubjectResult Build(IdGenerator idGen)
+    public CreateSubjectResult Build(IdGenerator idGenerator)
     {
         var potentialSubject = new Subject(
-            _labworks ?? throw new InvalidOperationException(),
-            _lectures ?? throw new InvalidOperationException(),
+            _labworks.AsReadOnly() ?? throw new InvalidOperationException(),
+            _lectures.AsReadOnly() ?? throw new InvalidOperationException(),
             _subjectType ?? throw new InvalidOperationException(),
             _name ?? throw new InvalidOperationException(),
             _user ?? throw new InvalidOperationException(),
-            idGen,
+            idGenerator,
             _baseid);
 
         return _subjectType.Validate(_labworks)

@@ -1,13 +1,34 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab2.Results;
+using System.Collections.ObjectModel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
 public class Subject : IHasId
 {
-    public IReadOnlyCollection<Labwork> Labworks { get; private set; }
+    public Subject(
+        ReadOnlyCollection<Labwork> labworks,
+        ReadOnlyCollection<Lecture> lectures,
+        ISubjectType subjectype,
+        string name,
+        User user,
+        IdGenerator idGenerator,
+        long? baseid)
+    {
+        Labworks = labworks.AsReadOnly();
+        Lectures = lectures.AsReadOnly();
+        SubjType = subjectype;
+        Name = name;
+        User = user;
+        Id = idGenerator.GenericIdentity();
+        Baseid = baseid;
+    }
 
-    public IReadOnlyCollection<Lecture> Lectures { get; private set; }
+    public static int Maxpoints { get; } = 100;
+
+    public ReadOnlyCollection<Labwork> Labworks { get; private set; }
+
+    public ReadOnlyCollection<Lecture> Lectures { get; private set; }
 
     public ISubjectType SubjType { get; private set; }
 
@@ -15,27 +36,9 @@ public class Subject : IHasId
 
     public User User { get; private set; }
 
-    public int? Baseid { get; private set; }
+    public long? Baseid { get; private set; }
 
-    public int Id { get; private set; }
-
-    public Subject(
-        IEnumerable<Labwork> labworks,
-        IEnumerable<Lecture> lectures,
-        ISubjectType subjectype,
-        string name,
-        User user,
-        IdGenerator idGen,
-        int? baseid)
-    {
-        Labworks = labworks.ToList();
-        Lectures = lectures.ToList();
-        SubjType = subjectype;
-        Name = name;
-        User = user;
-        Id = idGen.GenericIdentity();
-        Baseid = baseid;
-    }
+    public long Id { get; private set; }
 
     public ChangeSubjectResult ChangeName(
         User user,
@@ -55,7 +58,7 @@ public class Subject : IHasId
 
     public ChangeSubjectResult ChangeLectures(
         User user,
-        IEnumerable<Lecture> lectures)
+        ReadOnlyCollection<Lecture> lectures)
     {
         if (!user.Equals(User))
         {
@@ -63,7 +66,7 @@ public class Subject : IHasId
         }
         else
         {
-            Lectures = lectures.ToList();
+            Lectures = lectures;
         }
 
         return new ChangeSubjectResult.Success();

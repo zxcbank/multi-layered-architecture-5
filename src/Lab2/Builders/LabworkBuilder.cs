@@ -5,15 +5,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 public class LabworkBuilder
 {
     private int? _points;
-
-    private int? _baseId;
-
+    private long? _baseId;
     private string? _name;
-
     private User? _author;
-
     private string? _criteria;
-
     private string? _description;
 
     public LabworkBuilder()
@@ -36,7 +31,7 @@ public class LabworkBuilder
         _points = null;
     }
 
-    public Labwork AddBaseLabwork(Labwork otherLabwork, IdGenerator idGen)
+    public Labwork AddBaseLabwork(Labwork otherLabwork, IdGenerator idGenerator)
     {
         _baseId = otherLabwork.Id;
         _name = otherLabwork.Name;
@@ -44,7 +39,7 @@ public class LabworkBuilder
         _points = otherLabwork.Points;
         _description = otherLabwork.Description;
 
-        return Build(idGen);
+        return Build(idGenerator);
     }
 
     public LabworkBuilder AddName(string name)
