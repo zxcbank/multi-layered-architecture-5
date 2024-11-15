@@ -13,25 +13,25 @@ public class UnitTests
     public void UserGetMessage()
     {
         // Arrange
-        Func<Priority, bool> filter = priority => priority.Value == "high priority";
+        Func<int, bool> filter = priority => priority == 3;
 
-        var user = new User(new User.Attributes(100, 90, 80));
+        var user = new User();
 
         var userAddres = new UserAddress(user);
 
         var proxy = new FilterProxy(filter, userAddres);
 
-        var userlog = new UserLogStorage();
+        var userlog = new Logger();
 
         var logdec = new LoggerDecorator(proxy, userlog);
 
         var message = new Message(
-            new Priority("high priority"),
+            3,
             "body",
             "header");
 
         // Act
-        logdec.SendMessage(message);
+        logdec.ReceiveMessage(message);
 
         // Assert
         Assert.False(user.Messages[0].Read);
@@ -41,25 +41,25 @@ public class UnitTests
     public void ReadUnreadMessage()
     {
         // Arrange
-        Func<Priority, bool> filter = priority => priority.Value == "high priority";
+        Func<int, bool> filter = priority => priority == 3;
 
-        var user = new User(new User.Attributes(100, 90, 80));
+        var user = new User();
 
         var userAddres = new UserAddress(user);
 
         var proxy = new FilterProxy(filter, userAddres);
 
-        var userlog = new UserLogStorage();
+        var userlog = new Logger();
 
         var logdec = new LoggerDecorator(proxy, userlog);
 
         var message = new Message(
-            new Priority("high priority"),
+            3,
             "body",
             "header");
 
         // Act
-        logdec.SendMessage(message);
+        logdec.ReceiveMessage(message);
         user.Messages[0].MarkMessage();
 
         // Assert
@@ -70,25 +70,25 @@ public class UnitTests
     public void ReadReadMessage()
     {
         // Arrange
-        Func<Priority, bool> filter = priority => priority.Value == "high priority";
+        Func<int, bool> filter = priority => priority == 3;
 
-        var user = new User(new User.Attributes(100, 90, 80));
+        var user = new User();
 
         var userAddres = new UserAddress(user);
 
         var proxy = new FilterProxy(filter, userAddres);
 
-        var userlog = new UserLogStorage();
+        var userlog = new Logger();
 
         var logdec = new LoggerDecorator(proxy, userlog);
 
         var message = new Message(
-            new Priority("high priority"),
+            3,
             "body",
             "header");
 
         // Act
-        logdec.SendMessage(message);
+        logdec.ReceiveMessage(message);
         user.Messages[0].MarkMessage();
 
         // Assert
@@ -99,35 +99,35 @@ public class UnitTests
     public void GetLowPriorityMessage()
     {
         // Arrange
-        Func<Priority, bool> filter = priority => priority.Value == "high priority";
+        Func<int, bool> filter = priority => priority == 3;
 
         var userAddressMock = new Mock<IAddressee>();
 
         var proxy = new FilterProxy(filter, userAddressMock.Object);
 
-        var userlog = new UserLogStorage();
+        var userlog = new Logger();
 
         var logdec = new LoggerDecorator(proxy, userlog);
 
         var message = new Message(
-            new Priority("low priority"),
+            2,
             "body",
             "header");
 
         // Act
-        logdec.SendMessage(message);
+        logdec.ReceiveMessage(message);
 
         // Assert
-        userAddressMock.Verify(r => r.SendMessage(message), Times.Never);
+        userAddressMock.Verify(r => r.ReceiveMessage(message), Times.Never);
     }
 
     [Fact]
     public void LogCheckValidMessage()
     {
         // Arrange
-        Func<Priority, bool> filter = priority => priority.Value == "high priority";
+        Func<int, bool> filter = priority => priority == 3;
 
-        var user = new User(new User.Attributes(100, 90, 80));
+        var user = new User();
 
         var userAddres = new UserAddress(user);
 
@@ -138,73 +138,66 @@ public class UnitTests
         var logdec = new LoggerDecorator(proxy, logmock.Object);
 
         var message = new Message(
-            new Priority("high priority"),
+            3,
             "body",
             "header");
 
         // Act
-        logdec.SendMessage(message);
+        logdec.ReceiveMessage(message);
 
         // Assert
-        logmock.Verify(logger => logger.Log(message), Times.Once);
+        string logmessage =
+            $"|Log| : Header: {message.Header} \n Body: {message.Body} \n Priority: {message.PriorityLevel}";
+        logmock.Verify(logger => logger.Log(logmessage), Times.Once);
     }
 
     [Fact]
     public void MessangerRecievedValidMessage()
     {
         // Arrange
-        Func<Priority, bool> filter = priority => priority.Value == "high priority";
+        Func<int, bool> filter = priority => priority == 3;
 
         var messangerMock = new Mock<IAddressee>();
 
         var proxy = new FilterProxy(filter, messangerMock.Object);
 
-        var userlog = new UserLogStorage();
+        var userlog = new Logger();
 
         var logdec = new LoggerDecorator(proxy, userlog);
 
         var message = new Message(
-            new Priority("high priority"),
+            3,
             "body",
             "header");
 
         // Act
-        logdec.SendMessage(message);
+        logdec.ReceiveMessage(message);
 
         // Assert
-        messangerMock.Verify(r => r.SendMessage(message), Times.Once);
+        messangerMock.Verify(r => r.ReceiveMessage(message), Times.Once);
     }
 
     [Fact]
     public void DoubleAdresseeRecievedValidMessageOnce()
     {
         // Arrange
-        Func<Priority, bool> filter = priority => priority.Value == "high priority";
+        Func<int, bool> filter2 = priority => priority == 2;
 
-        Func<Priority, bool> filter2 = priority => priority.Value == "low priority";
-
-        var user = new User(new User.Attributes(100, 90, 80));
+        var user = new User();
 
         var userAdress1 = new UserAddress(user);
 
-        var proxy = new FilterProxy(filter, userAdress1);
-
         var proxy2 = new FilterProxy(filter2, userAdress1);
 
-        var userlog = new UserLogStorage();
-
-        var logdec = new LoggerDecorator(proxy, userlog);
-
-        var logdec2 = new LoggerDecorator(proxy2, userlog);
+        var group = new GroupAdress(new List<IAddressee> { userAdress1, proxy2 });
 
         var message = new Message(
-            new Priority("high priority"),
+            3,
             "body",
             "header");
 
         // Act
-        logdec.SendMessage(message);
-        logdec2.SendMessage(message);
+        group.ReceiveMessage(message);
 
         // Assert
         Assert.True(user.Messages.Count == 1);

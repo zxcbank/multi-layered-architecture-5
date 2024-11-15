@@ -6,7 +6,7 @@ public class Messenger
 {
     private Message? _message;
 
-    public void SendMessage(Message message)
+    public void ReceiveMessage(Message message)
     {
         _message = message;
     }

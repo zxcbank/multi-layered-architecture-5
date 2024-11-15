@@ -5,15 +5,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
 
 public class UserAddress : IAddressee
 {
-    public User User { get; }
-
-    public void SendMessage(Message message)
-    {
-        User.SendMessage(message);
-    }
-
     public UserAddress(User user)
     {
         User = user;
+    }
+
+    private User User { get; }
+
+    public void ReceiveMessage(Message message)
+    {
+        User.ReceiveMessage(message);
     }
 }

@@ -5,19 +5,21 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 
 public class LoggerDecorator : IAddressee
 {
+    private readonly IAddressee _decoratee;
+
+    private readonly ILogger _logger;
+
     public LoggerDecorator(IAddressee decoratee, ILogger logger)
     {
         _decoratee = decoratee;
         _logger = logger;
     }
 
-    private readonly IAddressee _decoratee;
-
-    private readonly ILogger _logger;
-
-    public void SendMessage(Message message)
+    public void ReceiveMessage(Message message)
     {
-        _logger.Log(message);
-        _decoratee.SendMessage(message);
+        string logmessage =
+            $"|Log| : Header: {message.Header} \n Body: {message.Body} \n Priority: {message.PriorityLevel}";
+        _logger.Log(logmessage);
+        _decoratee.ReceiveMessage(message);
     }
 }

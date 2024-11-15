@@ -1,15 +1,15 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 
-public class Message
+public record Message
 {
-    public Message(Priority priorityLevel, string body, string header)
+    public Message(int priorityLevel, string body, string header)
     {
         PriorityLevel = priorityLevel;
         Body = body;
         Header = header;
     }
 
-    public Priority PriorityLevel { get; private set; }
+    public int PriorityLevel { get; private set; }
 
     public string Body { get; private set; }
 

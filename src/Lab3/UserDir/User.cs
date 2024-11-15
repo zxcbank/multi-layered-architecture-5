@@ -3,15 +3,13 @@ using System.Collections.ObjectModel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.UserDir;
 
-public class User(User.Attributes attrinutes)
+public class User
 {
     private readonly List<UserMessage> _messages = new List<UserMessage>();
 
-    public Attributes Attrs { get; private set; } = attrinutes;
-
     public ReadOnlyCollection<UserMessage> Messages => _messages.AsReadOnly();
 
-    public void SendMessage(Message message)
+    public void ReceiveMessage(Message message)
     {
         _messages.Add(new UserMessage(message));
     }
@@ -27,15 +25,6 @@ public class User(User.Attributes attrinutes)
     {
         UserMessage? currentMessage = _messages.Find(x => x.Message == message);
         return currentMessage != null;
-    }
-
-    public class Attributes(int strength, int agility, int intelligence)
-    {
-        public int Strength { get; } = strength;
-
-        public int Agility { get; } = agility;
-
-        public int Intelligence { get; } = intelligence;
     }
 
     public class UserMessage(Message message)

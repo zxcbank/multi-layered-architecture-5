@@ -1,28 +1,16 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
-using static Crayon.Output;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayDir;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayDir;
-
-public class Display : IPrintable
+public class Display : IDisplay
 {
-    public DisplayDriver Driver { get; private set; }
+    public IDriver Driver { get; }
 
-    public Display(DisplayDriver displydriver)
+    public Display(IDriver driver)
     {
-        Driver = displydriver;
-    }
-
-    public void SendMessage(Message message)
-    {
-        Driver.SendMessage(message);
+        Driver = driver;
     }
 
     public void Print()
     {
-        if (Driver is { Color: not null, Text: not null })
-        {
-            string consoleText = $"{Driver.Text.Header} \n {Driver.Text.Body}";
-            Console.WriteLine(Rgb(Driver.Color.Item1, Driver.Color.Item2, Driver.Color.Item3).Text(consoleText));
-        }
+        Driver.Print();
     }
 }

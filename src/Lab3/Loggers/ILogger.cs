@@ -1,8 +1,6 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
-
-namespace Itmo.ObjectOrientedProgramming.Lab3.Loggers;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 
 public interface ILogger
 {
-    void Log(Message message);
+    void Log(string logmessage);
 }

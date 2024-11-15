@@ -26,7 +26,7 @@ public class TopicBuilder
         return this;
     }
 
-    public TopicDir.Topic Build()
+    public Topic Build()
     {
         return new TopicDir.Topic(
             _name ?? throw new Exception(),
