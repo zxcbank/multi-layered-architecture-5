@@ -13,11 +13,13 @@ public class UnitTests
     public void UserGetMessage()
     {
         // Arrange
-        var filter = new Priority("high priority");
+        Func<Priority, bool> filter = priority => priority.Value == "high priority";
 
         var user = new User(new User.Attributes(100, 90, 80));
 
-        var proxy = new FilterProxy(filter, user);
+        var userAddres = new UserAddress(user);
+
+        var proxy = new FilterProxy(filter, userAddres);
 
         var userlog = new UserLogStorage();
 
@@ -39,11 +41,13 @@ public class UnitTests
     public void ReadUnreadMessage()
     {
         // Arrange
-        var filter = new Priority("high priority");
+        Func<Priority, bool> filter = priority => priority.Value == "high priority";
 
         var user = new User(new User.Attributes(100, 90, 80));
 
-        var proxy = new FilterProxy(filter, user);
+        var userAddres = new UserAddress(user);
+
+        var proxy = new FilterProxy(filter, userAddres);
 
         var userlog = new UserLogStorage();
 
@@ -66,11 +70,13 @@ public class UnitTests
     public void ReadReadMessage()
     {
         // Arrange
-        var filter = new Priority("high priority");
+        Func<Priority, bool> filter = priority => priority.Value == "high priority";
 
         var user = new User(new User.Attributes(100, 90, 80));
 
-        var proxy = new FilterProxy(filter, user);
+        var userAddres = new UserAddress(user);
+
+        var proxy = new FilterProxy(filter, userAddres);
 
         var userlog = new UserLogStorage();
 
@@ -93,11 +99,11 @@ public class UnitTests
     public void GetLowPriorityMessage()
     {
         // Arrange
-        var filter = new Priority("high priority");
+        Func<Priority, bool> filter = priority => priority.Value == "high priority";
 
-        var userMock = new Mock<IAddressee>();
+        var userAddressMock = new Mock<IAddressee>();
 
-        var proxy = new FilterProxy(filter, userMock.Object);
+        var proxy = new FilterProxy(filter, userAddressMock.Object);
 
         var userlog = new UserLogStorage();
 
@@ -112,18 +118,20 @@ public class UnitTests
         logdec.SendMessage(message);
 
         // Assert
-        userMock.Verify(r => r.SendMessage(message), Times.Never);
+        userAddressMock.Verify(r => r.SendMessage(message), Times.Never);
     }
 
     [Fact]
     public void LogCheckValidMessage()
     {
         // Arrange
-        var filter = new Priority("high priority");
+        Func<Priority, bool> filter = priority => priority.Value == "high priority";
 
         var user = new User(new User.Attributes(100, 90, 80));
 
-        var proxy = new FilterProxy(filter, user);
+        var userAddres = new UserAddress(user);
+
+        var proxy = new FilterProxy(filter, userAddres);
 
         var logmock = new Mock<ILogger>();
 
@@ -145,7 +153,7 @@ public class UnitTests
     public void MessangerRecievedValidMessage()
     {
         // Arrange
-        var filter = new Priority("high priority");
+        Func<Priority, bool> filter = priority => priority.Value == "high priority";
 
         var messangerMock = new Mock<IAddressee>();
 
@@ -171,15 +179,17 @@ public class UnitTests
     public void DoubleAdresseeRecievedValidMessageOnce()
     {
         // Arrange
-        var filter = new Priority("high priority");
+        Func<Priority, bool> filter = priority => priority.Value == "high priority";
 
-        var filter2 = new Priority("low priority");
+        Func<Priority, bool> filter2 = priority => priority.Value == "low priority";
 
-        var usermock = new Mock<IAddressee>();
+        var user = new User(new User.Attributes(100, 90, 80));
 
-        var proxy = new FilterProxy(filter, usermock.Object);
+        var userAdress1 = new UserAddress(user);
 
-        var proxy2 = new FilterProxy(filter2, usermock.Object);
+        var proxy = new FilterProxy(filter, userAdress1);
+
+        var proxy2 = new FilterProxy(filter2, userAdress1);
 
         var userlog = new UserLogStorage();
 
@@ -197,6 +207,6 @@ public class UnitTests
         logdec2.SendMessage(message);
 
         // Assert
-        usermock.Verify(r => r.SendMessage(message), Times.Once);
+        Assert.True(user.Messages.Count == 1);
     }
 }

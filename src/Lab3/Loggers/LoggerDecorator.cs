@@ -20,9 +20,4 @@ public class LoggerDecorator : IAddressee
         _logger.Log(message);
         _decoratee.SendMessage(message);
     }
-
-    public bool HasMessage(Message message)
-    {
-        return _decoratee.HasMessage(message);
-    }
 }

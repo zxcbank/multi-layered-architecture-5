@@ -1,10 +1,9 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
-using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 using System.Collections.ObjectModel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.UserDir;
 
-public class User(User.Attributes attrinutes) : IAddressee
+public class User(User.Attributes attrinutes)
 {
     private readonly List<UserMessage> _messages = new List<UserMessage>();
 

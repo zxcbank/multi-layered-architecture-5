@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.GroupDir;
 
-public class Group : IAddressee
+public class Group
 {
     private readonly List<IAddressee> _list;
 
@@ -12,11 +12,6 @@ public class Group : IAddressee
     public void SendMessage(Message message)
     {
         _message = message;
-    }
-
-    public bool HasMessage(Message message)
-    {
-        return _list.Any(addr => addr.HasMessage(message));
     }
 
     public void TransferMessage()

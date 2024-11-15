@@ -1,9 +1,8 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
-using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.MessengerDir;
 
-public class Messenger : IAddressee
+public class Messenger
 {
     private Message? _message;
 
