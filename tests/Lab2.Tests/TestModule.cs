@@ -102,12 +102,12 @@ public class TestModule
             .Build(idGeneratorLabwork);
         var labs = new Dictionary<long, Labwork>();
         labs[lab1.Id] = lab1;
-        labs[lab1.Id] = factory.Create()
-            .AddBaseLabwork(lab1, idGeneratorLabwork);
-        labs[lab1.Id] = factory.Create()
-            .AddBaseLabwork(lab1, idGeneratorLabwork);
-        labs[lab1.Id] = factory.Create()
-            .AddBaseLabwork(lab1, idGeneratorLabwork);
+        lab1 = factory.Create().AddBaseLabwork(lab1, idGeneratorLabwork);
+        labs[lab1.Id] = lab1;
+        lab1 = factory.Create().AddBaseLabwork(lab1, idGeneratorLabwork);
+        labs[lab1.Id] = lab1;
+        lab1 = factory.Create().AddBaseLabwork(lab1, idGeneratorLabwork);
+        labs[lab1.Id] = lab1;
 
         var factory2 = new LectureBuilderFactory(main_user);
 
