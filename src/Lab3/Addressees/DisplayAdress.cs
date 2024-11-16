@@ -5,17 +5,17 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
 public class DisplayAdress : IAddressee
 {
-    public DisplayAdress(IDriver driver)
+    public DisplayAdress(IDisplay display)
     {
-        Driver = driver;
+        Display = display;
     }
 
-    private IDriver Driver { get; }
+    private IDisplay Display { get; }
 
     public void ReceiveMessage(Message message)
     {
         string text =
             $"|display| : Header: {message.Header} \n Body: {message.Body} \n Priority: {message.PriorityLevel}";
-        Driver.SetText(text);
+        Display.RececiveMesage(text);
     }
 }

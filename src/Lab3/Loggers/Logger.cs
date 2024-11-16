@@ -9,8 +9,8 @@ public class Logger : ILogger
         _logs = new List<string>();
     }
 
-    public void Log(string logmessage)
+    public void Log(string logMessage)
     {
-        _logs.Add(logmessage);
+        _logs.Add(logMessage);
     }
 }

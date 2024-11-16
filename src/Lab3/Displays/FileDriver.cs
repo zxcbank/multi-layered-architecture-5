@@ -1,15 +1,17 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
+﻿using System.Drawing;
+
+namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
 public class FileDriver : IDriver
 {
-    public FileDriver(Tuple<byte, byte, byte> color, string text, string filepath)
+    public FileDriver(Color color, string text, string filepath)
     {
         Color = color;
         Text = text;
         FilePath = filepath;
     }
 
-    public Tuple<byte, byte, byte>? Color { get; private set; }
+    public Color? Color { get; private set; }
 
     public string? Text { get; private set; }
 
@@ -26,7 +28,7 @@ public class FileDriver : IDriver
         if (content != null) File.WriteAllText(FilePath, content);
     }
 
-    public void SetColor(Tuple<byte, byte, byte> color)
+    public void SetColor(Color color)
     {
         Color = color;
     }

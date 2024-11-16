@@ -1,4 +1,6 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
+﻿using System.Drawing;
+
+namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
 public class Display : IDisplay
 {
@@ -9,8 +11,15 @@ public class Display : IDisplay
         Driver = driver;
     }
 
-    public void Print()
+    public void SetColor(Color color)
     {
+        Driver.SetColor(color);
+    }
+
+    public void RececiveMesage(string displayMessage)
+    {
+        Driver.Flush();
+        Driver.SetText(displayMessage);
         Driver.Print();
     }
 }

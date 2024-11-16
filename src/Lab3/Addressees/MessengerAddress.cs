@@ -14,6 +14,6 @@ public class MessengerAddress : IAddressee
 
     public void ReceiveMessage(Message message)
     {
-        Messenger.ReceiveMessage(message);
+        Messenger.ReceiveMessage($"|Messenger| : {message.Header} \n {message.Body}");
     }
 }

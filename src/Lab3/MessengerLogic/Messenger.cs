@@ -1,23 +1,9 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageLogic;
-
-namespace Itmo.ObjectOrientedProgramming.Lab3.MessengerLogic;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab3.MessengerLogic;
 
 public class Messenger
 {
-    private Message? _message;
-
-    public void ReceiveMessage(Message message)
+    public void ReceiveMessage(string message)
     {
-        _message = message;
-    }
-
-    public bool HasMessage(Message message)
-    {
-        return _message == message;
-    }
-
-    public void PrintMessage()
-    {
-        Console.WriteLine("|Messenger| : {0} \n {1}", _message?.Header, _message?.Body);
+        Console.WriteLine(message);
     }
 }

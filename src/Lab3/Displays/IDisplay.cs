@@ -2,5 +2,5 @@
 
 public interface IDisplay
 {
-    public void Print();
+    public void RececiveMesage(string displayMessage);
 }

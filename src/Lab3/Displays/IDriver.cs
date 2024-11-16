@@ -1,4 +1,6 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
+﻿using System.Drawing;
+
+namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
 public interface IDriver
 {
@@ -6,7 +8,7 @@ public interface IDriver
 
     public void Print();
 
-    public void SetColor(Tuple<byte, byte, byte> color);
+    public void SetColor(Color color);
 
     public void SetText(string text);
 }

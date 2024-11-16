@@ -1,16 +1,17 @@
-﻿using static Crayon.Output;
+﻿using System.Drawing;
+using static Crayon.Output;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
 public class ConsoleDriver : IDriver
 {
-    public ConsoleDriver(Tuple<byte, byte, byte> color, string text)
+    public ConsoleDriver(Color color, string text)
     {
         Color = color;
         Text = text;
     }
 
-    public Tuple<byte, byte, byte>? Color { get; private set; }
+    public Color? Color { get; private set; }
 
     public string? Text { get; private set; }
 
@@ -19,7 +20,7 @@ public class ConsoleDriver : IDriver
         Text = null;
     }
 
-    public void SetColor(Tuple<byte, byte, byte> color)
+    public void SetColor(Color color)
     {
         Color = color;
     }
@@ -31,6 +32,6 @@ public class ConsoleDriver : IDriver
 
     public void Print()
     {
-        if (Text != null && Color != null) Console.WriteLine(Rgb(Color.Item1, Color.Item2, Color.Item3).Text(Text));
+        if (Text != null && Color != null) Console.WriteLine(Rgb(Color.Value.R, Color.Value.G, Color.Value.B).Text(Text));
     }
 }
