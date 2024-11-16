@@ -1,4 +1,4 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.UserDir;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab3.UserLogic;
 
 public record ReadMessageResult
 {

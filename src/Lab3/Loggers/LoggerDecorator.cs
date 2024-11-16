@@ -1,5 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
-using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.Addressees;
+using Itmo.ObjectOrientedProgramming.Lab3.MessageLogic;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 

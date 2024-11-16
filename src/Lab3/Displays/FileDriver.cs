@@ -1,4 +1,4 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayDir;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
 public class FileDriver : IDriver
 {

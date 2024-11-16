@@ -1,6 +1,6 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageLogic;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.MessengerDir;
+namespace Itmo.ObjectOrientedProgramming.Lab3.MessengerLogic;
 
 public class Messenger
 {

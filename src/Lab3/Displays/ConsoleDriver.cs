@@ -1,6 +1,6 @@
 ﻿using static Crayon.Output;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayDir;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
 public class ConsoleDriver : IDriver
 {

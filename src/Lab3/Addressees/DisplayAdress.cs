@@ -1,7 +1,7 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.DisplayDir;
-using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.Displays;
+using Itmo.ObjectOrientedProgramming.Lab3.MessageLogic;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
 public class DisplayAdress : IAddressee
 {

@@ -1,4 +1,4 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab3.MessageLogic;
 
 public record Message
 {

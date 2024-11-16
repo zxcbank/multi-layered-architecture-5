@@ -1,7 +1,7 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageLogic;
 using System.Collections.ObjectModel;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.UserDir;
+namespace Itmo.ObjectOrientedProgramming.Lab3.UserLogic;
 
 public class User
 {

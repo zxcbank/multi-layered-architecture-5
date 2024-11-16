@@ -1,7 +1,7 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
-using Itmo.ObjectOrientedProgramming.Lab3.UserDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.MessageLogic;
+using Itmo.ObjectOrientedProgramming.Lab3.UserLogic;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 
 public class UserAddress : IAddressee
 {

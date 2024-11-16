@@ -1,7 +1,7 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.AddresseeDir;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.Addressees;
 using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
-using Itmo.ObjectOrientedProgramming.Lab3.MessageDir;
-using Itmo.ObjectOrientedProgramming.Lab3.UserDir;
+using Itmo.ObjectOrientedProgramming.Lab3.MessageLogic;
+using Itmo.ObjectOrientedProgramming.Lab3.UserLogic;
 using Moq;
 using Xunit;
 
