@@ -1,6 +1,6 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 
-public interface IHasId
+public interface IIdentifiable
 {
-    long Id { get; }
+    public long Id { get; }
 }

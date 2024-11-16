@@ -11,14 +11,7 @@ public class LectureBuilder
     private string? _criteria;
     private string? _description;
 
-    public LectureBuilder()
-    {
-        _baseId = null;
-        _name = null;
-        _author = null;
-        _criteria = null;
-        _description = null;
-    }
+    public LectureBuilder() { }
 
     public LectureBuilder(User user)
     {
@@ -29,7 +22,7 @@ public class LectureBuilder
         _description = null;
     }
 
-    public IHasId AddBaseSubject(Lecture otherLecture, IdGenerator idGenerator)
+    public IIdentifiable AddBaseSubject(Lecture otherLecture, IdGenerator idGenerator)
     {
         _baseId = otherLecture.Id;
         _name = otherLecture.Name;

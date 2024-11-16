@@ -4,7 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
-public class Lecture : IHasId
+public class Lecture : IIdentifiable
 {
     public static LectureBuilder Lecturekbuilder => new LectureBuilder();
 

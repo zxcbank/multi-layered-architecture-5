@@ -1,22 +1,21 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab2.Results;
-using System.Collections.ObjectModel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
-public class Subject : IHasId
+public class Subject : IIdentifiable
 {
     public Subject(
-        ReadOnlyCollection<Labwork> labworks,
-        ReadOnlyCollection<Lecture> lectures,
+        Dictionary<long, Labwork> labworks,
+        Dictionary<long, Lecture> lectures,
         ISubjectType subjectype,
         string name,
         User user,
         IdGenerator idGenerator,
         long? baseid)
     {
-        Labworks = labworks.AsReadOnly();
-        Lectures = lectures.AsReadOnly();
+        Labworks = labworks;
+        Lectures = lectures;
         SubjType = subjectype;
         Name = name;
         User = user;
@@ -26,9 +25,9 @@ public class Subject : IHasId
 
     public static int Maxpoints { get; } = 100;
 
-    public ReadOnlyCollection<Labwork> Labworks { get; private set; }
+    public Dictionary<long, Labwork> Labworks { get; private set; }
 
-    public ReadOnlyCollection<Lecture> Lectures { get; private set; }
+    public Dictionary<long, Lecture> Lectures { get; private set; }
 
     public ISubjectType SubjType { get; private set; }
 
@@ -58,7 +57,7 @@ public class Subject : IHasId
 
     public ChangeSubjectResult ChangeLectures(
         User user,
-        ReadOnlyCollection<Lecture> lectures)
+        Dictionary<long, Lecture> lectures)
     {
         if (!user.Equals(User))
         {

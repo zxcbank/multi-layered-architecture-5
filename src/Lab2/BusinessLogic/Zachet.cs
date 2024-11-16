@@ -1,13 +1,16 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab2.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
 public class Zachet : ISubjectType
 {
-    public bool Validate(IEnumerable<Labwork> labworks)
+    public CreateSubjectResult Validate(IDictionary<long, Labwork> labworks)
     {
-        int labsPoints = labworks.Sum(x => x.Points);
-        return labsPoints == 100;
+        int labsPoints = labworks.Values.Sum(x => x.Points);
+        if (labsPoints == Subject.Maxpoints)
+            return new CreateSubjectResult.ValidateSuccess();
+        return new CreateSubjectResult.ValidateFail();
     }
 
     public int MinPoints { get; }

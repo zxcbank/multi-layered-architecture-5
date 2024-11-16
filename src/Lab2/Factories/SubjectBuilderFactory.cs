@@ -3,11 +3,11 @@ using Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Factories;
 
-public class SubjectFactory
+public class SubjectBuilderFactory
 {
     private readonly User _author;
 
-    public SubjectFactory(User author)
+    public SubjectBuilderFactory(User author)
     {
         _author = author;
     }

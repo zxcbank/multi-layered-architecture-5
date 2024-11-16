@@ -11,15 +11,7 @@ public class LabworkBuilder
     private string? _criteria;
     private string? _description;
 
-    public LabworkBuilder()
-    {
-        _baseId = null;
-        _name = null;
-        _author = null;
-        _criteria = null;
-        _description = null;
-        _points = null;
-    }
+    public LabworkBuilder() { }
 
     public LabworkBuilder(User user)
     {

@@ -1,26 +1,19 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 using Itmo.ObjectOrientedProgramming.Lab2.Interfaces;
 using Itmo.ObjectOrientedProgramming.Lab2.Results;
-using System.Collections.ObjectModel;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Builders;
 
 public class SubjectBuilder
 {
-    private List<Labwork> _labworks = [];
-    private List<Lecture> _lectures = [];
+    private Dictionary<long, Labwork> _labworks = [];
+    private Dictionary<long, Lecture> _lectures = [];
     private ISubjectType? _subjectType;
     private string? _name;
     private User? _user;
     private long? _baseid;
 
-    public SubjectBuilder()
-    {
-        _subjectType = null;
-        _name = null;
-        _user = null;
-        _baseid = null;
-    }
+    public SubjectBuilder() { }
 
     public SubjectBuilder(User user)
     {
@@ -30,15 +23,15 @@ public class SubjectBuilder
         _baseid = null;
     }
 
-    public SubjectBuilder AddLabworks(ReadOnlyCollection<Labwork> labworks)
+    public SubjectBuilder AddLabworks(Dictionary<long, Labwork> labworks)
     {
-        _labworks = labworks.ToList();
+        _labworks = labworks;
         return this;
     }
 
-    public SubjectBuilder AddLectures(ReadOnlyCollection<Lecture> lecture)
+    public SubjectBuilder AddLectures(Dictionary<long, Lecture> lecture)
     {
-        _lectures = lecture.ToList();
+        _lectures = lecture;
         return this;
     }
 
@@ -64,24 +57,22 @@ public class SubjectBuilder
     {
         _baseid = otherSubject.Id;
         _name = otherSubject.Name;
-        _lectures = otherSubject.Lectures.ToList();
-        _labworks = otherSubject.Labworks.ToList();
+        _lectures = otherSubject.Lectures;
+        _labworks = otherSubject.Labworks;
         return Build(idGenerator);
     }
 
     public CreateSubjectResult Build(IdGenerator idGenerator)
     {
         var potentialSubject = new Subject(
-            _labworks.AsReadOnly() ?? throw new InvalidOperationException(),
-            _lectures.AsReadOnly() ?? throw new InvalidOperationException(),
+            _labworks ?? throw new InvalidOperationException(),
+            _lectures ?? throw new InvalidOperationException(),
             _subjectType ?? throw new InvalidOperationException(),
             _name ?? throw new InvalidOperationException(),
             _user ?? throw new InvalidOperationException(),
             idGenerator,
             _baseid);
 
-        return _subjectType.Validate(_labworks)
-            ? new CreateSubjectResult.Success(potentialSubject)
-            : new CreateSubjectResult.WrongPointsSumm();
+        return (_subjectType.Validate(_labworks) == new CreateSubjectResult.ValidateSuccess()) ? new CreateSubjectResult.Success(potentialSubject) : new CreateSubjectResult.WrongPointsSumm();
     }
 }

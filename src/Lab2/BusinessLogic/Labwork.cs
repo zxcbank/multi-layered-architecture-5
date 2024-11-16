@@ -4,7 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Results;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
-public class Labwork : IHasId
+public class Labwork : IIdentifiable
 {
     public static LabworkBuilder Labworkbuilder => new LabworkBuilder();
 

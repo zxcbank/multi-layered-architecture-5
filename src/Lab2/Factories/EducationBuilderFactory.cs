@@ -3,17 +3,17 @@ using Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Factories;
 
-public class LabworkFactory
+public class EducationBuilderFactory
 {
     private readonly User _author;
 
-    public LabworkFactory(User author)
+    public EducationBuilderFactory(User author)
     {
         _author = author;
     }
 
-    public LabworkBuilder Create()
+    public EducationalProgrammBuilder Create()
     {
-        return new LabworkBuilder(_author);
+        return new EducationalProgrammBuilder(_author);
     }
 }

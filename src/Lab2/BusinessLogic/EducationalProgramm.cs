@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.BusinessLogic;
 
-public class EducationalProgramm : IHasId
+public class EducationalProgramm : IIdentifiable
 {
     public Dictionary<int, List<Subject>> Subjects { get; private set; }
 
