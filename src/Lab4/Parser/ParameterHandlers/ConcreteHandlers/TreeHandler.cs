@@ -14,15 +14,22 @@ public class TreeHandler : ParameterHandlerBase
         if (request.MoveNext() is false)
             return null;
 
-        ACommand? color = request.Current switch
+        ACommand? command = request.Current switch
         {
             "goto" => new TreeGotoCommand(),
             "list" => new TreeListCommand(),
+            _ => null,
         };
 
-        if (color is null)
+        if (command is null)
             return Next?.Handle(request);
 
-        return new ColorTextModifier(color.Value);
+        if (request.MoveNext() is false)
+            return null;
+
+        if (request.Current is not "-d")
+            ((TreeGotoCommand)command).AddPath(request.Current);
+
+        return new ColorTextModifier(command.Value);
     }
 }

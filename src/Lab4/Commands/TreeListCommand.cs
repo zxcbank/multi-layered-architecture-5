@@ -3,28 +3,24 @@ using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
-public class TreeGotoCommand : ACommand
+public class TreeListCommand : ACommand
 {
     private readonly FileSystemCommands command = new FileSystemCommands();
 
-    public string? Path { get; private set; }
+    public int? Depth { get; private set; }
 
-    public string? Mode { get; private set; }
-
-    public void AddMode(string mode)
+    public void AddDepth(int depth)
     {
-        Mode = mode;
-    }
-
-    public void AddPath(string path)
-    {
-        Path = path;
+        Depth = depth;
     }
 
     public override void Execute(FileSystem fs)
     {
-        if (Path != null && Mode != null)
-            command.tree_list(Path, fs);
+        if (Depth != null)
+        {
+            command.tree_list(Depth, fs);
+        }
+
     }
 
     public override void SetFlag(string flag, string value) { }

@@ -19,7 +19,7 @@ public class FileSystemCommands
         
     }
     
-    public void tree_list(string path, FileSystem fs)
+    public void tree_list(int depth, FileSystem fs)
     {
         
     }

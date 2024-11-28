@@ -16,7 +16,7 @@ public class TreeGotoCommand : ACommand
 
     public override void Execute(FileSystem fs)
     {
-        if (Path != null && Mode != null)
+        if (Path != null)
             command.tree_goto(Path, fs);
     }
 
