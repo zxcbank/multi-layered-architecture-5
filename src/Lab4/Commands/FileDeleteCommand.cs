@@ -3,21 +3,13 @@ using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
-public class FileShowCommand : ICommand
+public class FileDeleteCommand : ICommand
 {
     private readonly FileSystemCommands command = new FileSystemCommands();
 
     public string? Path { get; private set; }
 
-    public string? Mode { get; private set; }
-
-    public FileShowCommand AddMode(string mode)
-    {
-        Mode = mode;
-        return this;
-    }
-
-    public FileShowCommand AddPath(string path)
+    public FileDeleteCommand AddPath(string path)
     {
         Path = path;
         return this;
@@ -25,7 +17,7 @@ public class FileShowCommand : ICommand
 
     public void Execute(FileSystem fs)
     {
-        if (Path != null && Mode != null)
-            command.file_show(Path, Mode, fs);
+        if (Path != null)
+            command.file_delete(Path, fs);
     }
 }

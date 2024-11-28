@@ -1,5 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
-using Itmo.ObjectOrientedProgramming.Lab4.Parser.Modifiers;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.FileSystemStructure;
+using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 using Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.OutputRun;
@@ -13,24 +13,18 @@ public class OutputRunner
         _handler = handler;
     }
 
-    public void Run(IEnumerable<string> args)
+    public void Run(IEnumerable<string> args, FileSystem fs)
     {
         using IEnumerator<string> request = args.GetEnumerator();
-        AggregateModifier? modifier = null;
 
         while (request.MoveNext())
         {
-            ICommandModifier? nextModifier = _handler.Handle(request);
-
-            if (nextModifier is not null)
+            ICommand? command = _handler.Handle(request);
+            if (command is not null)
             {
-                modifier = new AggregateModifier(modifier, nextModifier);
+                command.Execute(fs);
+                break;
             }
         }
-
-        var command = new ACommand();
-        command = modifier?.Modify(command) ?? command;
-
-        command.Execute(fs);
     }
 }

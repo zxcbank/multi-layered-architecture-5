@@ -3,27 +3,30 @@ using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers;
 
-public class TreeGotoHandler : ParameterHandlerBase
+public class FileMoveHandler : ParameterHandlerBase
 {
     public override ICommand? Handle(IEnumerator<string> request)
     {
-        if (request.Current is not "tree")
+        if (request.Current is not "file")
             return Next?.Handle(request);
 
         if (request.MoveNext() is false)
             return null;
 
-        if (request.Current is not "goto")
+        if (request.Current is not "move")
             return Next?.Handle(request);
 
         if (request.MoveNext() is false)
             return null;
 
-        string path = request.Current;
+        string source = request.Current;
 
-        var command = new TreeGotoCommand();
+        if (request.MoveNext() is false)
+            return null;
 
-        command.AddPath(path);
+        string destination = request.Current;
+
+        FileMoveCommand command = new FileMoveCommand().AddSource(source).AddDestination(destination);
 
         return command;
     }

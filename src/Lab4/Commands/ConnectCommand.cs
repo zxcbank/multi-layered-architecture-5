@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
-public class ConnectCommand : ACommand
+public class ConnectCommand : ICommand
 {
     private readonly FileSystemCommands command = new FileSystemCommands();
 
@@ -16,22 +16,15 @@ public class ConnectCommand : ACommand
         Mode = mode;
     }
 
-    public void AddPath(string path)
+    public ConnectCommand AddPath(string path)
     {
         Path = path;
+        return this;
     }
 
-    public override void Execute(FileSystem fs)
+    public void Execute(FileSystem fs)
     {
         if (Path != null && Mode != null)
             command.connect(Path, Mode, fs);
-    }
-
-    public override void SetFlag(string flag, string value)
-    {
-        if (flag == "-m")
-        {
-            Mode = value;
-        }
     }
 }

@@ -3,29 +3,29 @@ using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
-public class FileShowCommand : ICommand
+public class FileRenameCommand : ICommand
 {
     private readonly FileSystemCommands command = new FileSystemCommands();
 
     public string? Path { get; private set; }
 
-    public string? Mode { get; private set; }
+    public string? Name { get; private set; }
 
-    public FileShowCommand AddMode(string mode)
+    public FileRenameCommand AddPath(string source)
     {
-        Mode = mode;
+        Path = source;
         return this;
     }
 
-    public FileShowCommand AddPath(string path)
+    public FileRenameCommand AddName(string destination)
     {
-        Path = path;
+        Name = destination;
         return this;
     }
 
     public void Execute(FileSystem fs)
     {
-        if (Path != null && Mode != null)
-            command.file_show(Path, Mode, fs);
+        if (Path != null && Name != null)
+            command.file_rename(Path, Name, fs);
     }
 }

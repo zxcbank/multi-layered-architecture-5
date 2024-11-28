@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
 
-public class TreeGotoCommand : ACommand
+public class TreeGotoCommand : ICommand
 {
     private readonly FileSystemCommands command = new FileSystemCommands();
 
@@ -14,11 +14,9 @@ public class TreeGotoCommand : ACommand
         Path = path;
     }
 
-    public override void Execute(FileSystem fs)
+    public void Execute(FileSystem fs)
     {
         if (Path != null)
             command.tree_goto(Path, fs);
     }
-
-    public override void SetFlag(string flag, string value) { }
 }

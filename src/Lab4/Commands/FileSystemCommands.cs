@@ -33,6 +33,11 @@ public class FileSystemCommands
     { 
         
     }
+    
+    public void file_move(string SourcePath, string DestinationPath, FileSystem fs)
+    { 
+        
+    }
 
     public void file_delete(string path, FileSystem fs)
     {

@@ -1,11 +1,11 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands;
-using Itmo.ObjectOrientedProgramming.Lab4.Parser.Modifiers;
+using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers;
 
 public class TreeListHandler : ParameterHandlerBase
 {
-    public override ICommandModifier? Handle(IEnumerator<string> request)
+    public override ICommand? Handle(IEnumerator<string> request)
     {
         if (request.Current is not "tree")
             return Next?.Handle(request);
@@ -13,18 +13,24 @@ public class TreeListHandler : ParameterHandlerBase
         if (request.MoveNext() is false)
             return null;
 
-        TreeListCommand? command = request.Current switch
-        {
-            "goto" => new TreeListCommand(),
-            _ => null,
-        };
-
-        if (command is null)
+        if (request.Current is not "list")
             return Next?.Handle(request);
+
+        var command = new TreeListCommand();
+
+        if (request.MoveNext() is false)
+            return command.AddDepth(1);
+
+        if (request.Current is not "-d")
+            return null;
 
         if (request.MoveNext() is false)
             return null;
 
-        return new TreeListModifier(command);
+        string depth = request.Current;
+
+        command.AddDepth(int.Parse(depth));
+
+        return command;
     }
 }

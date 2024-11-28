@@ -3,19 +3,25 @@ using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers;
 
-public class ConnectHandler : ParameterHandlerBase
+public class FileDeleteHandler : ParameterHandlerBase
 {
     public override ICommand? Handle(IEnumerator<string> request)
     {
-        if (request.Current is not "connect")
+        if (request.Current is not "file")
             return Next?.Handle(request);
 
         if (request.MoveNext() is false)
             return null;
 
-        string adress = request.Current;
+        if (request.Current is not "delete")
+            return Next?.Handle(request);
 
-        ConnectCommand command = new ConnectCommand().AddPath(adress);
+        if (request.MoveNext() is false)
+            return null;
+
+        string path = request.Current;
+
+        FileDeleteCommand command = new FileDeleteCommand().AddPath(path);
 
         return command;
     }

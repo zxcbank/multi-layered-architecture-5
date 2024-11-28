@@ -1,4 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Parser.Modifiers;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers;
 
@@ -20,5 +20,5 @@ public abstract class ParameterHandlerBase : IParameterHandler
         return this;
     }
 
-    public abstract ICommandModifier? Handle(IEnumerator<string> request);
+    public abstract ICommand? Handle(IEnumerator<string> request);
 }
