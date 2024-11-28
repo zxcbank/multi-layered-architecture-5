@@ -17,6 +17,6 @@ public class TreeListCommand : ICommand
 
     public void Execute(FileSystem fs)
     {
-        command.tree_list(Depth, fs);
+        command.TreeList(Depth, fs);
     }
 }

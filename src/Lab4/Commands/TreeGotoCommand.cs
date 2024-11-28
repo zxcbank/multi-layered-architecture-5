@@ -17,6 +17,6 @@ public class TreeGotoCommand : ICommand
     public void Execute(FileSystem fs)
     {
         if (Path != null)
-            command.tree_goto(Path, fs);
+            command.TreeGoto(Path, fs);
     }
 }

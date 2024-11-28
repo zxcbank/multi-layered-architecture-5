@@ -26,6 +26,6 @@ public class FileCopyCommand : ICommand
     public void Execute(FileSystem fs)
     {
         if (SourcePath != null && DestinationPath != null)
-            command.file_copy(SourcePath, DestinationPath, fs);
+            command.FileCopy(SourcePath, DestinationPath, fs);
     }
 }

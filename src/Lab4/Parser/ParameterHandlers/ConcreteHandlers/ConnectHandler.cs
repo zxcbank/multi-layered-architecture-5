@@ -15,7 +15,18 @@ public class ConnectHandler : ParameterHandlerBase
 
         string adress = request.Current;
 
-        ConnectCommand command = new ConnectCommand().AddPath(adress);
+        if (request.MoveNext() is false)
+            return null;
+
+        if (request.Current != "-m")
+            return Next?.Handle(request);
+
+        if (request.MoveNext() is false)
+            return null;
+
+        string mode = request.Current;
+
+        ConnectCommand command = new ConnectCommand().AddPath(adress).AddMode(mode);
 
         return command;
     }

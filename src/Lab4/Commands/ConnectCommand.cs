@@ -11,9 +11,10 @@ public class ConnectCommand : ICommand
 
     public string? Mode { get; private set; }
 
-    public void AddMode(string mode)
+    public ConnectCommand AddMode(string mode)
     {
         Mode = mode;
+        return this;
     }
 
     public ConnectCommand AddPath(string path)
@@ -25,6 +26,6 @@ public class ConnectCommand : ICommand
     public void Execute(FileSystem fs)
     {
         if (Path != null && Mode != null)
-            command.connect(Path, Mode, fs);
+            command.Connect(Path, Mode, fs);
     }
 }

@@ -9,6 +9,6 @@ public class DisconnectCommand : ICommand
 
     public void Execute(FileSystem fs)
     {
-        command.disconnect(fs);
+        command.Disconnect(fs);
     }
 }

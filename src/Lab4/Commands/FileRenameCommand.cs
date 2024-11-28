@@ -26,6 +26,6 @@ public class FileRenameCommand : ICommand
     public void Execute(FileSystem fs)
     {
         if (Path != null && Name != null)
-            command.file_rename(Path, Name, fs);
+            command.FilereName(Path, Name, fs);
     }
 }

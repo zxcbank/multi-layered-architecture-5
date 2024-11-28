@@ -26,6 +26,6 @@ public class FileShowCommand : ICommand
     public void Execute(FileSystem fs)
     {
         if (Path != null && Mode != null)
-            command.file_show(Path, Mode, fs);
+            command.FileShow(Path, Mode, fs);
     }
 }

@@ -26,6 +26,6 @@ public class FileMoveCommand : ICommand
     public void Execute(FileSystem fs)
     {
         if (SourcePath != null && DestinationPath != null)
-            command.file_move(SourcePath, DestinationPath, fs);
+            command.FileMove(SourcePath, DestinationPath, fs);
     }
 }

@@ -18,6 +18,6 @@ public class FileDeleteCommand : ICommand
     public void Execute(FileSystem fs)
     {
         if (Path != null)
-            command.file_delete(Path, fs);
+            command.FileDelete(Path, fs);
     }
 }
