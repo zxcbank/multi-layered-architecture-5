@@ -7,7 +7,7 @@ public class TreeListCommand : ACommand
 {
     private readonly FileSystemCommands command = new FileSystemCommands();
 
-    public int? Depth { get; private set; }
+    public int Depth { get; private set; } = 1;
 
     public void AddDepth(int depth)
     {
@@ -16,12 +16,12 @@ public class TreeListCommand : ACommand
 
     public override void Execute(FileSystem fs)
     {
-        if (Depth != null)
-        {
-            command.tree_list(Depth, fs);
-        }
-
+        command.tree_list(Depth, fs);
     }
 
-    public override void SetFlag(string flag, string value) { }
+    public override void SetFlag(string flag, string value)
+    {
+        if (flag == "-d")
+            Depth = int.Parse(value);
+    }
 }

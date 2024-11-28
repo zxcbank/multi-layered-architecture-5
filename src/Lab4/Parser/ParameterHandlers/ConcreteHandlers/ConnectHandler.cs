@@ -22,3 +22,6 @@ public class ConnectHandler : ParameterHandlerBase
         return new ConnectModifier(command);
     }
 }
+
+// connect adress -m yatoro
+// connect -m yatoro adress 

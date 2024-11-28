@@ -28,9 +28,9 @@ public class OutputRunner
             }
         }
 
-        var text = new ACommand();
-        text = modifier?.Modify(text) ?? text;
+        var command = new ACommand();
+        command = modifier?.Modify(command) ?? command;
 
-        Console.WriteLine(text);
+        command.Execute(fs);
     }
 }

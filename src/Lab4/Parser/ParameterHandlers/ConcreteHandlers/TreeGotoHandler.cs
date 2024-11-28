@@ -1,10 +1,9 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands;
-using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 using Itmo.ObjectOrientedProgramming.Lab4.Parser.Modifiers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers;
 
-public class TreeHandler : ParameterHandlerBase
+public class TreeGotoHandler : ParameterHandlerBase
 {
     public override ICommandModifier? Handle(IEnumerator<string> request)
     {
@@ -14,10 +13,9 @@ public class TreeHandler : ParameterHandlerBase
         if (request.MoveNext() is false)
             return null;
 
-        ACommand? command = request.Current switch
+        TreeGotoCommand? command = request.Current switch
         {
             "goto" => new TreeGotoCommand(),
-            "list" => new TreeListCommand(),
             _ => null,
         };
 
@@ -28,8 +26,8 @@ public class TreeHandler : ParameterHandlerBase
             return null;
 
         if (request.Current is not "-d")
-            ((TreeGotoCommand)command).AddPath(request.Current);
+            command.AddPath(request.Current);
 
-        return new ColorTextModifier(command.Value);
+        return new TreeGotoModifier(command);
     }
 }
