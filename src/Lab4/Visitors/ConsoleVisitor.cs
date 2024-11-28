@@ -6,7 +6,7 @@ public class ConsoleVisitor : IFileSystemComponentVisitor
 {
     private int _depth;
 
-    public void Visit(FileSystemComponent component)
+    public void Visit(FileFileSystemComponent component)
     {
         WriteIndented(component.Name);
     }

@@ -2,9 +2,9 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystemStructure;
 
-public class FileSystemComponent : IFileSystemComponent
+public class FileFileSystemComponent : IFileSystemComponent
 {
-    public FileSystemComponent(string name)
+    public FileFileSystemComponent(string name)
     {
         Name = name;
     }

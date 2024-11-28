@@ -25,7 +25,7 @@ public class FileSystemComponentFactory
         if (File.Exists(path))
         {
             string name = Path.GetFileName(path);
-            return new FileSystemComponent(name);
+            return new FileFileSystemComponent(name);
         }
 
         throw new InvalidOperationException($"File system component at {path} is not found");
