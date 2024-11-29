@@ -1,9 +1,10 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands;
+using Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
 using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.FileHandlers;
 
-public class FileRenameHandler : ParameterHandlerBase
+public class FileShowHandler : ParameterHandlerBase
 {
     public override ICommand? Handle(IEnumerator<string> request)
     {
@@ -13,7 +14,7 @@ public class FileRenameHandler : ParameterHandlerBase
         if (request.MoveNext() is false)
             return null;
 
-        if (request.Current is not "move")
+        if (request.Current is not "show")
             return Next?.Handle(request);
 
         if (request.MoveNext() is false)
@@ -24,9 +25,15 @@ public class FileRenameHandler : ParameterHandlerBase
         if (request.MoveNext() is false)
             return null;
 
-        string name = request.Current;
+        if (request.Current is not "-m")
+            return Next?.Handle(request);
 
-        FileRenameCommand command = new FileRenameCommand().AddPath(path).AddName(name);
+        if (request.MoveNext() is false)
+            return null;
+
+        string mode = request.Current;
+
+        FileShow command = new FileShow().AddPath(path).AddMode(mode);
 
         return command;
     }
