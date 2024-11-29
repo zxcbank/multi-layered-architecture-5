@@ -4,6 +4,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteH
 
 public class TreeGotoHandler : InternalHandlerBase
 {
+    private readonly TreeModeHandler _handler = new TreeModeHandler();
+
     public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
     {
         if (request.MoveNext() is false)
@@ -13,6 +15,6 @@ public class TreeGotoHandler : InternalHandlerBase
 
         builder.AddPath(path);
 
-        return builder;
+        return _handler.Handle(request, builder);
     }
 }

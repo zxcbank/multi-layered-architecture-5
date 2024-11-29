@@ -13,7 +13,9 @@ public class MainTests
     [Fact]
     public void BuildCommnadTest()
     {
-        string command = "connect c:\\ -m local";
+        string command = "connect C:\\Users\\Святослав\\Desktop\\habr\\ -m local";
+        string command2 = "tree list -d 4";
+
         var fs = new LocalFileSystem("filesystem");
 
         IExternalHandler handler = new ConnectHandler()
@@ -22,6 +24,7 @@ public class MainTests
 
         var runner = new OutputRunner(handler);
         runner.Run(command.Split(" "), fs);
+        runner.Run(command2.Split(" "), fs);
         Assert.True(fs.Name == "filesystem" && fs.Mode == "local" && fs.Root == "c:\\" && fs.CurrentAdress == "c:\\");
     }
 }

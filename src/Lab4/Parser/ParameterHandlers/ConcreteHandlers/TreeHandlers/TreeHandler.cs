@@ -13,8 +13,6 @@ public class TreeHandler : ExternalHandlerBase
         if (request.MoveNext() is false)
             return null;
 
-        string path = request.Current;
-
         IInternalHandler? handler;
         IBuilder? builder;
 

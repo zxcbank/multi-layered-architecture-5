@@ -4,11 +4,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteH
 
 public class TreeListHandler : InternalHandlerBase
 {
+    private readonly TreeDepthHandler _handler = new TreeDepthHandler();
+
     public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
     {
         if (request.MoveNext() is false)
             return null;
 
-        return Next?.Handle(request, builder);
+        return _handler.Handle(request, builder);
     }
 }
