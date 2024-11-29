@@ -2,11 +2,11 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers;
 
-public abstract class ParameterHandlerBase : IParameterHandler
+public abstract class ExternalHandlerBase : IExternalHandler
 {
-    protected IParameterHandler? Next { get; private set; }
+    protected IExternalHandler? Next { get; private set; }
 
-    public IParameterHandler AddNext(IParameterHandler handler)
+    public IExternalHandler AddNext(IExternalHandler handler)
     {
         if (Next is null)
         {

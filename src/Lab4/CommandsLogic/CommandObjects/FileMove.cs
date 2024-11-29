@@ -1,14 +1,11 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.FileSystemStructure;
+using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
 
 public class FileMove : ICommand
 {
-    private readonly Commands.Commands command = new Commands.Commands();
-
-    public string SourcePath { get; private set; }
-
-    public string DestinationPath { get; private set; }
+    private readonly Commands command = new Commands();
 
     public FileMove(string sourcePath, string destinationPath)
     {
@@ -16,7 +13,11 @@ public class FileMove : ICommand
         DestinationPath = destinationPath;
     }
 
-    public void Execute(FileSystemStructure.FileSystem fs)
+    private string SourcePath { get; set; }
+
+    private string DestinationPath { get; set; }
+
+    public void Execute(IFileSystem fs)
     {
         command.FileMove(SourcePath, DestinationPath, fs);
     }

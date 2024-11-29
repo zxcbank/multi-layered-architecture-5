@@ -4,5 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 public interface ICommand
 {
-    public void Execute(FileSystem fs) { }
+    public void Execute(IFileSystem fs) { }
 }

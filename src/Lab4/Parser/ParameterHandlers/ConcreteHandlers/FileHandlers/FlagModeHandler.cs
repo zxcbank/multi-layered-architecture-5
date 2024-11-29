@@ -2,22 +2,20 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.FileHandlers;
 
-public class FileRenameHandler : InternalHandlerBase
+public class FlagModeHandler : InternalHandlerBase
 {
     public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
     {
-        if (request.MoveNext() is false)
-            return null;
-
-        string source = request.Current;
+        if (request.Current != "-m")
+            return Next?.Handle(request, builder);
 
         if (request.MoveNext() is false)
             return null;
 
-        string name = request.Current;
+        string flag = request.Current;
 
-        builder.AddSource(source);
-        builder.AddName(name);
+        builder.AddFLag("-m", flag);
+
         return builder;
     }
 }

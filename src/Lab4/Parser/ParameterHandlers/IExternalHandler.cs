@@ -2,9 +2,9 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers;
 
-public interface IParameterHandler
+public interface IExternalHandler
 {
-    IParameterHandler AddNext(IParameterHandler handler);
+    IExternalHandler AddNext(IExternalHandler handler);
 
     ICommand? Handle(IEnumerator<string> request);
 }

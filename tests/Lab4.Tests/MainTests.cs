@@ -1,8 +1,9 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.FileSystemStructure;
 using Itmo.ObjectOrientedProgramming.Lab4.Parser.OutputRun;
 using Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers;
-using Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers;
-using Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.FileHandlers;
+using Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.ConnectHandlers;
+using Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.DisConnectHandlers;
+using Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.TreeHandlers;
 using Xunit;
 
 namespace Lab4.Tests;
@@ -15,15 +16,9 @@ public class MainTests
         string command = "connect c:\\ -m local";
         var fs = new LocalFileSystem("filesystem");
 
-        IParameterHandler handler = new ConnectHandler()
+        IExternalHandler handler = new ConnectHandler()
             .AddNext(new DisconnectHandler()
-                .AddNext(new FileCopyHandler()
-                    .AddNext(new FileDeleteHandler()
-                        .AddNext(new FileMoveHandler()
-                            .AddNext(new FileRenameHandler()
-                                .AddNext(new FileShowHandler()
-                                    .AddNext(new TreeGotoHandler()
-                                        .AddNext(new TreeListHandler()))))))));
+                .AddNext(new TreeHandler()));
 
         var runner = new OutputRunner(handler);
         runner.Run(command.Split(" "), fs);

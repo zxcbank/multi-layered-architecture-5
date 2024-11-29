@@ -1,29 +1,18 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands;
-using Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
-using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.Builders;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.FileHandlers;
 
-public class FileDeleteHandler : ParameterHandlerBase
+public class FileDeleteHandler : InternalHandlerBase
 {
-    public override ICommand? Handle(IEnumerator<string> request)
+    public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
     {
-        if (request.Current is not "file")
-            return Next?.Handle(request);
-
-        if (request.MoveNext() is false)
-            return null;
-
-        if (request.Current is not "delete")
-            return Next?.Handle(request);
-
         if (request.MoveNext() is false)
             return null;
 
         string path = request.Current;
 
-        FileDelete command = new FileDelete().AddPath(path);
+        builder.AddPath(path);
 
-        return command;
+        return builder;
     }
 }

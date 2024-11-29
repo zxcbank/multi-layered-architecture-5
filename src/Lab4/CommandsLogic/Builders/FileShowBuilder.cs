@@ -8,18 +8,33 @@ public class FileShowBuilder : IBuilder
 {
     private string? Path { get; set; }
 
-    private string? Mode { get; set; }
-
-    public FileShowBuilder AddFlag(string flag, string mode)
+    public IBuilder AddFLag(string flag, string value)
     {
         if (flag == "-m")
-            Mode = mode;
+            Mode = value;
         return this;
     }
 
-    public FileShowBuilder AddPath(string path)
+    public IBuilder AddSource(string source)
+    {
+        return this;
+    }
+
+    public IBuilder AddDestination(string destination)
+    {
+        return this;
+    }
+
+    private string? Mode { get; set; }
+
+    public IBuilder AddPath(string path)
     {
         Path = path;
+        return this;
+    }
+
+    public IBuilder AddName(string name)
+    {
         return this;
     }
 

@@ -10,15 +10,25 @@ public class FileCopyBuilder : IBuilder
 
     private string? DestinationPath { get; set; }
 
-    public FileCopyBuilder AddSource(string source)
+    public IBuilder AddSource(string source)
     {
         SourcePath = source;
         return this;
     }
 
-    public FileCopyBuilder AddDestination(string destination)
+    public IBuilder AddDestination(string destination)
     {
         DestinationPath = destination;
+        return this;
+    }
+
+    public IBuilder AddPath(string path)
+    {
+        return this;
+    }
+
+    public IBuilder AddName(string name)
+    {
         return this;
     }
 
@@ -28,4 +38,6 @@ public class FileCopyBuilder : IBuilder
             SourcePath ?? throw new NoNullAllowedException(),
             DestinationPath ?? throw new NoNullAllowedException());
     }
+
+    public IBuilder AddFLag(string flag, string value) { return this; }
 }

@@ -2,16 +2,19 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.TreeHandlers;
 
-public class TreeGotoHandler : InternalHandlerBase
+public class TreeDepthHandler : InternalHandlerBase
 {
     public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
     {
+        if (request.Current != "-d")
+            return Next?.Handle(request, builder);
+
         if (request.MoveNext() is false)
             return null;
 
-        string path = request.Current;
+        string flag = request.Current;
 
-        builder.AddPath(path);
+        builder.AddFLag("-d", flag);
 
         return builder;
     }

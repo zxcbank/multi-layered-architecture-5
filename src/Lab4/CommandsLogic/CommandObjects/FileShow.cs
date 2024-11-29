@@ -1,14 +1,11 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.FileSystemStructure;
+using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
 
 public class FileShow : ICommand
 {
-    private readonly Commands.Commands command = new Commands.Commands();
-
-    private string Path { get; }
-
-    private string Mode { get; }
+    private readonly Commands command = new Commands();
 
     public FileShow(string path, string mode)
     {
@@ -16,7 +13,11 @@ public class FileShow : ICommand
         Mode = mode;
     }
 
-    public void Execute(FileSystemStructure.FileSystem fs)
+    private string Path { get; }
+
+    private string Mode { get; }
+
+    public void Execute(IFileSystem fs)
     {
         command.FileShow(Path, Mode, fs);
     }

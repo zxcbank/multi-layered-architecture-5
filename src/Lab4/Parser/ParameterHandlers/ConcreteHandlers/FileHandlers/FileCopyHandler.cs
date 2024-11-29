@@ -1,22 +1,11 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands;
-using Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
-using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.Builders;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.FileHandlers;
 
-public class FileCopyHandler : ParameterHandlerBase
+public class FileCopyHandler : InternalHandlerBase
 {
-    public override ICommand? Handle(IEnumerator<string> request)
+    public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
     {
-        if (request.Current is not "file")
-            return Next?.Handle(request);
-
-        if (request.MoveNext() is false)
-            return null;
-
-        if (request.Current is not "copy")
-            return Next?.Handle(request);
-
         if (request.MoveNext() is false)
             return null;
 
@@ -27,8 +16,8 @@ public class FileCopyHandler : ParameterHandlerBase
 
         string destination = request.Current;
 
-        FileCopy command = new FileCopy().AddSource(source).AddDestination(destination);
-
-        return command;
+        builder.AddSource(source);
+        builder.AddDestination(destination);
+        return builder;
     }
 }

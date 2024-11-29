@@ -1,20 +1,18 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
 using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
-using System.Data;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.Builders;
 
 public class TreeListBuilder : IBuilder
 {
-    private int? Depth { get; set; } = 1;
+    private int Depth { get; set; } = 1;
 
-    public TreeListBuilder AddDepth(int depth)
+    public ICommand Build()
     {
-        Depth = depth;
-        return this;
+        return new TreeList(Depth);
     }
 
-    public TreeListBuilder AddFlag(string flag, string value)
+    public IBuilder AddFLag(string flag, string value)
     {
         if (flag == "-d")
         {
@@ -24,8 +22,23 @@ public class TreeListBuilder : IBuilder
         return this;
     }
 
-    public ICommand Build()
+    public IBuilder AddSource(string source)
     {
-        return new TreeList(Depth ?? throw new NoNullAllowedException());
+        return this;
+    }
+
+    public IBuilder AddDestination(string destination)
+    {
+        return this;
+    }
+
+    public IBuilder AddPath(string path)
+    {
+        return this;
+    }
+
+    public IBuilder AddName(string name)
+    {
+        return this;
     }
 }

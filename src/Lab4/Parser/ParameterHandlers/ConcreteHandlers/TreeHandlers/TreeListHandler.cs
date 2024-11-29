@@ -1,37 +1,14 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands;
-using Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
-using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.Builders;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.TreeHandlers;
 
-public class TreeListHandler : ParameterHandlerBase
+public class TreeListHandler : InternalHandlerBase
 {
-    public override ICommand? Handle(IEnumerator<string> request)
+    public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
     {
-        if (request.Current is not "tree")
-            return Next?.Handle(request);
-
         if (request.MoveNext() is false)
             return null;
 
-        if (request.Current is not "list")
-            return Next?.Handle(request);
-
-        var command = new TreeList();
-
-        if (request.MoveNext() is false)
-            return command.AddDepth(1);
-
-        if (request.Current is not "-d")
-            return null;
-
-        if (request.MoveNext() is false)
-            return null;
-
-        string depth = request.Current;
-
-        command.AddDepth(int.Parse(depth));
-
-        return command;
+        return Next?.Handle(request, builder);
     }
 }

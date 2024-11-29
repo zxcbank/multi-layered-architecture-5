@@ -10,15 +10,20 @@ public class FileRenameBuilder : IBuilder
 
     private string? Name { get; set; }
 
-    public FileRenameBuilder AddPath(string source)
+    public IBuilder AddDestination(string destination)
     {
-        Path = source;
         return this;
     }
 
-    public FileRenameBuilder AddName(string destination)
+    public IBuilder AddPath(string path)
     {
-        Name = destination;
+        Path = path;
+        return this;
+    }
+
+    public IBuilder AddName(string name)
+    {
+        Name = name;
         return this;
     }
 
@@ -27,5 +32,15 @@ public class FileRenameBuilder : IBuilder
         return new FileRename(
             Path ?? throw new NoNullAllowedException(),
             Name ?? throw new NoNullAllowedException());
+    }
+
+    public IBuilder AddFLag(string flag, string value)
+    {
+        return this;
+    }
+
+    public IBuilder AddSource(string source)
+    {
+        return this;
     }
 }

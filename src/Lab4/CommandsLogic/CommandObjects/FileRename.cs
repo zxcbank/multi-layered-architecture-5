@@ -1,14 +1,11 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.FileSystemStructure;
+using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
 
 public class FileRename : ICommand
 {
-    private readonly Commands.Commands command = new Commands.Commands();
-
-    public string Path { get; private set; }
-
-    public string Name { get; private set; }
+    private readonly Commands command = new Commands();
 
     public FileRename(string path, string name)
     {
@@ -16,9 +13,12 @@ public class FileRename : ICommand
         Name = name;
     }
 
-    public void Execute(FileSystemStructure.FileSystem fs)
+    public string Path { get; private set; }
+
+    public string Name { get; private set; }
+
+    public void Execute(IFileSystem fs)
     {
-        if (Path != null && Name != null)
-            command.FilereName(Path, Name, fs);
+        command.FilereName(Path, Name, fs);
     }
 }

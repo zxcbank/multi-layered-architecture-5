@@ -8,13 +8,34 @@ public class TreeGotoBuilder : IBuilder
 {
     private string? Path { get; set; }
 
-    public void AddPath(string path)
+    public IBuilder AddDestination(string destination)
+    {
+        return this;
+    }
+
+    public IBuilder AddPath(string path)
     {
         Path = path;
+        return this;
+    }
+
+    public IBuilder AddName(string name)
+    {
+        return this;
     }
 
     public ICommand Build()
     {
         return new TreeGoto(Path ?? throw new NoNullAllowedException());
+    }
+
+    public IBuilder AddFLag(string flag, string value)
+    {
+        return this;
+    }
+
+    public IBuilder AddSource(string source)
+    {
+        return this;
     }
 }

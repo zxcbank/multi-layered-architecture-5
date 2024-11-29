@@ -1,22 +1,23 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.FileSystemStructure;
+using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
 
 public class Connect : ICommand
 {
+    private readonly Commands command = new Commands();
+
     public Connect(string path, string mode)
     {
         Mode = mode;
         Path = path;
     }
 
-    private readonly Commands.Commands command = new Commands.Commands();
+    private string Path { get; set; }
 
-    public string Path { get; private set; }
+    private string Mode { get; set; }
 
-    public string Mode { get; private set; }
-
-    public void Execute(FileSystemStructure.FileSystem fs)
+    public void Execute(IFileSystem fs)
     {
         command.Connect(Path, Mode, fs);
     }

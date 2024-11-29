@@ -1,12 +1,13 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.FileSystemStructure;
+using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
 
 public class Disconnect : ICommand
 {
-    private readonly Commands.Commands command = new Commands.Commands();
+    private readonly Commands command = new Commands();
 
-    public void Execute(FileSystemStructure.FileSystem fs)
+    public void Execute(IFileSystem fs)
     {
         command.Disconnect(fs);
     }

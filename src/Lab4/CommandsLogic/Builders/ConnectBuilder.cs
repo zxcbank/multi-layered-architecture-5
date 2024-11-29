@@ -10,6 +10,21 @@ public class ConnectBuilder : IBuilder
 
     private string? Mode { get; set; }
 
+    public IBuilder AddDestination(string destination)
+    {
+        return this;
+    }
+
+    IBuilder IBuilder.AddPath(string path)
+    {
+        return AddPath(path);
+    }
+
+    public IBuilder AddName(string name)
+    {
+        return this;
+    }
+
     public ConnectBuilder AddPath(string path)
     {
         Path = path;
@@ -22,7 +37,14 @@ public class ConnectBuilder : IBuilder
         return this;
     }
 
-    public ConnectBuilder AddFlag(string flag, string value)
+    public ICommand Build()
+    {
+        return new Connect(
+            Path ?? throw new NoNullAllowedException(),
+            Mode ?? throw new NoNullAllowedException());
+    }
+
+    public IBuilder AddFLag(string flag, string value)
     {
         if (flag == "-m")
         {
@@ -32,10 +54,8 @@ public class ConnectBuilder : IBuilder
         return this;
     }
 
-    public ICommand Build()
+    public IBuilder AddSource(string source)
     {
-        return new Connect(
-            Path ?? throw new NoNullAllowedException(),
-            Mode ?? throw new NoNullAllowedException());
+        return this;
     }
 }

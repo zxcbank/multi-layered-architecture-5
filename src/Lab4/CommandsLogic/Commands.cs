@@ -1,11 +1,11 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.FileSystemStructure;
 using Itmo.ObjectOrientedProgramming.Lab4.Visitors;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
+namespace Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic;
 
 public class Commands
 {
-    public void Connect(string adress, string mode, FileSystemStructure.FileSystem fs)
+    public void Connect(string adress, string mode, IFileSystem fs)
     {
         if (fs.Mode == mode)
         {
@@ -14,18 +14,18 @@ public class Commands
         }
     }
 
-    public void Disconnect(FileSystemStructure.FileSystem fs)
+    public void Disconnect(IFileSystem fs)
     {
         fs.Root = null;
         fs.CurrentAdress = null;
     }
 
-    public void TreeGoto(string path, FileSystemStructure.FileSystem fs)
+    public void TreeGoto(string path, IFileSystem fs)
     {
         fs.CurrentAdress += path;
     }
 
-    public void TreeList(int depth, FileSystemStructure.FileSystem fs)
+    public void TreeList(int depth, IFileSystem fs)
     {
         string? localadress = fs.CurrentAdress;
 
@@ -38,7 +38,7 @@ public class Commands
         }
     }
 
-    public void FileShow(string path, string mode, FileSystemStructure.FileSystem fs)
+    public void FileShow(string path, string mode, IFileSystem fs)
     {
         path = fs.CurrentAdress + path;
         if (mode == "console")
@@ -59,7 +59,7 @@ public class Commands
         }
     }
 
-    public void FileCopy(string sourcePath, string destinationPath, FileSystemStructure.FileSystem fs)
+    public void FileCopy(string sourcePath, string destinationPath, IFileSystem fs)
     {
         sourcePath = fs.CurrentAdress + sourcePath;
         destinationPath = fs.CurrentAdress + destinationPath;
@@ -73,7 +73,7 @@ public class Commands
         }
     }
 
-    public void FileMove(string sourcePath, string destinationPath, FileSystemStructure.FileSystem fs)
+    public void FileMove(string sourcePath, string destinationPath, IFileSystem fs)
     {
         sourcePath = fs.CurrentAdress + sourcePath;
         destinationPath = fs.CurrentAdress + destinationPath;
@@ -88,7 +88,7 @@ public class Commands
         }
     }
 
-    public void FileDelete(string path, FileSystemStructure.FileSystem fs)
+    public void FileDelete(string path, IFileSystem fs)
     {
         path = fs.CurrentAdress + path;
         try
@@ -109,7 +109,7 @@ public class Commands
         }
     }
 
-    public void FilereName(string path, string name, FileSystemStructure.FileSystem fs)
+    public void FilereName(string path, string name, IFileSystem fs)
     {
         path = fs.CurrentAdress + path;
         string newpath = Path.GetDirectoryName(path) + name;

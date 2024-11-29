@@ -6,14 +6,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.OutputRun;
 
 public class OutputRunner
 {
-    private readonly IParameterHandler _handler;
+    private readonly IExternalHandler _handler;
 
-    public OutputRunner(IParameterHandler handler)
+    public OutputRunner(IExternalHandler handler)
     {
         _handler = handler;
     }
 
-    public void Run(IEnumerable<string> args, FileSystem fs)
+    public void Run(IEnumerable<string> args, IFileSystem fs)
     {
         using IEnumerator<string> request = args.GetEnumerator();
 
@@ -28,7 +28,7 @@ public class OutputRunner
         }
     }
 
-    public void ConsoleRunner(FileSystem fs)
+    public void ConsoleRunner(IFileSystem fs)
     {
         string? consolecommand = " ";
         while (consolecommand is not "stop")

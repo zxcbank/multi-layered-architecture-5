@@ -1,40 +1,18 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands;
-using Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
-using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.Builders;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.FileHandlers;
 
-public class FileShowHandler : ParameterHandlerBase
+public class FileShowHandler : InternalHandlerBase
 {
-    public override ICommand? Handle(IEnumerator<string> request)
+    public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
     {
-        if (request.Current is not "file")
-            return Next?.Handle(request);
-
-        if (request.MoveNext() is false)
-            return null;
-
-        if (request.Current is not "show")
-            return Next?.Handle(request);
-
         if (request.MoveNext() is false)
             return null;
 
         string path = request.Current;
 
-        if (request.MoveNext() is false)
-            return null;
+        builder.AddPath(path);
 
-        if (request.Current is not "-m")
-            return Next?.Handle(request);
-
-        if (request.MoveNext() is false)
-            return null;
-
-        string mode = request.Current;
-
-        FileShow command = new FileShow().AddPath(path).AddMode(mode);
-
-        return command;
+        return Next?.Handle(request, builder);
     }
 }

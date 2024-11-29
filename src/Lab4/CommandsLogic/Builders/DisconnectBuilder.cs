@@ -9,4 +9,29 @@ public class DisconnectBuilder : IBuilder
     {
         return new Disconnect();
     }
+
+    public IBuilder AddFLag(string flag, string value)
+    {
+        return new DisconnectBuilder();
+    }
+
+    public IBuilder AddSource(string source)
+    {
+        return this;
+    }
+
+    public IBuilder AddDestination(string destination)
+    {
+        return this;
+    }
+
+    public IBuilder AddPath(string path)
+    {
+        return this;
+    }
+
+    public IBuilder AddName(string name)
+    {
+        return this;
+    }
 }
