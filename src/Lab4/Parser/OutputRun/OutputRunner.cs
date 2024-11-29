@@ -27,4 +27,15 @@ public class OutputRunner
             }
         }
     }
+
+    public void ConsoleRunner(FileSystem fs)
+    {
+        string? consolecommand = " ";
+        while (consolecommand is not "stop")
+        {
+            consolecommand = Console.ReadLine();
+
+            string[]? consoleTransformedCommand = consolecommand?.Split(" ");
+        }
+    }
 }

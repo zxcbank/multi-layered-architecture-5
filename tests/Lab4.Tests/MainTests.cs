@@ -9,7 +9,7 @@ namespace Lab4.Tests;
 public class MainTests
 {
     [Fact]
-    public void VuildCommnadTest()
+    public void BuildCommnadTest()
     {
         string command = "connect c:\\ -m local";
         var fs = new FileSystem("filesystem");
@@ -25,7 +25,7 @@ public class MainTests
                                         .AddNext(new TreeListHandler()))))))));
 
         var runner = new OutputRunner(handler);
-        runner.Run(command.Split(' '), fs);
+        runner.Run(command.Split(" "), fs);
         Assert.True(fs.Name == "filesystem" && fs.Mode == "local" && fs.Root == "c:\\" && fs.CurrentAdress == "c:\\");
     }
 }
