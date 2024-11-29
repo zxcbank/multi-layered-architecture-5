@@ -12,7 +12,7 @@ public class MainTests
     public void BuildCommnadTest()
     {
         string command = "connect c:\\ -m local";
-        var fs = new FileSystem("filesystem");
+        var fs = new LocalFileSystem("filesystem");
 
         IParameterHandler handler = new ConnectHandler()
             .AddNext(new DisconnectHandler()

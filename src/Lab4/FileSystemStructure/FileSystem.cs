@@ -1,8 +1,8 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab4.FileSystemStructure;
 
-public class FileSystem
+public abstract class FileSystem
 {
-    public FileSystem(string name)
+    protected FileSystem(string name)
     {
         Name = name;
     }

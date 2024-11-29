@@ -7,9 +7,11 @@ public class FileSystemCommands
 {
     public void Connect(string adress, string mode, FileSystem fs)
     {
-        fs.Root = adress;
-        fs.Mode = mode;
-        fs.CurrentAdress = adress;
+        if (fs.Mode == mode)
+        {
+            fs.Root = adress;
+            fs.CurrentAdress = adress;
+        }
     }
 
     public void Disconnect(FileSystem fs)
