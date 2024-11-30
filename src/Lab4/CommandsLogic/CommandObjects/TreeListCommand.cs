@@ -3,19 +3,17 @@ using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
 
-public class TreeGoto : ICommand
+public class TreeListCommand : ICommand
 {
-    private readonly Commands command = new Commands();
-
-    public TreeGoto(string path)
+    public TreeListCommand(int depth)
     {
-        Path = path;
+        Depth = depth;
     }
 
-    private string Path { get; set; }
+    private int Depth { get; }
 
     public void Execute(IFileSystem fs)
     {
-        command.TreeGoto(Path, fs);
+        fs.TreeList(Depth);
     }
 }

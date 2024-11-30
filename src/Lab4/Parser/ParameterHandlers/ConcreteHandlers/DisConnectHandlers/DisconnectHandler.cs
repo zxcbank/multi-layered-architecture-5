@@ -7,6 +7,6 @@ public class DisconnectHandler : ExternalHandlerBase
 {
     public override ICommand? Handle(IEnumerator<string> request)
     {
-        return request.Current is not "disconnect" ? Next?.Handle(request) : new Disconnect();
+        return request.Current is not "disconnect" ? Next?.Handle(request) : new DisconnectCommand();
     }
 }

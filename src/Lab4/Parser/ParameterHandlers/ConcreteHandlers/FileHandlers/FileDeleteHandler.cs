@@ -2,17 +2,18 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.FileHandlers;
 
-public class FileDeleteHandler : InternalHandlerBase
+public class FileDeleteHandler : ParameterHandlerBase
 {
-    public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
+    public override IBuilder? Handle(IEnumerator<string> request, IBuilder? builder)
     {
         if (request.MoveNext() is false)
             return null;
 
         string path = request.Current;
 
+        builder ??= new FileDeleteBuilder();
         builder.AddPath(path);
 
-        return builder;
+        return Next?.Handle(request, builder);
     }
 }

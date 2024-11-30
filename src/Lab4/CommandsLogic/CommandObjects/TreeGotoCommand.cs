@@ -3,22 +3,17 @@ using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
 
-public class FileShow : ICommand
+public class TreeGotoCommand : ICommand
 {
-    private readonly Commands command = new Commands();
-
-    public FileShow(string path, string mode)
+    public TreeGotoCommand(string path)
     {
         Path = path;
-        Mode = mode;
     }
 
     private string Path { get; }
 
-    private string Mode { get; }
-
     public void Execute(IFileSystem fs)
     {
-        command.FileShow(Path, Mode, fs);
+        fs.TreeGoto(Path);
     }
 }

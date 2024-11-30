@@ -5,6 +5,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteH
 
 public class FileHandler : ExternalHandlerBase
 {
+    private readonly IParameterHandler _handler;
+
+    public FileHandler(IParameterHandler handler)
+    {
+        _handler = handler;
+    }
+
     public override ICommand? Handle(IEnumerator<string> request)
     {
         if (request.Current is not "file")
@@ -13,37 +20,10 @@ public class FileHandler : ExternalHandlerBase
         if (request.MoveNext() is false)
             return null;
 
-        IInternalHandler? handler;
-        IBuilder? builder;
+        IBuilder? builder = null;
 
-        switch (request.Current)
-        {
-            case "copy":
-                handler = new FileCopyHandler();
-                builder = new FileCopyBuilder();
-                break;
-            case "move":
-                handler = new FileMoveHandler();
-                builder = new FileMoveBuilder();
-                break;
-            case "delete":
-                handler = new FileDeleteHandler();
-                builder = new FileDeleteBuilder();
-                break;
-            case "rename":
-                handler = new FileRenameHandler();
-                builder = new FileRenameBuilder();
-                break;
-            case "show":
-                handler = new FileShowHandler();
-                builder = new FileShowBuilder();
-                break;
-            default:
-                handler = null;
-                builder = null;
-                break;
-        }
+        builder = _handler.Handle(request, builder);
 
-        return (builder is not null) ? handler?.Handle(request, builder)?.Build() : null;
+        return _handler.Handle(request, builder)?.Build();
     }
 }

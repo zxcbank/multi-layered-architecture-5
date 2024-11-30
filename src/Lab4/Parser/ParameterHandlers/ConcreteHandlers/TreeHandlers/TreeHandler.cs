@@ -5,6 +5,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteH
 
 public class TreeHandler : ExternalHandlerBase
 {
+    private readonly IParameterHandler _handler;
+
+    public TreeHandler(IParameterHandler handler)
+    {
+        _handler = handler;
+    }
+
     public override ICommand? Handle(IEnumerator<string> request)
     {
         if (request.Current is not "tree")
@@ -13,25 +20,10 @@ public class TreeHandler : ExternalHandlerBase
         if (request.MoveNext() is false)
             return null;
 
-        IInternalHandler? handler;
-        IBuilder? builder;
+        IBuilder? builder = null;
 
-        switch (request.Current)
-        {
-            case "goto":
-                handler = new TreeGotoHandler();
-                builder = new TreeGotoBuilder();
-                break;
-            case "list":
-                handler = new TreeListHandler();
-                builder = new TreeListBuilder();
-                break;
-            default:
-                handler = null;
-                builder = null;
-                break;
-        }
+        builder = _handler.Handle(request, builder);
 
-        return (builder is not null) ? handler?.Handle(request, builder)?.Build() : null;
+        return builder?.Build();
     }
 }

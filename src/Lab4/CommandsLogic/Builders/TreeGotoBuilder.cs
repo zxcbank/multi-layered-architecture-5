@@ -26,7 +26,7 @@ public class TreeGotoBuilder : IBuilder
 
     public ICommand Build()
     {
-        return new TreeGoto(Path ?? throw new NoNullAllowedException());
+        return new TreeGotoCommand(Path ?? throw new NoNullAllowedException());
     }
 
     public IBuilder AddFLag(string flag, string value)

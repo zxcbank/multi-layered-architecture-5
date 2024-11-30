@@ -39,7 +39,7 @@ public class ConnectBuilder : IBuilder
 
     public ICommand Build()
     {
-        return new Connect(
+        return new ConnectCommand(
             Path ?? throw new NoNullAllowedException(),
             Mode ?? throw new NoNullAllowedException());
     }

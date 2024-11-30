@@ -29,7 +29,7 @@ public class FileRenameBuilder : IBuilder
 
     public ICommand Build()
     {
-        return new FileRename(
+        return new FileRenameCommand(
             Path ?? throw new NoNullAllowedException(),
             Name ?? throw new NoNullAllowedException());
     }

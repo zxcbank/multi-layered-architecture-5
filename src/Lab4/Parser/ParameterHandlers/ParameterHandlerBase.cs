@@ -2,11 +2,11 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers;
 
-public abstract class InternalHandlerBase : IInternalHandler
+public abstract class ParameterHandlerBase : IParameterHandler
 {
-    protected IInternalHandler? Next { get; private set; }
+    protected IParameterHandler? Next { get; private set; }
 
-    public IInternalHandler AddNext(IInternalHandler handler)
+    public IParameterHandler AddNext(IParameterHandler handler)
     {
         if (Next is null)
         {
@@ -20,5 +20,5 @@ public abstract class InternalHandlerBase : IInternalHandler
         return this;
     }
 
-    public abstract IBuilder? Handle(IEnumerator<string> request, IBuilder builder);
+    public abstract IBuilder? Handle(IEnumerator<string> request, IBuilder? builder);
 }

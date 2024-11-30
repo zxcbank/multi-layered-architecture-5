@@ -3,12 +3,17 @@ using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
 
-public class Disconnect : ICommand
+public class FileDeleteCommand : ICommand
 {
-    private readonly Commands command = new Commands();
+    public FileDeleteCommand(string path)
+    {
+        Path = path;
+    }
+
+    private string Path { get; }
 
     public void Execute(IFileSystem fs)
     {
-        command.Disconnect(fs);
+        fs.FileDelete(Path);
     }
 }

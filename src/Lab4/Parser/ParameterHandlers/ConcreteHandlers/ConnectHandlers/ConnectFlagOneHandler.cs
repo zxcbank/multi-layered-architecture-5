@@ -2,9 +2,9 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.ConnectHandlers;
 
-public class ConnectFlagOneHandler : InternalHandlerBase
+public class ConnectFlagOneHandler : ParameterHandlerBase
 {
-    public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
+    public override IBuilder? Handle(IEnumerator<string> request, IBuilder? builder)
     {
         if (request.Current != "-m")
             return Next?.Handle(request, builder);
@@ -13,6 +13,9 @@ public class ConnectFlagOneHandler : InternalHandlerBase
             return null;
 
         string flag = request.Current;
+
+        if (builder is null)
+            return null;
 
         builder.AddFLag("-m", flag);
 

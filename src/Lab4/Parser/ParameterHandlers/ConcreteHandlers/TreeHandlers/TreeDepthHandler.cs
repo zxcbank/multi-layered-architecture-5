@@ -2,9 +2,9 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.TreeHandlers;
 
-public class TreeDepthHandler : InternalHandlerBase
+public class TreeDepthHandler : ParameterHandlerBase
 {
-    public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
+    public override IBuilder? Handle(IEnumerator<string> request, IBuilder? builder)
     {
         if (request.Current != "-d")
             return Next?.Handle(request, builder);
@@ -14,8 +14,11 @@ public class TreeDepthHandler : InternalHandlerBase
 
         string flag = request.Current;
 
+        if (builder is null)
+            return null;
+
         builder.AddFLag("-d", flag);
 
-        return builder;
+        return Next?.Handle(request, builder);
     }
 }

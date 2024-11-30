@@ -34,7 +34,7 @@ public class FileCopyBuilder : IBuilder
 
     public ICommand Build()
     {
-        return new FileCopy(
+        return new FileCopyCommand(
             SourcePath ?? throw new NoNullAllowedException(),
             DestinationPath ?? throw new NoNullAllowedException());
     }

@@ -40,6 +40,6 @@ public class FileShowBuilder : IBuilder
 
     public ICommand Build()
     {
-        return new FileShow(Path ?? throw new NoNullAllowedException(), Mode ?? throw new NoNullAllowedException());
+        return new FileShowCommand(Path ?? throw new NoNullAllowedException(), Mode ?? throw new NoNullAllowedException());
     }
 }

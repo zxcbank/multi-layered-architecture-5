@@ -26,7 +26,7 @@ public class FileDeleteBuilder : IBuilder
 
     public ICommand Build()
     {
-        return new FileDelete(Path ?? throw new NoNullAllowedException());
+        return new FileDeleteCommand(Path ?? throw new NoNullAllowedException());
     }
 
     public IBuilder AddFLag(string flag, string value)

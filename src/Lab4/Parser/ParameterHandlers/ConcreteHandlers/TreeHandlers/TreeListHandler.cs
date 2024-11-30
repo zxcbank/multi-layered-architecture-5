@@ -2,15 +2,15 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.TreeHandlers;
 
-public class TreeListHandler : InternalHandlerBase
+public class TreeListHandler : ParameterHandlerBase
 {
-    private readonly TreeDepthHandler _handler = new TreeDepthHandler();
-
-    public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
+    public override IBuilder? Handle(IEnumerator<string> request, IBuilder? builder)
     {
         if (request.MoveNext() is false)
             return null;
 
-        return _handler.Handle(request, builder);
+        builder = new TreeListBuilder();
+
+        return Next?.Handle(request, builder);
     }
 }

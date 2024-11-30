@@ -3,22 +3,20 @@ using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
 
-public class Connect : ICommand
+public class FileShowCommand : ICommand
 {
-    private readonly Commands command = new Commands();
-
-    public Connect(string path, string mode)
+    public FileShowCommand(string path, string mode)
     {
-        Mode = mode;
         Path = path;
+        Mode = mode;
     }
 
-    private string Path { get; set; }
+    private string Path { get; }
 
-    private string Mode { get; set; }
+    private string Mode { get; }
 
     public void Execute(IFileSystem fs)
     {
-        command.Connect(Path, Mode, fs);
+        fs.FileShow(Path, Mode);
     }
 }

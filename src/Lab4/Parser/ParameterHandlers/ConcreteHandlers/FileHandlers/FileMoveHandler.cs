@@ -2,9 +2,9 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.FileHandlers;
 
-public class FileMoveHandler : InternalHandlerBase
+public class FileMoveHandler : ParameterHandlerBase
 {
-    public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
+    public override IBuilder? Handle(IEnumerator<string> request, IBuilder? builder)
     {
         if (request.MoveNext() is false)
             return null;
@@ -15,6 +15,8 @@ public class FileMoveHandler : InternalHandlerBase
             return null;
 
         string destination = request.Current;
+
+        builder ??= new FileMoveBuilder();
 
         builder.AddSource(source);
         builder.AddDestination(destination);

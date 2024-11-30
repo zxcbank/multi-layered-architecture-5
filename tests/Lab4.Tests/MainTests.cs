@@ -18,9 +18,13 @@ public class MainTests
 
         var fs = new LocalFileSystem("filesystem");
 
+        IParameterHandler parameterHandler = new TreeDepthHandler()
+            .AddNext(new TreeGotoHandler()
+                .AddNext(new TreeListHandler().AddNext(new TreeModeHandler())));
+
         IExternalHandler handler = new ConnectHandler()
             .AddNext(new DisconnectHandler()
-                .AddNext(new TreeHandler()));
+                .AddNext(new TreeHandler(parameterHandler)));
 
         var runner = new OutputRunner(handler);
         runner.Run(command.Split(" "), fs);

@@ -34,7 +34,7 @@ public class FileMoveBuilder : IBuilder
 
     public ICommand Build()
     {
-        return new FileMove(
+        return new FileMoveCommand(
             SourcePath ?? throw new NoNullAllowedException(),
             DestinationPath ?? throw new NoNullAllowedException());
     }

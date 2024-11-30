@@ -3,22 +3,20 @@ using Itmo.ObjectOrientedProgramming.Lab4.Parser.Handlers;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.CommandsLogic.CommandObjects;
 
-public class FileRename : ICommand
+public class FileRenameCommand : ICommand
 {
-    private readonly Commands command = new Commands();
-
-    public FileRename(string path, string name)
+    public FileRenameCommand(string path, string name)
     {
         Path = path;
         Name = name;
     }
 
-    public string Path { get; private set; }
+    private string Path { get; }
 
-    public string Name { get; private set; }
+    private string Name { get; }
 
     public void Execute(IFileSystem fs)
     {
-        command.FilereName(Path, Name, fs);
+        fs.FileRename(Path, Name);
     }
 }

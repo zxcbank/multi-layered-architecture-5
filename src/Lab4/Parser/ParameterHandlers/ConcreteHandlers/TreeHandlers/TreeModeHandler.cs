@@ -2,9 +2,9 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.ParameterHandlers.ConcreteHandlers.TreeHandlers;
 
-public class TreeModeHandler : InternalHandlerBase
+public class TreeModeHandler : ParameterHandlerBase
 {
-    public override IBuilder? Handle(IEnumerator<string> request, IBuilder builder)
+    public override IBuilder? Handle(IEnumerator<string> request, IBuilder? builder)
     {
         if (request.Current != "-m")
             return Next?.Handle(request, builder);
@@ -14,8 +14,11 @@ public class TreeModeHandler : InternalHandlerBase
 
         string flag = request.Current;
 
+        if (builder is null)
+            return null;
+
         builder.AddFLag("-m", flag);
 
-        return builder;
+        return Next?.Handle(request, builder);
     }
 }

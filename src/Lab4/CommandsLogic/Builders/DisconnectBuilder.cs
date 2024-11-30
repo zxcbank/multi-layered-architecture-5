@@ -7,7 +7,7 @@ public class DisconnectBuilder : IBuilder
 {
     public ICommand Build()
     {
-        return new Disconnect();
+        return new DisconnectCommand();
     }
 
     public IBuilder AddFLag(string flag, string value)
