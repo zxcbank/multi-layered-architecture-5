@@ -60,7 +60,7 @@ public class OperationRepository : IOperationsRepository
         const string sql = $"""
                             insert into operations (user_id, operation_type, money_amount, operation_result)
                             VALUES (userid, type, amount, result)
-                            RETURNING user_id 
+                            RETURNING operation_id 
                             """;
 
         ValueTask<NpgsqlConnection> connectionTask = _connectionProvider.GetConnectionAsync(default);

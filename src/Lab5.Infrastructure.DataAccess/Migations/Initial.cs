@@ -47,6 +47,8 @@ public class Initial : SqlMigration
     (
         pass bigint primary key bigint not null 
     );
+    
+    INSERT INTO adminpass (pass) VALUES (mama);
     """;
 
     protected override string GetDownSql(IServiceProvider serviceProvider) =>
