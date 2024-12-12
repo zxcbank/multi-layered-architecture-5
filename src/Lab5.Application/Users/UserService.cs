@@ -89,7 +89,7 @@ internal class UserService : IUserService
             OperationResult.Success);
         _repository.ChangeBalance(-moneyamount, _currentUserManager.User.UserId);
 
-        return new WithDrawResult.Success();
+        return new WithDrawResult.Success(moneyamount);
     }
 
     public AddFundResult AddFudns(decimal moneyamount)
@@ -117,7 +117,7 @@ internal class UserService : IUserService
             OperationResult.Success);
         _repository.ChangeBalance(moneyamount, _currentUserManager.User.UserId);
 
-        return new AddFundResult.Success();
+        return new AddFundResult.Success(moneyamount);
     }
 
     public LogOutResult LogOut()

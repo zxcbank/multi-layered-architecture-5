@@ -4,7 +4,7 @@ public abstract record AddFundResult
 {
     private AddFundResult() { }
 
-    public sealed record Success : AddFundResult;
+    public sealed record Success(decimal Amount) : AddFundResult;
 
     public sealed record IncorrentAmount : AddFundResult;
 

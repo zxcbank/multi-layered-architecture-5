@@ -22,7 +22,7 @@ public class WithdrawScenario : IScenario
 
         string message = result switch
         {
-            WithDrawResult.Success => "Successful withdrawing.",
+            WithDrawResult.Success t => $"Successful withdrawed {t.Amount}.",
             WithDrawResult.IncorrentAmount => "Too small sum.",
             WithDrawResult.UnAuthorised => "Login please before withdrawing.",
             WithDrawResult.InsufficientFunds => "Not enought money on your account.",

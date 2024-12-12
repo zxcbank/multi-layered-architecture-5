@@ -22,7 +22,7 @@ public class AddFundScenario : IScenario
 
         string message = result switch
         {
-            AddFundResult.Success => "Successful adding.",
+            AddFundResult.Success t => $"Successful added {t.Amount}.",
             AddFundResult.IncorrentAmount => "Too small sum.",
             AddFundResult.UnAuthorisedError => "login before adding.",
             _ => throw new ArgumentOutOfRangeException(nameof(result)),

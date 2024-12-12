@@ -4,7 +4,7 @@ public abstract record WithDrawResult
 {
     private WithDrawResult() { }
 
-    public sealed record Success : WithDrawResult;
+    public sealed record Success(decimal Amount) : WithDrawResult;
 
     public sealed record IncorrentAmount : WithDrawResult;
 
