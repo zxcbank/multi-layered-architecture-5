@@ -52,4 +52,9 @@ public class OperationRepository : IOperationsRepository
                 reader.GetFieldValue<OperationResult>(4));
         }
     }
+
+    public long? InsertOperation(long userid, OperationType type, decimal amount, OperationResult result)
+    {
+        
+    }
 }

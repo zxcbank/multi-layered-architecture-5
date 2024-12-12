@@ -1,5 +1,6 @@
 ﻿using Abstractions.Repositories;
 using Contracts.Users;
+using Models.Operations;
 using Models.Users;
 
 namespace Lab5.Application.Users;
@@ -7,14 +8,20 @@ namespace Lab5.Application.Users;
 internal class UserService : IUserService
 {
     private readonly IUserRepository _repository;
+    private readonly IOperationsRepository _operationsRepository;
     private readonly CurrentUserManager _currentUserManager;
     private readonly string _adminPass;
 
-    public UserService(IUserRepository repository, CurrentUserManager currentUserManager, string adminPass)
+    public UserService(
+        IUserRepository repository,
+        CurrentUserManager currentUserManager,
+        string adminPass,
+        IOperationsRepository operationsRepository)
     {
         _repository = repository;
         _currentUserManager = currentUserManager;
         _adminPass = adminPass;
+        _operationsRepository = operationsRepository;
     }
 
     public LoginResult Login(long userid, int pin)
@@ -56,15 +63,28 @@ internal class UserService : IUserService
 
         if (moneyamount < 0.01M)
         {
+            _operationsRepository.InsertOperation(_currentUserManager.User.UserId,
+                OperationType.WithdrawFunds,
+                moneyamount,
+                OperationResult.Success);
             return new WithDrawResult.IncorrentAmount();
         }
 
         if (_currentUserManager.User.MoneyAmount < moneyamount)
         {
+            _operationsRepository.InsertOperation(_currentUserManager.User.UserId,
+                OperationType.WithdrawFunds,
+                moneyamount,
+                OperationResult.Success);
             return new WithDrawResult.InsufficientFunds();
         }
 
         _currentUserManager.User.MoneyAmount -= moneyamount;
+        _operationsRepository.InsertOperation(_currentUserManager.User.UserId,
+            OperationType.WithdrawFunds,
+            moneyamount,
+            OperationResult.Success);
+        _repository.ChangeBalance(-moneyamount, _currentUserManager.User);
 
         return new WithDrawResult.Success();
     }
@@ -78,10 +98,21 @@ internal class UserService : IUserService
 
         if (moneyamount < 0.01M)
         {
+            _operationsRepository.InsertOperation(
+                _currentUserManager.User.UserId,
+                OperationType.WithdrawFunds,
+                moneyamount,
+                OperationResult.Success);
             return new AddFundResult.IncorrentAmount();
         }
 
         _currentUserManager.User.MoneyAmount += moneyamount;
+        _operationsRepository.InsertOperation(
+            _currentUserManager.User.UserId,
+            OperationType.WithdrawFunds,
+            moneyamount,
+            OperationResult.Success);
+        _repository.ChangeBalance(moneyamount, _currentUserManager.User);
 
         return new AddFundResult.Success();
     }
@@ -103,17 +134,19 @@ internal class UserService : IUserService
         return new ViewBalanceResult.Success(_currentUserManager.User.MoneyAmount);
     }
 
-    public ViewHistoryResult GetUserIdHistory()
+    public ViewHistoryResult ViewHistory()
     {
         if (_currentUserManager.User is null)
         {
             return new ViewHistoryResult.UnAuthorised();
         }
 
-        return new ViewHistoryResult.Success(_currentUserManager.User.UserId);
+        IEnumerable<Operation> myOperations =
+            _operationsRepository.GetAllOperationsByAccountId(_currentUserManager.User.UserId);
+        return new ViewHistoryResult.Success(myOperations);
     }
 
-    public RegistrationResult Register(int pin, UserRole role)
+    public RegistrationResult Register(int pin)
     {
         if (_currentUserManager.User != null && _currentUserManager.User.Role == UserRole.User)
         {

@@ -1,6 +1,4 @@
-﻿using Models.Users;
-
-namespace Contracts.Users;
+﻿namespace Contracts.Users;
 
 public interface IUserService
 {
@@ -16,7 +14,7 @@ public interface IUserService
 
     ViewBalanceResult ViewBalance();
 
-    ViewHistoryResult GetUserIdHistory();
+    ViewHistoryResult ViewHistory();
 
-    RegistrationResult Register(int pin, UserRole role);
+    RegistrationResult Register(int pin);
 }

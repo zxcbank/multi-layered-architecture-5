@@ -85,4 +85,9 @@ public class UserRepository : IUserRepository
 
         return reader.GetInt64(0);
     }
+
+    public void ChangeBalance(decimal sum, User user)
+    {
+        
+    }
 }

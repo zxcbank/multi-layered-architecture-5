@@ -1,5 +1,4 @@
 ﻿using Contracts.Users;
-using Models.Users;
 using Spectre.Console;
 
 namespace Presentation.Scenarios.Register;
@@ -19,7 +18,7 @@ public class RegisterScenario : IScenario
     {
         int pin = AnsiConsole.Ask<int>("Enter pin for new user");
 
-        RegistrationResult result = _userService.Register(pin, UserRole.User);
+        RegistrationResult result = _userService.Register(pin);
 
         string message = result switch
         {

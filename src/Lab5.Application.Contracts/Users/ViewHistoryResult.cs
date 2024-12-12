@@ -1,10 +1,12 @@
-﻿namespace Contracts.Users;
+﻿using Models.Operations;
+
+namespace Contracts.Users;
 
 public abstract record ViewHistoryResult
 {
     private ViewHistoryResult() { }
 
-    public sealed record Success(long Id) : ViewHistoryResult;
+    public sealed record Success(IEnumerable<Operation> MyOperation) : ViewHistoryResult;
 
     public sealed record UnAuthorised : ViewHistoryResult;
 }
