@@ -1,7 +1,7 @@
 ﻿using Contracts.Users;
 using Spectre.Console;
 
-namespace Presentation.Scenarios.Register;
+namespace Presentation.Scenarios.Registration;
 
 public class RegistrationScenario : IScenario
 {
@@ -22,7 +22,7 @@ public class RegistrationScenario : IScenario
 
         string message = result switch
         {
-            RegistrationResult.Success => $" Successful registration",
+            RegistrationResult.Success t => $" Successful registration {t.Userid}",
             RegistrationResult.UnExpectedError => "UnExpectedError",
             _ => throw new ArgumentOutOfRangeException(nameof(result)),
         };

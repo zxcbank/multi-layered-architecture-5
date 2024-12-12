@@ -23,10 +23,6 @@ public class UserRepository : IUserRepository
                             where user_id = :UserId;
                             """;
 
-        // NpgsqlConnection connection = _connectionProvider
-        //     .GetConnectionAsync(default)
-        //     .GetAwaiter()
-        //     .GetResult();
         ValueTask<NpgsqlConnection> connectionTask = _connectionProvider.GetConnectionAsync(default);
 
         NpgsqlConnection connection;
@@ -59,7 +55,7 @@ public class UserRepository : IUserRepository
     {
         const string sql = $"""
                             insert into users (pin, user_role, money_amount)
-                            VALUES (pin, role, 0)
+                            VALUES (:userpin, :role, 0)
                             RETURNING user_id 
                             """;
 
@@ -76,7 +72,10 @@ public class UserRepository : IUserRepository
             connection = connectionTask.AsTask().GetAwaiter().GetResult();
         }
 
-        using var command = new NpgsqlCommand(sql, connection);
+        using NpgsqlCommand command = new NpgsqlCommand(sql, connection)
+            .AddParameter("userpin", pin)
+            .AddParameter("role", role)
+            .AddParameter("money_amount", 0);
 
         using NpgsqlDataReader reader = command.ExecuteReader();
 

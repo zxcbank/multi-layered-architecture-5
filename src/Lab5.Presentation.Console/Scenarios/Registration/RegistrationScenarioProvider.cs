@@ -1,4 +1,5 @@
 ﻿using Contracts.Users;
+using Presentation.Scenarios.Registration;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Presentation.Scenarios.Register;
