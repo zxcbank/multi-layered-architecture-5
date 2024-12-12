@@ -1,8 +1,8 @@
 ﻿using Contracts.Users;
-using Presentation.Scenarios.Login;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Presentation.Scenarios.Logout;
+namespace Presentation
+    .Scenarios.Logout;
 
 public class LogoutScenarioProvider : IScenarioProvider
 {
@@ -24,7 +24,7 @@ public class LogoutScenarioProvider : IScenarioProvider
             return false;
         }
 
-        scenario = new LoginScenario(_service);
+        scenario = new LogoutScenario(_service);
         return true;
     }
 }

@@ -12,7 +12,7 @@ public class RegistrationScenario : IScenario
         _userService = userService;
     }
 
-    public string Name => "register";
+    public string Name => "registrationPP";
 
     public void Run()
     {
@@ -28,6 +28,6 @@ public class RegistrationScenario : IScenario
         };
 
         AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("Ok");
+        AnsiConsole.Ask<string>("Ok? (YES/NO)");
     }
 }

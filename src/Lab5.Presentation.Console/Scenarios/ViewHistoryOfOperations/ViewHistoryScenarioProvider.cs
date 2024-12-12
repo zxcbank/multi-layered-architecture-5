@@ -1,5 +1,5 @@
 ﻿using Contracts.Users;
-using Presentation.Scenarios.ViewBalance;
+
 using System.Diagnostics.CodeAnalysis;
 
 namespace Presentation.Scenarios.ViewHistoryOfOperations;
@@ -24,7 +24,7 @@ public class ViewHistoryScenarioProvider : IScenarioProvider
             return false;
         }
 
-        scenario = new ViewBalanceScenario(_service);
+        scenario = new ViewHistoryScenario(_service);
         return true;
     }
 }

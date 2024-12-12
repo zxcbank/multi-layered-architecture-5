@@ -17,18 +17,18 @@ public class Initial : SqlMigration
     create type operation_type as enum
     (
         'WithdrawFunds', 
-        'AddFunds',
+        'AddFunds'
     );
     
     create type operation_result as enum
     (
         'Success', 
-        'Fail',
+        'Fail'
     );
 
     create table users
     (
-        user_id bigint primary key generated always as identity ,
+        user_id int primary key generated always as identity ,
         pin int not null ,
         user_role user_role not null,
         money_amount int not null 
@@ -36,8 +36,8 @@ public class Initial : SqlMigration
 
     create table operations
     (
-        operation_id bigint primary key generated always as identity ,
-        user_id bigint not null,
+        operation_id int primary key generated always as identity ,
+        user_id int not null,
         operation_type operation_type not null,
         money_amount int not null,
         operation_result operation_result not null
@@ -45,16 +45,16 @@ public class Initial : SqlMigration
     
     create table adminpass
     (
-        pass bigint primary key bigint not null 
+        pass VARCHAR(255) primary key not null 
     );
     
-    INSERT INTO adminpass (pass) VALUES (mama);
+    INSERT INTO adminpass (pass) VALUES ('mama');
     """;
 
     protected override string GetDownSql(IServiceProvider serviceProvider) =>
         $"""
          drop table users;
-         drop table operations;
+         drop table operations;reg
 
          drop type user_role;
          drop type operation_type;

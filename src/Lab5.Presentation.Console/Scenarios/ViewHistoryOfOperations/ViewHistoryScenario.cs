@@ -31,6 +31,6 @@ public class ViewHistoryScenario : IScenario
             AnsiConsole.WriteLine("Unanthorised access \n");
         }
 
-        AnsiConsole.Ask<string>("Ok");
+        AnsiConsole.Ask<string>("Ok? (YES/NO)");
     }
 }

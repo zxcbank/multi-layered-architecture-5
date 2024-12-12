@@ -90,8 +90,9 @@ public class UserRepository : IUserRepository
     {
         const string sql = $""""
                             UPDATE users
-                            SET money_amount = money_amount + 50
+                            SET money_amount = money_amount + sum
                             WHERE user_id = :UserId;
+                            
                             """";
 
         ValueTask<NpgsqlConnection> connectionTask = _connectionProvider.GetConnectionAsync(default);

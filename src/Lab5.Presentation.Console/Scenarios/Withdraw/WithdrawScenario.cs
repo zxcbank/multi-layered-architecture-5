@@ -30,6 +30,6 @@ public class WithdrawScenario : IScenario
         };
 
         AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("Ok");
+        AnsiConsole.Ask<string>("Ok? (YES/NO)");
     }
 }
