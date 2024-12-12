@@ -16,6 +16,26 @@ public class LoginScenario : IScenario
 
     public void Run()
     {
+        string mode = AnsiConsole.Ask<string>("Enter login-mode");
+
+        if (mode == "admin")
+        {
+            string pass = AnsiConsole.Ask<string>("Enter admin-pass");
+
+            LoginResult adminResult = _userService.Login(pass);
+
+            string admin_message = adminResult switch
+            {
+                LoginResult.Success => "Successful login",
+                LoginResult.WrongPassword => "Wrong Admin Password",
+                LoginResult.AccountNotFound => "Account Not Found",
+                _ => throw new ArgumentOutOfRangeException(nameof(adminResult)),
+            };
+            AnsiConsole.WriteLine(admin_message);
+            AnsiConsole.Ask<string>("Ok");
+            return;
+        }
+
         long userid = AnsiConsole.Ask<long>("Enter your bank-id");
 
         int pin = AnsiConsole.Ask<int>("Enter your pin");

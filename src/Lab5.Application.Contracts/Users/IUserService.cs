@@ -4,7 +4,9 @@ namespace Contracts.Users;
 
 public interface IUserService
 {
-    LoginResult Login(long id, int pin);
+    LoginResult Login(long userid, int pin);
+
+    LoginResult Login(string pass);
 
     WithDrawResult Withdraw(decimal moneyamount);
 
@@ -16,5 +18,5 @@ public interface IUserService
 
     ViewHistoryResult GetUserIdHistory();
 
-    RegistrationResult Register(User user);
+    RegistrationResult Register(int pin, UserRole role);
 }

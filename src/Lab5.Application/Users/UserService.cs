@@ -8,16 +8,18 @@ internal class UserService : IUserService
 {
     private readonly IUserRepository _repository;
     private readonly CurrentUserManager _currentUserManager;
+    private readonly string _adminPass;
 
-    public UserService(IUserRepository repository, CurrentUserManager currentUserManager)
+    public UserService(IUserRepository repository, CurrentUserManager currentUserManager, string adminPass)
     {
         _repository = repository;
         _currentUserManager = currentUserManager;
+        _adminPass = adminPass;
     }
 
-    public LoginResult Login(long id, int pin)
+    public LoginResult Login(long userid, int pin)
     {
-        User? user = _repository.FindByUserAccountId(id);
+        User? user = _repository.FindByUserAccountId(userid);
 
         if (user is null)
         {
@@ -32,6 +34,16 @@ internal class UserService : IUserService
         }
 
         _currentUserManager.User = user;
+        return new LoginResult.Success();
+    }
+
+    public LoginResult Login(string pass)
+    {
+        if (pass != _adminPass)
+        {
+            return new LoginResult.WrongPassword();
+        }
+
         return new LoginResult.Success();
     }
 
@@ -101,15 +113,20 @@ internal class UserService : IUserService
         return new ViewHistoryResult.Success(_currentUserManager.User.UserId);
     }
 
-    public RegistrationResult Register(User user)
+    public RegistrationResult Register(int pin, UserRole role)
     {
-        if (user is null)
+        if (_currentUserManager.User != null && _currentUserManager.User.Role == UserRole.User)
         {
-            return new RegistrationResult.UnExpectedError();
+            return new RegistrationResult.NoAccessError();
         }
 
-        _currentUserManager.User = user;
+        long? userid = _repository.InsertNewUser(pin, UserRole.User);
 
-        return new RegistrationResult.Success();
+        if (userid is not null)
+        {
+            return new RegistrationResult.Success(userid);
+        }
+
+        return new RegistrationResult.UnExpectedError();
     }
 }

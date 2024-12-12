@@ -54,4 +54,35 @@ public class UserRepository : IUserRepository
             reader.GetFieldValue<UserRole>(2),
             reader.GetDecimal(3));
     }
+
+    public long? InsertNewUser(long pin, UserRole role)
+    {
+        const string sql = $"""
+                            insert into users (pin, user_role, money_amount)
+                            VALUES (pin, role, 0)
+                            RETURNING user_id 
+                            """;
+
+        ValueTask<NpgsqlConnection> connectionTask = _connectionProvider.GetConnectionAsync(default);
+
+        NpgsqlConnection connection;
+
+        if (connectionTask.IsCompleted)
+        {
+            connection = connectionTask.Result;
+        }
+        else
+        {
+            connection = connectionTask.AsTask().GetAwaiter().GetResult();
+        }
+
+        using var command = new NpgsqlCommand(sql, connection);
+
+        using NpgsqlDataReader reader = command.ExecuteReader();
+
+        if (reader.Read() is false)
+            return null;
+
+        return reader.GetInt64(0);
+    }
 }
