@@ -17,10 +17,10 @@ public class OperationRepository : IOperationsRepository
     public IEnumerable<Operation> GetAllOperationsByAccountId(long userid)
     {
         const string sql = $"""
-                           select *
-                           from operations
-                           where user_id = :userid;
-                           """;
+                            select *
+                            from operations
+                            where user_id = :userid;
+                            """;
 
         // var connection = _connectionProvider
         //     .GetConnectionAsync(default)
@@ -55,6 +55,32 @@ public class OperationRepository : IOperationsRepository
 
     public long? InsertOperation(long userid, OperationType type, decimal amount, OperationResult result)
     {
-        
+        const string sql = $"""
+                            insert into operations (user_id, operation_type, money_amount, operation_result)
+                            VALUES (userid, type, amount, result)
+                            RETURNING user_id 
+                            """;
+
+        ValueTask<NpgsqlConnection> connectionTask = _connectionProvider.GetConnectionAsync(default);
+
+        NpgsqlConnection connection;
+
+        if (connectionTask.IsCompleted)
+        {
+            connection = connectionTask.Result;
+        }
+        else
+        {
+            connection = connectionTask.AsTask().GetAwaiter().GetResult();
+        }
+
+        using var command = new NpgsqlCommand(sql, connection);
+
+        using NpgsqlDataReader reader = command.ExecuteReader();
+
+        if (reader.Read() is false)
+            return null;
+
+        return reader.GetInt64(0);
     }
 }

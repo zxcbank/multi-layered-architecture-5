@@ -8,5 +8,5 @@ public interface IUserRepository
 
     long? InsertNewUser(long pin, UserRole role);
 
-    void ChangeBalance(decimal sum, User user);
+    long? ChangeBalance(decimal sum, long userid);
 }

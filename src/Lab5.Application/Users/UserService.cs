@@ -63,28 +63,31 @@ internal class UserService : IUserService
 
         if (moneyamount < 0.01M)
         {
-            _operationsRepository.InsertOperation(_currentUserManager.User.UserId,
+            _operationsRepository.InsertOperation(
+                _currentUserManager.User.UserId,
                 OperationType.WithdrawFunds,
                 moneyamount,
-                OperationResult.Success);
+                OperationResult.Fail);
             return new WithDrawResult.IncorrentAmount();
         }
 
         if (_currentUserManager.User.MoneyAmount < moneyamount)
         {
-            _operationsRepository.InsertOperation(_currentUserManager.User.UserId,
+            _operationsRepository.InsertOperation(
+                _currentUserManager.User.UserId,
                 OperationType.WithdrawFunds,
                 moneyamount,
-                OperationResult.Success);
+                OperationResult.Fail);
             return new WithDrawResult.InsufficientFunds();
         }
 
         _currentUserManager.User.MoneyAmount -= moneyamount;
-        _operationsRepository.InsertOperation(_currentUserManager.User.UserId,
+        _operationsRepository.InsertOperation(
+            _currentUserManager.User.UserId,
             OperationType.WithdrawFunds,
             moneyamount,
             OperationResult.Success);
-        _repository.ChangeBalance(-moneyamount, _currentUserManager.User);
+        _repository.ChangeBalance(-moneyamount, _currentUserManager.User.UserId);
 
         return new WithDrawResult.Success();
     }
@@ -102,7 +105,7 @@ internal class UserService : IUserService
                 _currentUserManager.User.UserId,
                 OperationType.WithdrawFunds,
                 moneyamount,
-                OperationResult.Success);
+                OperationResult.Fail);
             return new AddFundResult.IncorrentAmount();
         }
 
@@ -112,7 +115,7 @@ internal class UserService : IUserService
             OperationType.WithdrawFunds,
             moneyamount,
             OperationResult.Success);
-        _repository.ChangeBalance(moneyamount, _currentUserManager.User);
+        _repository.ChangeBalance(moneyamount, _currentUserManager.User.UserId);
 
         return new AddFundResult.Success();
     }

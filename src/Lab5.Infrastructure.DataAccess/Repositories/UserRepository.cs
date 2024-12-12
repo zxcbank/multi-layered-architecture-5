@@ -86,8 +86,34 @@ public class UserRepository : IUserRepository
         return reader.GetInt64(0);
     }
 
-    public void ChangeBalance(decimal sum, User user)
+    public long? ChangeBalance(decimal sum, long userid)
     {
-        
+        const string sql = $""""
+                            UPDATE users
+                            SET money_amount = money_amount + 50
+                            WHERE user_id = userid;
+                            """";
+
+        ValueTask<NpgsqlConnection> connectionTask = _connectionProvider.GetConnectionAsync(default);
+
+        NpgsqlConnection connection;
+
+        if (connectionTask.IsCompleted)
+        {
+            connection = connectionTask.Result;
+        }
+        else
+        {
+            connection = connectionTask.AsTask().GetAwaiter().GetResult();
+        }
+
+        using var command = new NpgsqlCommand(sql, connection);
+
+        using NpgsqlDataReader reader = command.ExecuteReader();
+
+        if (reader.Read() is false)
+            return null;
+
+        return reader.GetInt64(0);
     }
 }
