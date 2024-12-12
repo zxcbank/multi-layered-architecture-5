@@ -23,6 +23,7 @@ public static class ServiceCollectionExtensions
 
         collection.AddScoped<IUserRepository, UserRepository>();
         collection.AddScoped<IOperationsRepository, OperationRepository>();
+        collection.AddScoped<IAdminRepository, AdminRepository>();
 
         return collection;
     }

@@ -20,7 +20,7 @@ public class UserRepository : IUserRepository
         const string sql = $"""
                             select *
                             from users
-                            where user_id = :userid;
+                            where user_id = :UserId;
                             """;
 
         // NpgsqlConnection connection = _connectionProvider
@@ -41,7 +41,7 @@ public class UserRepository : IUserRepository
         }
 
         using NpgsqlCommand command = new NpgsqlCommand(sql, connection)
-            .AddParameter("user_id", userid);
+            .AddParameter("UserId", userid);
 
         using NpgsqlDataReader reader = command.ExecuteReader();
 
@@ -91,7 +91,7 @@ public class UserRepository : IUserRepository
         const string sql = $""""
                             UPDATE users
                             SET money_amount = money_amount + 50
-                            WHERE user_id = userid;
+                            WHERE user_id = :UserId;
                             """";
 
         ValueTask<NpgsqlConnection> connectionTask = _connectionProvider.GetConnectionAsync(default);
@@ -107,7 +107,8 @@ public class UserRepository : IUserRepository
             connection = connectionTask.AsTask().GetAwaiter().GetResult();
         }
 
-        using var command = new NpgsqlCommand(sql, connection);
+        using NpgsqlCommand command = new NpgsqlCommand(sql, connection)
+            .AddParameter("UserId", userid);
 
         using NpgsqlDataReader reader = command.ExecuteReader();
 

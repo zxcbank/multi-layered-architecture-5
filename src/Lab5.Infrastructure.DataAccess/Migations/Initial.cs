@@ -42,6 +42,11 @@ public class Initial : SqlMigration
         money_amount int not null,
         operation_result operation_result not null
     );
+    
+    create table adminpass
+    (
+        pass bigint primary key bigint not null 
+    );
     """;
 
     protected override string GetDownSql(IServiceProvider serviceProvider) =>

@@ -1,5 +1,6 @@
 ﻿using Abstractions.Repositories;
 using Itmo.Dev.Platform.Postgres.Connection;
+using Itmo.Dev.Platform.Postgres.Extensions;
 using Models.Operations;
 using Npgsql;
 
@@ -19,7 +20,7 @@ public class OperationRepository : IOperationsRepository
         const string sql = $"""
                             select *
                             from operations
-                            where user_id = :userid;
+                            where user_id = :UserId;
                             """;
 
         // var connection = _connectionProvider
@@ -39,7 +40,8 @@ public class OperationRepository : IOperationsRepository
             connection = connectionTask.AsTask().GetAwaiter().GetResult();
         }
 
-        using var command = new NpgsqlCommand(sql, connection);
+        using NpgsqlCommand command = new NpgsqlCommand(sql, connection)
+            .AddParameter("UserId", userid);
         using NpgsqlDataReader reader = command.ExecuteReader();
 
         while (reader.Read())

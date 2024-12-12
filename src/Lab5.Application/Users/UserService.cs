@@ -9,19 +9,19 @@ internal class UserService : IUserService
 {
     private readonly IUserRepository _repository;
     private readonly IOperationsRepository _operationsRepository;
+    private readonly IAdminRepository _adminRepository;
     private readonly CurrentUserManager _currentUserManager;
-    private readonly string _adminPass;
 
     public UserService(
         IUserRepository repository,
         CurrentUserManager currentUserManager,
-        string adminPass,
-        IOperationsRepository operationsRepository)
+        IOperationsRepository operationsRepository,
+        IAdminRepository adminRepository)
     {
         _repository = repository;
         _currentUserManager = currentUserManager;
-        _adminPass = adminPass;
         _operationsRepository = operationsRepository;
+        _adminRepository = adminRepository;
     }
 
     public LoginResult Login(long userid, int pin)
@@ -46,7 +46,7 @@ internal class UserService : IUserService
 
     public LoginResult Login(string pass)
     {
-        if (pass != _adminPass)
+        if (!_adminRepository.ValidatePass(pass))
         {
             return new LoginResult.WrongPassword();
         }

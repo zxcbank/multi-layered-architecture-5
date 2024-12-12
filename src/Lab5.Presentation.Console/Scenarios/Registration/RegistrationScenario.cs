@@ -3,11 +3,11 @@ using Spectre.Console;
 
 namespace Presentation.Scenarios.Register;
 
-public class RegisterScenario : IScenario
+public class RegistrationScenario : IScenario
 {
     private readonly IUserService _userService;
 
-    public RegisterScenario(IUserService userService)
+    public RegistrationScenario(IUserService userService)
     {
         _userService = userService;
     }

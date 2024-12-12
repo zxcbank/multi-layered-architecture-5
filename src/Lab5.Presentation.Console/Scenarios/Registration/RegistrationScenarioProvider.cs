@@ -3,12 +3,12 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Presentation.Scenarios.Register;
 
-public class RegisterScenarioProvider : IScenarioProvider
+public class RegistrationScenarioProvider : IScenarioProvider
 {
     private readonly IUserService _service;
     private readonly ICurrentUserService _currentUser;
 
-    public RegisterScenarioProvider(IUserService service, ICurrentUserService currentUser)
+    public RegistrationScenarioProvider(IUserService service, ICurrentUserService currentUser)
     {
         _service = service;
         _currentUser = currentUser;
@@ -23,7 +23,7 @@ public class RegisterScenarioProvider : IScenarioProvider
             return false;
         }
 
-        scenario = new RegisterScenario(_service);
+        scenario = new RegistrationScenario(_service);
         return true;
     }
 }
