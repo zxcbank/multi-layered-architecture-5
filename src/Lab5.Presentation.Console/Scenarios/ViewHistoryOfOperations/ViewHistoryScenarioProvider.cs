@@ -18,7 +18,7 @@ public class ViewHistoryScenarioProvider : IScenarioProvider
     public bool TryGetScenario(
         [NotNullWhen(true)] out IScenario? scenario)
     {
-        if (_currentAccount.User is not null)
+        if (_currentAccount.User is null)
         {
             scenario = null;
             return false;

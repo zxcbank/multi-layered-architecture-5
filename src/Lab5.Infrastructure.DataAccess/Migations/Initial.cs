@@ -16,14 +16,14 @@ public class Initial : SqlMigration
     
     create type operation_type as enum
     (
-        'WithdrawFunds', 
-        'AddFunds'
+        'withdraw_funds', 
+        'add_funds'
     );
     
     create type operation_result as enum
     (
-        'Success', 
-        'Fail'
+        'success', 
+        'fail'
     );
 
     create table users

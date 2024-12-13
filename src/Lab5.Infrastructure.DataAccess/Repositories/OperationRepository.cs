@@ -23,10 +23,6 @@ public class OperationRepository : IOperationsRepository
                             where user_id = :UserId;
                             """;
 
-        // var connection = _connectionProvider
-        //     .GetConnectionAsync(default)
-        //     .GetAwaiter()
-        //     .GetResult();
         ValueTask<NpgsqlConnection> connectionTask = _connectionProvider.GetConnectionAsync(default);
 
         NpgsqlConnection connection;
@@ -59,7 +55,7 @@ public class OperationRepository : IOperationsRepository
     {
         const string sql = $"""
                             insert into operations (user_id, operation_type, money_amount, operation_result)
-                            VALUES (userid, type, amount, result)
+                            VALUES (:userid, :operation_type, :amount, :result)
                             RETURNING operation_id 
                             """;
 
@@ -76,7 +72,11 @@ public class OperationRepository : IOperationsRepository
             connection = connectionTask.AsTask().GetAwaiter().GetResult();
         }
 
-        using var command = new NpgsqlCommand(sql, connection);
+        using NpgsqlCommand command = new NpgsqlCommand(sql, connection)
+            .AddParameter("userid", userid)
+            .AddParameter("operation_type", type)
+            .AddParameter("amount", amount)
+            .AddParameter("result", result);
 
         using NpgsqlDataReader reader = command.ExecuteReader();
 

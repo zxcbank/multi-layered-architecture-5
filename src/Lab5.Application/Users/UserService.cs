@@ -38,7 +38,7 @@ public class UserService : IUserService
             return new LoginResult.WrongPassword();
         }
 
-        // _currentUserManager.User = user;
+        _currentUserManager.User = user;
 
         // Console.WriteLine(_currentUserManager.User.UserId);
         // Console.WriteLine(_currentUserManager.User.MoneyAmount);

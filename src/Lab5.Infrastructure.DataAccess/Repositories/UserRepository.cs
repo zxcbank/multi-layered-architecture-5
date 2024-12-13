@@ -89,7 +89,7 @@ public class UserRepository : IUserRepository
     {
         const string sql = $""""
                             UPDATE users
-                            SET money_amount = money_amount + sum
+                            SET money_amount = money_amount + :sum
                             WHERE user_id = :UserId;
                             
                             """";
@@ -108,7 +108,8 @@ public class UserRepository : IUserRepository
         }
 
         using NpgsqlCommand command = new NpgsqlCommand(sql, connection)
-            .AddParameter("UserId", userid);
+            .AddParameter("UserId", userid)
+            .AddParameter("sum", sum);
 
         using NpgsqlDataReader reader = command.ExecuteReader();
 

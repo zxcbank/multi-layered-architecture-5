@@ -14,7 +14,7 @@ public class ScenarioRunner
     public void Run()
     {
         IEnumerable<IScenario> scenarios = GetScenarios();
-
+        Console.WriteLine(scenarios.Count());
         SelectionPrompt<IScenario> selector = new SelectionPrompt<IScenario>()
             .Title("Select action")
             .AddChoices(scenarios)
