@@ -6,10 +6,12 @@ namespace Presentation.Scenarios.Login;
 public class LoginScenario : IScenario
 {
     private readonly IUserService _userService;
+    private readonly ICurrentUserService _currentUser;
 
-    public LoginScenario(IUserService userService)
+    public LoginScenario(IUserService userService, ICurrentUserService currentUser)
     {
         _userService = userService;
+        _currentUser = currentUser;
     }
 
     public string Name => "login";
@@ -28,11 +30,16 @@ public class LoginScenario : IScenario
 
             string message = result switch
             {
-                LoginResult.Success => "Successful login as user", // TODO: FIX ???
-                LoginResult.WrongPassword => "Wrong Password for user", // TODO: FIX ???
+                LoginResult.SuccessUser => "Successful login as user", // TODO: FIX ???
+                LoginResult.WrongPassword => "Wrong Password for user",
                 LoginResult.AccountNotFound => "user-account Not Found",
                 _ => throw new ArgumentOutOfRangeException(nameof(result)),
             };
+
+            if (result is LoginResult.SuccessUser t)
+            {
+                _currentUser.User = t.LoggedUser;
+            }
 
             AnsiConsole.WriteLine(message);
             AnsiConsole.Ask<string>("Ok");
@@ -45,7 +52,7 @@ public class LoginScenario : IScenario
 
             string admin_message = adminResult switch
             {
-                LoginResult.Success => "Successful login as admin",
+                LoginResult.SuccessAdmin => "Successful login as admin",
                 LoginResult.WrongPassword => "Wrong Admin Password",
                 LoginResult.AccountNotFound => "admin-Account Not Found",
                 _ => throw new ArgumentOutOfRangeException(nameof(adminResult)),
