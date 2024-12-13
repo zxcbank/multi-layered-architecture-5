@@ -58,7 +58,7 @@ public class UserService : IUserService
 
     public WithDrawResult Withdraw(decimal moneyamount)
     {
-        var res = _currentUserManager.Withdraw(moneyamount);
+        WithDrawResult res = _currentUserManager.Withdraw(moneyamount);
 
         if (res is WithDrawResult.Success && _currentUserManager.User is not null)
         {
@@ -106,7 +106,7 @@ public class UserService : IUserService
 
     public AddFundResult AddFudns(decimal moneyamount)
     {
-        var res = _currentUserManager.AddFund(moneyamount);
+        AddFundResult res = _currentUserManager.AddFund(moneyamount);
 
         if (_currentUserManager.User is null)
         {

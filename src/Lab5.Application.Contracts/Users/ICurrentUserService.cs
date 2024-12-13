@@ -6,7 +6,7 @@ public interface ICurrentUserService
 {
     User? User { get; set; }
 
-    WithDrawResult Withdraw(decimal amount);
+    WithDrawResult Withdraw(decimal moneyamount);
 
-    AddFundResult AddFund(decimal amount);
+    AddFundResult AddFund(decimal moneyamount);
 }

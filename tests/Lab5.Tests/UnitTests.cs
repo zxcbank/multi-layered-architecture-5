@@ -31,7 +31,7 @@ public class UnitTests
         userManager.User = user;
 
         // Act
-        userManager.Withdraw(100);
+        userManager.AddFund(100);
 
         // Assert
         Assert.Equal(300, userManager.User?.MoneyAmount);
