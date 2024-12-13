@@ -1,6 +1,8 @@
-﻿using Contracts.Users;
+﻿using Abstractions.Repositories;
+using Contracts.Users;
 using Lab5.Application.Users;
 using Models.Users;
+using NSubstitute;
 using Xunit;
 
 namespace Lab5.Tests;
@@ -8,45 +10,63 @@ namespace Lab5.Tests;
 public class UnitTests
 {
     [Fact]
-    public void WithDraw100TestSuccess()
+    public void WithDraw300Success()
     {
         // Arrange
+        IUserRepository userRepository = Substitute.For<IUserRepository>();
+        IOperationsRepository operationsRepository = Substitute.For<IOperationsRepository>();
+        IAdminRepository adminsRepository = Substitute.For<IAdminRepository>();
         var userManager = new CurrentUserManager();
-        var user = new User(1, 123, UserRole.User, 300);
+
+        var userService = new UserService(userRepository, userManager, operationsRepository, adminsRepository);
+
+        var user = new User(1, 123, UserRole.User, 1000);
         userManager.User = user;
 
         // Act
-        userManager.Withdraw(100);
+        userService.Withdraw(300);
 
         // Assert
-        Assert.Equal(200, userManager.User?.MoneyAmount);
+        Assert.Equal(700, userManager.User?.MoneyAmount);
     }
 
     [Fact]
-    public void AddFund100TestSuccess()
+    public void AddFund300Success()
     {
         // Arrange
-        var user = new User(1, 123, UserRole.User, 200);
+        IUserRepository userRepository = Substitute.For<IUserRepository>();
+        IOperationsRepository operationsRepository = Substitute.For<IOperationsRepository>();
+        IAdminRepository adminsRepository = Substitute.For<IAdminRepository>();
         var userManager = new CurrentUserManager();
+
+        var userService = new UserService(userRepository, userManager, operationsRepository, adminsRepository);
+
+        var user = new User(1, 123, UserRole.User, 0);
         userManager.User = user;
 
         // Act
-        userManager.AddFund(100);
+        userService.AddFudns(300);
 
         // Assert
         Assert.Equal(300, userManager.User?.MoneyAmount);
     }
 
     [Fact]
-    public void WithDraw300TestFail()
+    public void WithDraw300Fail()
     {
         // Arrange
+        IUserRepository userRepository = Substitute.For<IUserRepository>();
+        IOperationsRepository operationsRepository = Substitute.For<IOperationsRepository>();
+        IAdminRepository adminsRepository = Substitute.For<IAdminRepository>();
         var userManager = new CurrentUserManager();
-        var user = new User(1, 123, UserRole.User, 100);
+
+        var userService = new UserService(userRepository, userManager, operationsRepository, adminsRepository);
+
+        var user = new User(1, 123, UserRole.User, 0);
         userManager.User = user;
 
         // Act
-        Contracts.Users.WithDrawResult res = userManager.Withdraw(300);
+        WithDrawResult res = userService.Withdraw(300);
 
         // Assert
         Assert.Equal(new WithDrawResult.InsufficientFunds(), res);
