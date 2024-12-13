@@ -78,7 +78,7 @@ public class UserService : IUserService
                 OperationResult.Fail);
             return new WithDrawResult.IncorrentAmount();
         }
-        else if (res is WithDrawResult.UnAuthorised && _currentUserManager.User is not null)
+        else if (res is WithDrawResult.UnAuthorised && _currentUserManager.User is null)
         {
             return new WithDrawResult.UnAuthorised();
         }
