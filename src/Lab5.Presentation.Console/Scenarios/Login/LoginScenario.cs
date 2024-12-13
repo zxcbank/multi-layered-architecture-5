@@ -18,7 +18,26 @@ public class LoginScenario : IScenario
     {
         string mode = AnsiConsole.Ask<string>("Enter login-mode");
 
-        if (mode == "admin")
+        if (mode == "user")
+        {
+            long userid = AnsiConsole.Ask<long>("Enter your bank-id");
+
+            int pin = AnsiConsole.Ask<int>("Enter your pin");
+
+            LoginResult result = _userService.Login(userid, pin);
+
+            string message = result switch
+            {
+                LoginResult.Success => "Successful login as user", // TODO: FIX ???
+                LoginResult.WrongPassword => "Wrong Password for user", // TODO: FIX ???
+                LoginResult.AccountNotFound => "user-account Not Found",
+                _ => throw new ArgumentOutOfRangeException(nameof(result)),
+            };
+
+            AnsiConsole.WriteLine(message);
+            AnsiConsole.Ask<string>("Ok");
+        }
+        else if (mode == "admin")
         {
             string pass = AnsiConsole.Ask<string>("Enter admin-pass");
 
@@ -26,31 +45,18 @@ public class LoginScenario : IScenario
 
             string admin_message = adminResult switch
             {
-                LoginResult.Success => "Successful login",
+                LoginResult.Success => "Successful login as admin",
                 LoginResult.WrongPassword => "Wrong Admin Password",
-                LoginResult.AccountNotFound => "Account Not Found",
+                LoginResult.AccountNotFound => "admin-Account Not Found",
                 _ => throw new ArgumentOutOfRangeException(nameof(adminResult)),
             };
             AnsiConsole.WriteLine(admin_message);
             AnsiConsole.Ask<string>("Ok");
-            return;
         }
-
-        long userid = AnsiConsole.Ask<long>("Enter your bank-id");
-
-        int pin = AnsiConsole.Ask<int>("Enter your pin");
-
-        LoginResult result = _userService.Login(userid, pin);
-
-        string message = result switch
+        else
         {
-            LoginResult.Success => "Successful login",
-            LoginResult.WrongPassword => "Wrong Password",
-            LoginResult.AccountNotFound => "Account Not Found",
-            _ => throw new ArgumentOutOfRangeException(nameof(result)),
-        };
-
-        AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("Ok? (YES/NO)");
+            AnsiConsole.WriteLine("no such mode.");
+            AnsiConsole.Ask<string>("Ok");
+        }
     }
 }

@@ -3,7 +3,7 @@ using Presentation.Scenarios;
 using Presentation.Scenarios.AddFund;
 using Presentation.Scenarios.Login;
 using Presentation.Scenarios.Logout;
-using Presentation.Scenarios.Register;
+using Presentation.Scenarios.Registration;
 using Presentation.Scenarios.ViewBalance;
 using Presentation.Scenarios.ViewHistoryOfOperations;
 using Presentation.Scenarios.Withdraw;

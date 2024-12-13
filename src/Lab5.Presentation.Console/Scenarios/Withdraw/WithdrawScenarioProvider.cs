@@ -6,18 +6,18 @@ namespace Presentation.Scenarios.Withdraw;
 public class WithdrawScenarioProvider : IScenarioProvider
 {
     private readonly IUserService _service;
-    private readonly ICurrentUserService _currentUser;
+    private readonly ICurrentUserService _currentAccount;
 
-    public WithdrawScenarioProvider(IUserService service, ICurrentUserService currentUser)
+    public WithdrawScenarioProvider(IUserService service, ICurrentUserService currentAccount)
     {
         _service = service;
-        _currentUser = currentUser;
+        _currentAccount = currentAccount;
     }
 
     public bool TryGetScenario(
         [NotNullWhen(true)] out IScenario? scenario)
     {
-        if (_currentUser.User is not null)
+        if (_currentAccount.User is not null)
         {
             scenario = null;
             return false;

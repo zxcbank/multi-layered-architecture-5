@@ -4,5 +4,9 @@ namespace Contracts.Users;
 
 public interface ICurrentUserService
 {
-    User? User { get; }
+    User? User { get; set; }
+
+    WithDrawResult Withdraw(decimal amount);
+
+    AddFundResult AddFund(decimal amount);
 }

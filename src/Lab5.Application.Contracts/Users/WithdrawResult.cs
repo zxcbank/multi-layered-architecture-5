@@ -11,4 +11,6 @@ public abstract record WithDrawResult
     public sealed record InsufficientFunds : WithDrawResult;
 
     public sealed record UnAuthorised : WithDrawResult;
+
+    public sealed record UnExpected : WithDrawResult;
 }

@@ -5,16 +5,16 @@ using Models.Users;
 
 namespace Lab5.Application.Users;
 
-internal class UserService : IUserService
+public class UserService : IUserService
 {
     private readonly IUserRepository _repository;
     private readonly IOperationsRepository _operationsRepository;
     private readonly IAdminRepository _adminRepository;
-    private readonly CurrentUserManager _currentUserManager;
+    private readonly ICurrentUserService _currentUserManager;
 
     public UserService(
         IUserRepository repository,
-        CurrentUserManager currentUserManager,
+        ICurrentUserService currentUserManager,
         IOperationsRepository operationsRepository,
         IAdminRepository adminRepository)
     {
@@ -33,14 +33,16 @@ internal class UserService : IUserService
             return new LoginResult.AccountNotFound();
         }
 
-        _currentUserManager.User = user;
-
         if (user.Pin != pin)
         {
             return new LoginResult.WrongPassword();
         }
 
         _currentUserManager.User = user;
+
+        // Console.WriteLine(_currentUserManager.User.UserId);
+        // Console.WriteLine(_currentUserManager.User.MoneyAmount);
+        // Console.WriteLine(_currentUserManager.User.Pin);
         return new LoginResult.Success();
     }
 
@@ -56,12 +58,18 @@ internal class UserService : IUserService
 
     public WithDrawResult Withdraw(decimal moneyamount)
     {
-        if (_currentUserManager.User is null)
-        {
-            return new WithDrawResult.UnAuthorised();
-        }
+        var res = _currentUserManager.Withdraw(moneyamount);
 
-        if (moneyamount < 0.01M)
+        if (res is WithDrawResult.Success && _currentUserManager.User is not null)
+        {
+            _operationsRepository.InsertOperation(
+                _currentUserManager.User.UserId,
+                OperationType.WithdrawFunds,
+                moneyamount,
+                OperationResult.Success);
+            return new WithDrawResult.Success(moneyamount);
+        }
+        else if (res is WithDrawResult.IncorrentAmount && _currentUserManager.User is not null)
         {
             _operationsRepository.InsertOperation(
                 _currentUserManager.User.UserId,
@@ -70,8 +78,11 @@ internal class UserService : IUserService
                 OperationResult.Fail);
             return new WithDrawResult.IncorrentAmount();
         }
-
-        if (_currentUserManager.User.MoneyAmount < moneyamount)
+        else if (res is WithDrawResult.UnAuthorised && _currentUserManager.User is not null)
+        {
+            return new WithDrawResult.UnAuthorised();
+        }
+        else if (res is WithDrawResult.InsufficientFunds && _currentUserManager.User is not null)
         {
             _operationsRepository.InsertOperation(
                 _currentUserManager.User.UserId,
@@ -80,26 +91,29 @@ internal class UserService : IUserService
                 OperationResult.Fail);
             return new WithDrawResult.InsufficientFunds();
         }
-
-        _currentUserManager.User.MoneyAmount -= moneyamount;
-        _operationsRepository.InsertOperation(
-            _currentUserManager.User.UserId,
-            OperationType.WithdrawFunds,
-            moneyamount,
-            OperationResult.Success);
-        _repository.ChangeBalance(-moneyamount, _currentUserManager.User.UserId);
+        else if (res is WithDrawResult.UnExpected && _currentUserManager.User is not null)
+        {
+            _operationsRepository.InsertOperation(
+                _currentUserManager.User.UserId,
+                OperationType.WithdrawFunds,
+                moneyamount,
+                OperationResult.Fail);
+            return new WithDrawResult.UnExpected();
+        }
 
         return new WithDrawResult.Success(moneyamount);
     }
 
     public AddFundResult AddFudns(decimal moneyamount)
     {
+        var res = _currentUserManager.AddFund(moneyamount);
+
         if (_currentUserManager.User is null)
         {
             return new AddFundResult.UnAuthorisedError();
         }
 
-        if (moneyamount < 0.01M)
+        if (res is AddFundResult.IncorrentAmount)
         {
             _operationsRepository.InsertOperation(
                 _currentUserManager.User.UserId,

@@ -7,18 +7,18 @@ namespace Presentation
 public class LogoutScenarioProvider : IScenarioProvider
 {
     private readonly IUserService _service;
-    private readonly ICurrentUserService _currentUser;
+    private readonly ICurrentUserService _currentAccount;
 
-    public LogoutScenarioProvider(IUserService service, ICurrentUserService currentUser)
+    public LogoutScenarioProvider(IUserService service, ICurrentUserService currentAccount)
     {
         _service = service;
-        _currentUser = currentUser;
+        _currentAccount = currentAccount;
     }
 
     public bool TryGetScenario(
         [NotNullWhen(true)] out IScenario? scenario)
     {
-        if (_currentUser.User is not null)
+        if (_currentAccount.User is not null)
         {
             scenario = null;
             return false;
