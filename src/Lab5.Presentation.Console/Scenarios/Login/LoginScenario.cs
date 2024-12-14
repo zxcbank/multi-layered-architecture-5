@@ -30,7 +30,7 @@ public class LoginScenario : IScenario
 
             string message = result switch
             {
-                LoginResult.SuccessUser => "Successful login as user", // TODO: FIX ???
+                LoginResult.SuccessUser => "Successful login as user",
                 LoginResult.WrongPassword => "Wrong Password for user",
                 LoginResult.AccountNotFound => "user-account Not Found",
                 _ => throw new ArgumentOutOfRangeException(nameof(result)),
@@ -53,7 +53,7 @@ public class LoginScenario : IScenario
             string admin_message = adminResult switch
             {
                 LoginResult.SuccessAdmin => "Successful login as admin",
-                LoginResult.WrongPassword => "Wrong Admin Password",
+                LoginResult.WrongPassword => "Wrong Admin-Password",
                 LoginResult.AccountNotFound => "admin-Account Not Found",
                 _ => throw new ArgumentOutOfRangeException(nameof(adminResult)),
             };
