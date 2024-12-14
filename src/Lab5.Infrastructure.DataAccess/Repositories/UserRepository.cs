@@ -91,7 +91,7 @@ public class UserRepository : IUserRepository
                             UPDATE users
                             SET money_amount = money_amount + :sum
                             WHERE user_id = :UserId;
-                            
+
                             """";
 
         ValueTask<NpgsqlConnection> connectionTask = _connectionProvider.GetConnectionAsync(default);

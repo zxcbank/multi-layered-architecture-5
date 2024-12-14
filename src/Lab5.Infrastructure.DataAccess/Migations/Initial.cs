@@ -7,49 +7,49 @@ namespace Infrastructure.Migations;
 public class Initial : SqlMigration
 {
     protected override string GetUpSql(IServiceProvider serviceProvider) =>
-    """
-    create type user_role as enum
-    (
-        'Admin', 
-        'user'
-    );
-    
-    create type operation_type as enum
-    (
-        'withdraw_funds', 
-        'add_funds'
-    );
-    
-    create type operation_result as enum
-    (
-        'success', 
-        'fail'
-    );
+        """
+        create type user_role as enum
+        (
+            'Admin', 
+            'user'
+        );
 
-    create table users
-    (
-        user_id int primary key generated always as identity ,
-        pin int not null ,
-        user_role user_role not null,
-        money_amount int not null 
-    );
+        create type operation_type as enum
+        (
+            'withdraw_funds', 
+            'add_funds'
+        );
 
-    create table operations
-    (
-        operation_id int primary key generated always as identity ,
-        user_id int not null,
-        operation_type operation_type not null,
-        money_amount int not null,
-        operation_result operation_result not null
-    );
-    
-    create table adminpass
-    (
-        pass VARCHAR(255) primary key not null 
-    );
-    
-    INSERT INTO adminpass (pass) VALUES ('mama');
-    """;
+        create type operation_result as enum
+        (
+            'success', 
+            'fail'
+        );
+
+        create table users
+        (
+            user_id int primary key generated always as identity ,
+            pin int not null ,
+            user_role user_role not null,
+            money_amount int not null 
+        );
+
+        create table operations
+        (
+            operation_id int primary key generated always as identity ,
+            user_id int not null,
+            operation_type operation_type not null,
+            money_amount int not null,
+            operation_result operation_result not null
+        );
+
+        create table adminpass
+        (
+            pass VARCHAR(255) primary key not null 
+        );
+
+        INSERT INTO adminpass (pass) VALUES ('mama');
+        """;
 
     protected override string GetDownSql(IServiceProvider serviceProvider) =>
         $"""

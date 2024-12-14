@@ -1,5 +1,4 @@
 ﻿using Contracts.Users;
-
 using System.Diagnostics.CodeAnalysis;
 
 namespace Presentation.Scenarios.ViewHistoryOfOperations;
