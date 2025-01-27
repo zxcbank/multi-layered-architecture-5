@@ -4,6 +4,6 @@
 
 # creational patterns-3
 
-#solid grasp-2
+# solid grasp-2
 
-#polymotphism-1 
+# polymotphism-1 
